@@ -1,0 +1,435 @@
+var Coco = Coco || {};
+Coco.Service = require("../service/Coco.Service.js");
+/**
+ * Class: BaseRestService
+ *
+ * Package: Coco
+ *
+ * extends <Coco.Service>
+ *
+ * Description: Base service for calling REST endpoints.
+ *
+ * Override this class by concrete implementation, dont forget .$service() for automatic service-injection!
+ *
+ * (c) 2014 3m5. Media GmbH
+ */
+'use strict';
+module.exports = dejavu.AbstractClass.declare({
+	/**
+	 * Class name.
+	 */
+    $name: "BaseRestService",
+
+	/**
+	 * Super class: Coco.Service
+	 */
+    $extends: Coco.Service,
+
+    /**
+     * cache for GET requests
+     */
+    _getCache: null,
+
+    /**
+     * cache for POST requests
+     */
+    _postCache: null,
+
+
+	/**
+	 * The REST service path.
+	 */
+	_restServicePath : null,
+
+    $constants : {
+        XHR_FIELDS: {
+            withCredentials: true
+        },
+        CROSSDOMAIN: true
+    },
+
+	/**
+	 * Ctor.
+	 */
+    initialize: function () {
+        if(!Coco.config.restService) {
+            console.error("Coco.config.restService is not set - could not initialize " + this.$serviceId);
+            return;
+        }
+        this.$super();
+
+        if(Coco.StringUtils.isEmpty(this._restServicePath)) {
+            console.error(this.$name + "._restServicePath not set!");
+        }
+        this._onInitialize();
+    },
+
+    /**
+     * Function: _onInitialize
+     *
+     * is called after class was initialized
+     * @protected
+     */
+    _onInitialize : function() {
+    },
+
+    _validateParameterIsBoolean: function (param , onError) {
+        if(param != null && typeof param != "boolean") {
+            onError({status: 99, responseText: "Parameter is not type of Boolean"});
+            return false;
+        }
+        return true;
+    },
+
+    _validateParameterIsInteger: function (param, onError) {
+        if(param != null && parseInt(param) !== param ) {
+            onError({status: 99, responseText: "Parameter is not type of Integer"});
+            return false;
+        }
+        return true;
+    },
+
+    _validateParameterIsFloat: function (param, onError) {
+        if(param != null && typeof param !== "number") {
+            onError({status: 99, responseText: "Parameter is not type of Number"});
+            return false;
+        }
+        return true;
+    },
+    _validateParameterIsArray: function (param, onError) {
+        if(param != null && !Array.isArray(param)) {
+            onError({status: 99, responseText: "Parameter is not type of Array"});
+            return false;
+        }
+        return true;
+    },
+
+    _validateParameterClass: function (param, paramType, onError) {
+        if(param != null && !(param instanceof paramType)){
+            onError({status: 99, responseText: "Parameter is not type of " + (typeof paramType)});
+            return false;
+        }
+        return true;
+    },
+
+
+/**
+     * Function: _buildEndpointURL
+     *
+	 * Builds the full endpoint URL absolute to the host. The URL looks like:
+	 * [CONTEXT-PATH]/[REST-PATH]/[ENDPOINT]
+     *
+     * Parameter:
+	 *
+	 * @param {string} endpoint the REST endpoint
+	 */
+	_buildEndpointURL : function(endpoint, pathParameter) {
+        if(Coco.StringUtils.isEmpty(this._restServicePath)) {
+            console.error(this.$name + "._restServicePath not set!");
+            return;
+        }
+        if(Coco.StringUtils.isEmpty(Coco.config.baseUrl)) {
+            console.error("Coco.config.baseUrl  not set!");
+            return;
+        }
+        if(Coco.StringUtils.isEmpty(Coco.config.restService.path)) {
+            console.error("Coco.config.restService.path not set!");
+            return;
+        }
+        if(endpoint == null) {
+            endpoint = "";
+        }
+		var finalUrl = Coco.config.baseUrl + Coco.config.restService.path + this._restServicePath + endpoint;
+        if(pathParameter && pathParameter.length > 0) {
+            finalUrl = this._replacePathParameters(finalUrl, pathParameter);
+        }
+        return finalUrl;
+	},
+
+    _replacePathParameters : function(path, pathParameter) {
+        do {
+            var paramStart = path.indexOf("{");
+            if (paramStart < 0) {
+                break;
+            }
+            var paramEnd = paramStart;
+            var depth = 1;
+            do {
+                paramEnd++;
+                var c = path.substring(paramEnd, paramEnd + 1);
+                if (c === "{") {
+                    depth++;
+                } else if (c === "}") {
+                    depth--;
+                }
+            } while (depth > 0 && paramEnd + 1 < path.length);
+            paramEnd++;
+            if (paramEnd > path.length) {
+                break;
+            }
+            var pathDefinition = path.substring(paramStart, paramEnd);
+            var paramName = pathDefinition.substring(1, pathDefinition.length - 1);
+            if (paramName.indexOf(":") > 0) {
+                paramName = paramName.substring(0, paramName.indexOf(":"));
+            }
+            var value = null;
+            for(var i = 0; i < pathParameter.length; i++) {
+                if(pathParameter[i].name === paramName) {
+                    value = pathParameter[i].replacement;
+                    break;
+                }
+            }
+            if(value == null) {
+                console.error("missing path parameter: " + paramName + " not set...");
+                continue;
+            }
+            //replace position
+            path = path.substring(0, paramStart) + value + path.substring(paramEnd);
+        } while (true);
+
+        return path;
+    },
+
+	/**
+     * Function: __call {private}
+     *
+	 * Calls the given endpoint via jQuery ajax function using the given method, data and callbacks.
+	 *
+     * Parameter:
+	 * @param {string} endpoint the REST endpoint
+     *
+	 * @param {string} method the request method ('GET', 'POST', 'PUT' or 'DELETE')
+     *
+	 * @param {object} data the request data
+     *
+     * @param {object} xhrFields
+     *
+	 * @param {function} callbackSuccess the success handler
+     *
+	 * @param {function} callbackError the error handler
+	 */
+    __call : function(endpoint, pathParameter, method, data, xhrFields, callbackSuccess, callbackError, $contentType) {
+        var url = this._buildEndpointURL(endpoint, pathParameter);
+
+        var cacheKey = url;
+        if($contentType) {
+            cacheKey = cacheKey + $contentType;
+        }
+
+        if(method == "GET") {
+            if(this._getCache == null) {
+                this._getCache = new Coco.HashMap();
+            }
+
+            var cacheData = this._getCache.getValue(cacheKey);
+            if(cacheData != null) {
+                //extend cached object, to prevent killing timeout variable
+                cacheData = $.extend({}, cacheData);
+                //cached entry found
+                if(cacheData.cocoTimeout == null) {
+                    //no timeout
+                    delete cacheData.cocoTimeout;
+                    callbackSuccess(cacheData);
+                    return;
+                }
+                if(cacheData.cocoTimeout > new Date().getTime()) {
+                    //cache is still valid
+                    delete cacheData.cocoTimeout;
+                    callbackSuccess(cacheData);
+                    return;
+                }
+                //cache timed out, delete it
+                this._getCache.remove(cacheKey);
+            }
+        }
+
+        //console.debug("Calling REST service (method: '" + method + "', URL: " + url + ") with data: ", data);
+		$.ajax({
+			url: url,
+			type: method,
+            xhrFields: xhrFields,
+            contentType: $contentType,
+            crossDomain: this.$self.CROSSDOMAIN, //enable crossdomain calls - implement serverside!
+			data: data,
+			dataType: 'json', //dont use jsonp for RESTservices, only GET requests allowed with jsonp
+            processData: (window.FormData && data instanceof FormData ? false : true),
+            success: function(response) {
+                if(method == "GET") {
+                    if(Coco.config.restService.cacheGet == null) {
+                        this._getCache.put(cacheKey, response);
+                    } else {
+                        if(Coco.config.restService.cacheGet > 0) {
+                            var timeout = new Date(new Date().getTime() + (1000 * Coco.config.restService.cacheGet));
+
+                            this._getCache.put(cacheKey, $.extend({cocoTimeout: timeout}, response));
+                        } else {
+                            //cache disabled
+                        }
+                    }
+                }
+
+                callbackSuccess(response);
+            }.$bind(this),
+			error: function(error) {
+                if(error != null && error.status == 401) {
+                    //Authorization failed - throw Event
+                    this.trigger(Coco.Event.AUTHORIZATION_FAILED);
+                }
+
+                if(error != null && error.status == 500) {
+                    //Authorization failed - throw Event
+                    this.trigger(Coco.Event.INTERNAL_SERVER_ERROR, error);
+                }
+
+                if(callbackError != null) {
+                    callbackError(error);
+                }
+            }.$bind(this)
+		});
+	},
+	
+	/**
+     * Function: _get
+     *
+	 * Delegates to _call using 'GET' method.
+	 *
+     * Parameter:
+	 * @param {string} endpoint the REST endpoint
+     *
+     * @param {array} pathParameter Array
+     *
+	 * @param {object} data the request data
+     *
+     * @param {object} xhrFields
+     *
+	 * @param {function} callbackSuccess the success handler
+     *
+	 * @param {function} callbackError the error handler
+	 */
+	_get : function(endpoint, pathParameter, data, xhrFields, callbackSuccess, callbackError) {
+        if(!Array.isArray(pathParameter)) {
+            throw new Error("2nd parameter has to be pathParameter array, but was: " + typeof pathParameter);
+        }
+		this.__call(endpoint, pathParameter, 'GET', data, xhrFields, callbackSuccess, callbackError, null);
+	},
+	
+	/**
+     * Function: _post
+     *
+	 * Delegates to _call using 'POST' method.
+	 *
+     * Parameter:
+	 * @param {string} endpoint the REST endpoint
+     *
+	 * @param {object} data the request data
+     *
+     * @param {object} xhrFields
+     *
+	 * @param {function} callbackSuccess the success handler
+     *
+	 * @param {function} callbackError the error handler
+	 */
+	_post : function(endpoint, pathParameter, data, xhrFields, callbackSuccess, callbackError) {
+        if(!Array.isArray(pathParameter)) {
+            throw new Error("2nd parameter has to be pathParameter array, but was: " + typeof pathParameter);
+        }
+		this.__call(endpoint, pathParameter, 'POST', data, xhrFields, callbackSuccess, callbackError, null);
+	},
+
+    /**
+     * Function: _postJson
+     *
+     * Delegates to _call using 'POST' method, contentType 'application/json' and
+     * stringifys the data object.
+     * Use this method if you consume a (complexly JSON) mapped  object on server-side.
+     *
+     * Parameter:
+     * @param {string} endpoint the REST endpoint
+     *
+     * @param {object} data the request data
+     *
+     * @param {object} xhrFields
+     *
+     * @param {function} callbackSuccess the success handler
+     *
+     * @param {function} callbackError the error handler
+     */
+    _postJson : function(endpoint, pathParameter, data, xhrFields, callbackSuccess, callbackError) {
+        if(!Array.isArray(pathParameter)) {
+            throw new Error("2nd parameter has to be pathParameter array, but was: " + typeof pathParameter);
+        }
+        this.__call(endpoint, pathParameter, 'POST', JSON.stringify(data), xhrFields, callbackSuccess, callbackError, 'application/json');
+    },
+
+
+    /**
+     * Function: _put
+     *
+	 * Delegates to _call using 'PUT' method.
+	 *
+     * Parameter:
+	 * @param {string} endpoint the REST endpoint
+     *
+	 * @param {object} data the request data
+     *
+     * @param {object} xhrFields
+     *
+	 * @param {function} callbackSuccess the success handler
+     *
+	 * @param {function} callbackError the error handler
+	 */
+	_put : function(endpoint, pathParameter, data, xhrFields, callbackSuccess, callbackError) {
+        if(!Array.isArray(pathParameter)) {
+            throw new Error("2nd parameter has to be pathParameter array, but was: " + typeof pathParameter);
+        }
+        this.__call(endpoint, pathParameter, 'PUT', data, xhrFields, callbackSuccess, callbackError, null);
+	},
+
+
+    /**
+     * Function: _putJson
+     *
+     * Delegates to _call using 'PUT' method.
+     *
+     * Parameter:
+     * @param {string} endpoint the REST endpoint
+     *
+     * @param {object} data the request data
+     *
+     * @param {object} xhrFields
+     *
+     * @param {function} callbackSuccess the success handler
+     *
+     * @param {function} callbackError the error handler
+     */
+    _putJson : function(endpoint, pathParameter, data, xhrFields, callbackSuccess, callbackError) {
+        if(!Array.isArray(pathParameter)) {
+            throw new Error("2nd parameter has to be pathParameter array, but was: " + typeof pathParameter);
+        }
+        this.__call(endpoint, pathParameter, 'PUT', JSON.stringify(data), xhrFields, callbackSuccess, callbackError, 'application/json');
+    },
+	
+	/**
+     * Function: _delete
+     *
+	 * Delegates to _call using 'DELETE' method.
+	 *
+     * Parameter:
+	 * @param {string} endpoint the REST endpoint
+     *
+	 * @param {object} data the request data
+     *
+     * @param {object} xhrFields
+     *
+	 * @param {function} callbackSuccess the success handler
+     *
+	 * @param {function} callbackError the error handler
+	 */
+	_delete : function(endpoint, pathParameter, data, xhrFields, callbackSuccess, callbackError) {
+        if(!Array.isArray(pathParameter)) {
+            throw new Error("2nd parameter has to be pathParameter array, but was: " + typeof pathParameter);
+        }
+        this.__call(endpoint, pathParameter, 'DELETE', data, xhrFields, callbackSuccess, callbackError, null);
+	}
+
+});

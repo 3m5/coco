@@ -1,0 +1,1 @@
+open example.js to see how to init Coco.JS
