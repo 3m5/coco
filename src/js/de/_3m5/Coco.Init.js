@@ -62,7 +62,7 @@ Coco.SDK = dejavu.Class.declare({
     },
 
     testFunction() {
-        console.log("call test function");
+        console.log("call test function.... hallo erik");
     },
 
     initialize: function () {
