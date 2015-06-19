@@ -2,7 +2,6 @@
   "name": "3m5-coco",
   "version": "0.0.93",
   "description": "a simple MVC Framework",
-  "readme": "a simple MVC Framework, open cocoApp.js to see how to use & initialize Coco.JS",
   "main": "src/js/de/_3m5/Coco.Init.js",
   "scripts": {
     "test": "test"
