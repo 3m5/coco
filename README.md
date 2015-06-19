@@ -1,1 +1,1 @@
-open example.js to see how to init Coco.JS
+open cocoApp.js to see how to use and initialize Coco.JS
