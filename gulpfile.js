@@ -5,6 +5,7 @@ var gulp         = require('gulp'),
     tap          = require('gulp-tap'),
     streamify    = require('gulp-streamify'),
     concat       = require('gulp-concat'),
+    server       = require('gulp-webserver'),
     gutil        = require('gulp-util');
 
 
@@ -16,7 +17,7 @@ es6ify.traceurOverrides = {experimental: true};
 
 // Browserify, transform and concat all javascript
 gulp.task('test', function() {
-    gulp.src('./src/js/de/_3m5/config.js', {read:false})
+    gulp.src('test/cocoTestApp.js', {read:false})
         .pipe(tap(function(file) {
             var d = domain.create();
 
@@ -34,8 +35,20 @@ gulp.task('test', function() {
                     .bundle();
             });
         }))
-        .pipe(streamify(concat('test.js')))
+        .pipe(streamify(concat('application.js')))
         .pipe(gulp.dest('./build/js'))
+});
+
+// copy local index file to build folder
+gulp.task('vendor', function() {
+    return gulp.src(['./src/js/core/**'])
+        .pipe(gulp.dest('./build/js/vendor'));
+});
+
+// copy local index file to build folder
+gulp.task('html', function() {
+    return gulp.src(['src/html/**'])
+        .pipe(gulp.dest('./build'));
 });
 
 // clean up target folder
@@ -44,10 +57,16 @@ gulp.task('clean', function() {
         .pipe(clean());
 });
 
-// Rerun the task when a file changes
-gulp.task('watch', function() {
-	gulp.watch('src/js/**', ['test']);
+gulp.task('serve', function () {
+    gulp.run('test');
+    gulp.src(['./build', './build/js'])
+        .pipe(server({
+            port: 9090,
+            livereload: true,
+            directoryListing: false
+        }));
+    return gulp.watch(['src/', 'test/**'], ['test', 'html', 'vendor']);
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['test', 'watch']);
+gulp.task('default', ['vendor', 'html', 'serve']);

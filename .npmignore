@@ -1,0 +1,11 @@
+.idea
+.git
+npm-debug.log
+.svn
+.dejavurc
+.npmignore
+.gitignore
+build
+node_modules
+src/html
+test
