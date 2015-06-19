@@ -1,6 +1,7 @@
 var Coco = Coco || {};
 Coco.ServiceProvider = Coco.ServiceProvider || require("../service/Coco.ServiceProvider.js");
 Coco.Utils = Coco.Utils || require("../lib/Coco.Utils.js");
+Coco.Collection = Coco.Collection || require("./Coco.Collection.js");
 /**
  * Class: Coco.Model
  *
@@ -24,7 +25,7 @@ Coco.Utils = Coco.Utils || require("../lib/Coco.Utils.js");
  *
  *     <Coco.Event.DESTROY>:  callback(thisModel)                    -             Triggered before the model gets destroyed.
  */
-module.exports = dejavu.Class.declare({
+module.exports = Coco.Model = dejavu.Class.declare({
     $name: 'Model',
 
     $extends: Coco.ServiceProvider,

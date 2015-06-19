@@ -59,14 +59,16 @@ gulp.task('clean', function() {
 
 gulp.task('serve', function () {
     gulp.run('test');
+    gulp.run('html');
+    gulp.run('vendor');
     gulp.src(['./build', './build/js'])
         .pipe(server({
             port: 9090,
             livereload: true,
             directoryListing: false
         }));
-    return gulp.watch(['src/', 'test/**'], ['test', 'html', 'vendor']);
+    return gulp.watch(['src/**', 'test/**'], ['test', 'html', 'vendor']);
 });
 
 // The default task (called when you run `gulp` from cli)
-gulp.task('default', ['vendor', 'html', 'serve']);
+gulp.task('default', ['serve']);
