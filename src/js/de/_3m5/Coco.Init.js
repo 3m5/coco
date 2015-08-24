@@ -47,7 +47,7 @@ Coco.SDK = dejavu.Class.declare({
     ////////////////////////////////////////////////////////////
 
     $statics: {
-        version: "0.9.93",
+        version: "0.9.96",
         initialized: false,
         html: false,
         i18n: false
@@ -61,7 +61,7 @@ Coco.SDK = dejavu.Class.declare({
         console.logWithDate = true;
 
         if(Handlebars == null) {
-            throw new Error("Missing Handlebars! store node module 'Handlebars' into window element!");
+            throw new Error("Missing Handlebars! include npm-module 'handlebars' into your project!");
         }
 
         try {
@@ -72,8 +72,9 @@ Coco.SDK = dejavu.Class.declare({
 
         console.debug("-------------------------------------------");
         console.debug("Coco.js v" + this.$static.version);
+        console.debug("Bugreport@ GitHub: https://github.com/3m5/coco/issues");
         console.debug("Handlebars v" + Handlebars.VERSION);
-        console.debug("Handlebars helpers: ", Handlebars.helpers);
+        console.debug("registered Handlebars helpers: ", Handlebars.helpers);
         console.debug("jQuery v" + $().jquery);
 
         if (Coco.Plugins != null) {
@@ -87,6 +88,8 @@ Coco.SDK = dejavu.Class.declare({
 
                 this.$statics.i18n = true;
             }
+        } else {
+            console.debug("No Coco.Plugins detected.");
         }
 
         console.debug("-------------------------------------------");
