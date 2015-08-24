@@ -8,7 +8,6 @@ Coco.Utils = Coco.Utils || require("../lib/Coco.Utils.js");
 Coco.Model = Coco.Model || require("../model/Coco.Model.js");
 Coco.Collection = Coco.Collection || require("../model/Coco.Collection.js");
 //! do not require ChildView here!, because there is no Coco.View class during require process !
-//Coco.ChildView = Coco.ChildView || require("./Coco.ChildView.js");
 /**
  * Class: Coco.View
  *
@@ -270,8 +269,8 @@ module.exports = Coco.View = dejavu.Class.declare({
         // Call this._onInitialize before this.$el is set, to prevent any multiple rendering on initialization.
         this._onInitialize();
 
-        if(this._getService('router') != null) {
-            this.listenTo(this._getService('router'), Coco.Event.HIDE_VIEW + this.$name, () => {this.showLoading();});
+        if(this._getRouter() != null) {
+            this.listenTo(this._getRouter(), Coco.Event.HIDE_VIEW + this.$name, () => {this.showLoading();});
         }
 
         // Create the html wrapper element.
@@ -286,12 +285,22 @@ module.exports = Coco.View = dejavu.Class.declare({
         //we only use precompiled templates
         if(this.__tpl != null) {
             //no autorender anymore!
-            if(this._autoRender === true) {
+            if(this._autoRender === true && this._getRouter() == null) {
+                //only autoRender here, if no router is used!
                 this.render();
             }
         } else {
             console.warn(this.$name + " has no Template set during initilization!");
         }
+    },
+
+    /**
+     * Function: _getRouter()
+     * @return {service} | {Coco.Router}
+     * @protected
+     */
+    _getRouter: function() {
+        return this._getService("router");
     },
 
     /**
@@ -420,6 +429,9 @@ module.exports = Coco.View = dejavu.Class.declare({
      * Implement this method if you want to do some business logic on this event.
      */
     onActive: function ($routerParameter) {
+        if(this._autoRender === true) {
+            this.render();
+        }
     },
 
     /**
@@ -461,8 +473,8 @@ module.exports = Coco.View = dejavu.Class.declare({
         if (this.__isActive) {
 
             // Empty/append ONLY IF the $el inside main container is not THE SAME
-            if(this._getService('router').$container.children().first()[0] != this.$el[0]) {
-                this._getService('router').$container.empty().append(this.$el);
+            if(this._getRouter() && this._getRouter().$container.children().first()[0] != this.$el[0]) {
+                this._getRouter().$container.empty().append(this.$el);
             }
 
             this.hideLoading();
@@ -488,8 +500,8 @@ module.exports = Coco.View = dejavu.Class.declare({
         // Because we don't want the pages to flash if the loading was really fast
         clearTimeout(window.loading_timeout);
         window.loading_timeout = setTimeout(() => {
-            if (this._getService('router').$container) {
-                this._getService('router').$container.addClass('loading');
+            if (this._getRouter() && this._getRouter().$container) {
+                this._getRouter().$container.addClass('loading');
             }
         }, 300);
     },
@@ -500,8 +512,8 @@ module.exports = Coco.View = dejavu.Class.declare({
     hideLoading: function() {
         clearTimeout(window.loading_timeout);
         setTimeout(() => {
-            if (this._getService('router').$container) {
-                this._getService('router').$container.removeClass('loading application-loading');
+            if (this._getRouter() && this._getRouter().$container) {
+                //this._getRouter().$container.removeClass('loading application-loading');
             }
         }, 10);
     },
@@ -1020,6 +1032,14 @@ module.exports = Coco.View = dejavu.Class.declare({
 
     isActive: function () {
         return this.__isActive;
+    },
+
+    activate: function() {
+        this.__isActive = true;
+    },
+
+    deactivate: function() {
+        this.__isActive = false;
     },
 
     /**

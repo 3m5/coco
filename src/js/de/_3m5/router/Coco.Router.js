@@ -1,6 +1,7 @@
 var Coco = Coco || {};
 Coco.ServiceProvider = require("../service/Coco.ServiceProvider.js");
 Coco.Utils = require("../lib/Coco.Utils.js");
+Coco.Event = Coco.Event || require("../event/Coco.Event.js");
 /**
  * Class: Coco.Router
  *
@@ -37,7 +38,9 @@ module.exports = dejavu.Class.declare({
     initialize: function (selector, routing, $initialPath) {
         this.$super();
 
+        console.log("Router: ", this.$services.router);
         this.listenTo(this.$services.router, Coco.Event.SHOW_VIEW, this.__onShowView);
+        this.listenTo(this.$services.router, Coco.Event.HIDE_VIEW, this.__onHideView);
 
         this.__$container = $(selector);
 
@@ -98,6 +101,17 @@ module.exports = dejavu.Class.declare({
         this.__$container.append($dom);
 
         window.scrollTo(0, 0);
+    },
+
+    /**
+     * Hide the old view.
+     *
+     * @private
+     */
+    __onHideView: function () {
+        if(!this.__isRoutingAnchorStillInDom()) {
+            this.__reselectAnchor();
+        }
     },
 
     /**

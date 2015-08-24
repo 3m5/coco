@@ -1,5 +1,8 @@
 var Coco = Coco || {};
-Coco.Service = require("../service/Coco.Service.js");
+Coco.Service = Coco.Service || require("../service/Coco.Service.js");
+Coco.Event = Coco.Event || require("../event/Coco.Event.js");
+Coco.Model = Coco.Model || require("../model/Coco.Model.js");
+var Handlebars = require("handlebars");
 /**
  * Class: Coco.RouterService
  *
@@ -11,7 +14,8 @@ Coco.Service = require("../service/Coco.Service.js");
  *
  * @author Johannes Klauss <johannes.klauss@3m5.de>
  */
-dejavu.Class.declare({
+'use strict';
+Coco.RouterService = dejavu.Class.declare({
     $name: 'RouterService',
 
     $extends: Coco.Service,
@@ -45,10 +49,8 @@ dejavu.Class.declare({
     __pathHistoryIndex: -1,
 
     initialize: function () {
-        console.log(this.$name + "initialized");
+        this.$super();
         $(window).on('hashchange', this.__onRouteChanged.$bind(this));
-
-        var self = this;
 
         /**
          * The syntax in the helper is e.g. "id:id, linkOne:someKeyInTheModel"
@@ -57,18 +59,18 @@ dejavu.Class.declare({
          * In the for loop we then split the key1:key2 and add key1 as key to the parsedParams object and the value of
          * key2 as the key1 value.
          */
-        Handlebars.registerHelper('route', function (v1, v2) {
+        Handlebars.registerHelper('route', function(v1, v2) {
             var params = [];
-            var parsedParams = {};
-            var key;
-
-            if (typeof v2 === 'string') {
+            if (typeof v2 == 'string') {
                 params = v2.replace(/\s+/g, '').split(',');
             }
 
-            for (var i = 0; i < params.length; i++) {
-                if (params[i].indexOf(':') === -1) {
-                    if (this.hasOwnProperty(params[i])) {
+            var parsedParams = {};
+            var key;
+
+            for(var i = 0; i < params.length; i++) {
+                if(params[i].indexOf(':') === -1) {
+                    if(this.hasOwnProperty(params[i])) {
                         parsedParams[params[i]] = this[params[i]];
                     }
                     else {
@@ -78,7 +80,7 @@ dejavu.Class.declare({
                 else {
                     key = params[i].substring(params[i].indexOf(':') + 1);
 
-                    if (this.hasOwnProperty(key)) {
+                    if(this.hasOwnProperty(key)) {
                         parsedParams[params[i].substr(0, params[i].indexOf(':'))] = this[key];
                     }
                     else {
@@ -87,7 +89,7 @@ dejavu.Class.declare({
                 }
             }
 
-            return self.generateUrl(v1, parsedParams);
+            return this.generateUrl(v1, parsedParams);
         });
     },
 
@@ -103,11 +105,11 @@ dejavu.Class.declare({
      * @param {string} $path    -   {optional} If a path is given, the routing starts with this path.
      */
     start: function ($path) {
-        if ($path == null) {
+        if($path == null) {
             $path = '/';
         }
         //only accept valid deeplinks!
-        if (window.location.hash.length > 0 && this.__matchRoute(window.location.hash)) {
+        if(window.location.hash.length > 0 && this.__matchRoute(window.location.hash)) {
             $(window).trigger('hashchange');
         }
         else {
@@ -123,7 +125,7 @@ dejavu.Class.declare({
      * @param params {object}   -   The params of the route (view object or constructor and path)
      */
     addRoute: function (name, params) {
-        if (this.__routes.hasOwnProperty(name)) {
+        if(this.__routes.hasOwnProperty(name)) {
             throw new Error('Route "' + name + '" is already defined.');
         }
 
@@ -139,27 +141,25 @@ dejavu.Class.declare({
      * @param {object} $params  -   {optional}  A object of parameters for the given route
      */
     generateUrl: function (route, $params) {
-        if (!this.__routes.hasOwnProperty(route)) {
+        if(!this.__routes.hasOwnProperty(route)) {
             throw new Error('Route "' + route + '" does not exist.');
         }
 
-        if ($params) {
+        if($params) {
             var parts = this.__routes[route].path.slice(1).replace(/[()]/g, '').split('/');
 
-            for (var i = 0; i < parts.length; i++) {
-                if (parts[i].indexOf(':') === 0) {
-                    if ($params.hasOwnProperty(parts[i].substr(1))) {
+            for(var i = 0; i < parts.length; i++) {
+                if(parts[i].indexOf(':') === 0) {
+                    if ( $params.hasOwnProperty(parts[i].substr(1))) {
                         parts[i] = $params[parts[i].substr(1)];
                     } else {
                         parts.splice(i, 1);
-
                         i--;
                     }
                 }
             }
 
             parts.unshift('');
-
             return '#' + parts.join('/');
         }
 
@@ -220,40 +220,31 @@ dejavu.Class.declare({
      */
     history: function (steps, duplicates) {
         var history = [];
-
-        if (steps == -1) {
+        if(steps == -1) {
             steps = this.__pathHistory.length - 1;
         }
-
         steps = Math.min(this.__pathHistory.length - 1, steps);
-
         var routes = [];
         var counter = 1;
-
-        for (var i = this.__pathHistory.length - 2; i >= ((this.__pathHistory.length - 1) - steps); i--) {
+        for(var i = this.__pathHistory.length - 2; i >= (this.__pathHistory.length - 1) - steps; i--) {
             var pHistory = this.__pathHistory[i];
-
-            if (!duplicates) {
-                if (routes.indexOf(pHistory) > -1) {
+            if(!duplicates) {
+                if(routes.indexOf(pHistory) > -1) {
                     //no duplicates allowed
                     continue;
                 }
             }
-
             routes.push(pHistory);
-
             //send steps back to reach this route
             var route = $.extend(true, {back: counter}, this.__getRoute(pHistory));
-
             counter++;
-
             history.unshift(route);
-        }
+        };
 
         return history;
     },
 
-    clearHistory: function () {
+    clearHistory: function() {
         this.__pathHistory = [];
         this.__pathHistoryIndex = -1;
     },
@@ -263,19 +254,15 @@ dejavu.Class.declare({
      * Go back given steps in history, delete
      */
     goback: function (steps) {
-        if (steps > 0 && steps < this.__pathHistory.length) {
+        if(steps > 0 && steps < this.__pathHistory.length) {
             //drop current route
             var newPath = this.__pathHistory.pop();
-
             //drop previous routes
-            while (steps > 0) {
+            while(steps > 0) {
                 newPath = this.__pathHistory.pop();
-
                 steps--;
             }
-
             this.__pathHistoryIndex = this.__pathHistory.length - 1;
-
             this.setPath(newPath);
         }
     },
@@ -285,7 +272,7 @@ dejavu.Class.declare({
      * Go back one step in history.
      */
     back: function () {
-        if (this.__pathHistoryIndex > 0 && this.__pathHistoryIndex <= this.__pathHistory.length) {
+        if(this.__pathHistoryIndex > 0 && this.__pathHistoryIndex <= this.__pathHistory.length) {
             this.setPath(this.__pathHistory[--this.__pathHistoryIndex]);
         }
     },
@@ -295,7 +282,7 @@ dejavu.Class.declare({
      * Go one step forward in history.
      */
     forward: function () {
-        if (this.__pathHistoryIndex - 1 < this.__pathHistory.length) {
+        if(this.__pathHistoryIndex - 1 < this.__pathHistory.length) {
             this.setPath(this.__pathHistory[++this.__pathHistoryIndex]);
         }
     },
@@ -308,13 +295,13 @@ dejavu.Class.declare({
      * @param {Number} steps    -   A signed integer indicating how many steps to go. Values below zero go back, values above go forth in History.
      */
     go: function (steps) {
-        if (steps === 0) {
+        if(steps === 0) {
             return;
         }
 
         var i = this.__pathHistoryIndex += steps;
 
-        if (i > 0 && i < this.__pathHistory.length) {
+        if(i > 0 && i < this.__pathHistory.length) {
             window.location.hash = this.__pathHistory[i];
         }
     },
@@ -352,43 +339,40 @@ dejavu.Class.declare({
      */
     __getRoute: function (path, duplicates) {
         path = path.slice(2);
+        var pathParts = path.split('/'),
+            matched;
 
-        var pathParts = path.split('/');
-        var routeParts;
-        var matched;
         var addedRoutes = [];
-
-        for (var i in this.__routes) {
-            if (this.__routes.hasOwnProperty(i)) {
+        for(var i in this.__routes) {
+            if(this.__routes.hasOwnProperty(i)) {
                 var routeRegex = this.__convertToRegex(this.__routes[i].path.slice(1));
+                matched = true;
 
-                matched = (path.match(routeRegex) === null);
+                if (path.match(routeRegex) === null) {
+                    matched = false;
+                }
 
-                if (matched) {
-                    if (!duplicates) {
-                        if (addedRoutes.indexOf[i] > -1) {
+                if(matched) {
+                    if(!duplicates) {
+                        if(addedRoutes.indexOf[i] > -1) {
                             //no duplicates allowed
                             continue;
                         }
                     }
-
                     addedRoutes.push(i);
 
-                    routeParts = this.__routes[i].path.slice(1).replace(/[()]/g, '').split('/');
+                    var routeParts = this.__routes[i].path.slice(1).replace(/[()]/g, '').split('/');
 
                     this.__mapArguments(pathParts, routeParts, this.__routes[i]);
-
                     //copy route object, add route label
                     var r = $.extend(true, {key: i}, this.__routes[i]);
-
                     //replace path variables
-                    for (var parts = 0; parts < routeParts.length; parts++) {
+                    for(var parts = 0; parts < routeParts.length; parts++) {
                         r.path = r.path.replace(routeParts[parts], pathParts[parts]);
                     }
 
                     //delete view from route
                     delete r.view;
-
                     return r;
                 }
             }
@@ -406,19 +390,20 @@ dejavu.Class.declare({
      */
     __matchRoute: function (path) {
         path = path.slice(2);
-
         var pathParts = path.split('/'),
             matched;
 
-        for (var i in this.__routes) {
-            if (this.__routes.hasOwnProperty(i)) {
+        for(var i in this.__routes) {
+            if(this.__routes.hasOwnProperty(i)) {
                 var routeRegex = this.__convertToRegex(this.__routes[i].path.slice(1));
+                matched = true;
 
-                matched = (path.match(routeRegex) === null);
+                if (path.match(routeRegex) === null) {
+                    matched = false;
+                }
 
                 if (matched) {
                     var routeParts = this.__routes[i].path.slice(1).replace(/[()]/g, '').split('/');
-
                     this.__nextRoute = this.__mapArguments(pathParts, routeParts, this.__routes[i]);
 
                     return true;
@@ -431,11 +416,12 @@ dejavu.Class.declare({
 
     __convertToRegex: function (route) {
         var optionalParam = /\((.*?)\)/g;
-        var namedParam = /(\(\?)?:\w+/g;
+        var namedParam    = /(\(\?)?:\w+/g;
 
-        route = route.replace(optionalParam, '(?:$1)?').replace(namedParam, function (match, optional) {
-            return optional ? match : '([^/?]+)';
-        });
+        route = route.replace(optionalParam, '(?:$1)?')
+            .replace(namedParam, function(match, optional) {
+                return optional ? match : '([^/?]+)';
+            });
 
         return new RegExp('^' + route + '(?:\\?([\\s\\S]*))?$');
     },
@@ -452,23 +438,23 @@ dejavu.Class.declare({
     __mapArguments: function (pathParts, routeParts, nextRoute) {
         var mode = 0;
 
-        if (nextRoute.paramsAsObject != null && nextRoute.paramsAsObject) {
+        if(nextRoute.paramsAsObject != null && nextRoute.paramsAsObject) {
             mode = 1;
         }
 
         nextRoute.args = [];
 
-        if (mode === 1) {
+        if(mode === 1) {
             nextRoute.args.push({});
         }
 
-        for (var i = 0; i < routeParts.length; i++) {
-            if (routeParts[i].indexOf(':') === 0) {
-                if (!isNaN(pathParts[i])) {
+        for(var i = 0; i < routeParts.length; i++) {
+            if(routeParts[i].indexOf(':') === 0) {
+                if(!isNaN(pathParts[i])) {
                     pathParts[i] = Number(pathParts[i]);
                 }
 
-                if (mode === 0) {
+                if(mode === 0) {
                     nextRoute.args.push(pathParts[i]);
                 }
                 else {
@@ -487,7 +473,7 @@ dejavu.Class.declare({
      * @private
      */
     __fireRoute: function () {
-        if (this.__currentRoute != null) {
+        if(this.__currentRoute != null) {
             // The onPause method of a view can return a value that is pushed to the params to the next active view.
             this.__callRouteView(this.__currentRoute);
             this.__callRouteMethod(this.__currentRoute, 'onPause');
@@ -495,26 +481,19 @@ dejavu.Class.declare({
 
         this.__callRouteView(this.__nextRoute);
 
-        if(this.__nextRoute == null) {
+        if(this.__nextRoute == null || this.__nextRoute.view == null) {
+            console.error("invalid route called! ", this.__nextRoute);
             return;
         }
 
-        // We pre compile the DOM of the next route so that the displayed DOM node is not empty while rendering the next route view.
-        this.__nextRoute.view.getDOM();
+        if(this.__currentRoute != null) {
+            this.trigger(Coco.Event.HIDE_VIEW);
+            this.trigger(Coco.Event.HIDE_VIEW + this.__currentRoute.view.$name);
 
-        if (this.__currentRoute != null) {
-            this.__callRouteMethod(this.__currentRoute, 'showLoading');
-
-            // This is a hack. Actually `__isActive` is a private member that we can not change. Also this would not work
-            // in dejavus strict mode.
-            // TODO: FIX THIS FOR 1.0
-            this.__currentRoute.view.__isActive = false;
+            this.__currentRoute.view.deactivate();
         }
 
-        // This is a hack. Actually `__isActive` is a private member that we can not change. Also this would not work
-        // in dejavus strict mode.
-        // TODO: FIX THIS FOR 1.0
-        this.__nextRoute.view.__isActive = true;
+        this.__nextRoute.view.activate();
 
         //call this AFTER deactivating current view, because current view can be also NEXT view - and so, all events are killed
         this.__callRouteMethod(this.__nextRoute, 'onActive');
@@ -543,8 +522,13 @@ dejavu.Class.declare({
      * @param {object} route    - The route object where the view lies in
      */
     __callRouteView: function (route) {
-        if (typeof route.view === 'function') {
-            route.view = new route.view();
+        if(typeof route.view === 'function') {
+            console.log("callRouteView: ", route);
+            if (route.model && route.model instanceof Coco.Model) {
+                route.view = new route.view(route.model);
+            } else {
+                route.view = new route.view();
+            }
         }
     },
 
@@ -554,12 +538,14 @@ dejavu.Class.declare({
             route.view.undelegateEvents();
             return route.view[method]();
         } else if (method === 'onActive') {
-            route.view.delegateEvents();
+            //route.view.delegateEvents();
             return route.view[method].apply(route.view, this.__nextRoute.args);
         }
-        else if (typeof route.view[method] === 'function') {
+        else if(typeof route.view[method] === 'function') {
             route.view[method].apply(route.view, this.__nextRoute.args);
         }
     }
 
-}).$service();
+}); //.$service();
+//instantiate Service automatically
+module.exports = new Coco.RouterService();

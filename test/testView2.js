@@ -14,18 +14,20 @@ var Coco = require("../src/js/de/_3m5/Coco.Init.js");
 
 module.exports = dejavu.Class.declare({
     //className
-    $name: "testView",
+    $name: "testView2",
     //inheritance
     $extends: Coco.View,
     //jQuery selector to add this view
     //_anchor: ".testView",
+    //router service
     $inject: ["router"],
+
     //jQuery events to handle directly
     _events: {
         //"EVENT CSS-Selector": "eventhandler-function"        
     },
 
-    _autoRender: true,
+    //_autoRender: true,
 
     /**
      * Variable: _template
@@ -35,6 +37,17 @@ module.exports = dejavu.Class.declare({
      * @protected
      */
     __tpl: require("./testTemplate.hbs"),
+
+    onActive: function() {
+        console.log("this is no autorendered class, so call it, after onActive was called (by Router)");
+        this.loadData();
+    },
+
+    loadData: function() {
+        setTimeout(() => {
+            this.render();
+        }, 500);
+    },
 
     /**
      * Constructor
@@ -48,14 +61,13 @@ module.exports = dejavu.Class.declare({
      */
     render: function () {
         console.log(this.$name + ".render...");
-        var result = this.$super();
-        return result;
+        this.$super();
     },
 
     /**
      * override super implementation of this function to add more properties on HBS model
      */
     _getHBSModel: function () {
-        return this.$super();
+        return {id:100, label:"Seite 2"};
     }
 })

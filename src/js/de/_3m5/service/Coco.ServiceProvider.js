@@ -31,20 +31,21 @@ module.exports = dejavu.AbstractClass.declare({
     $services: {},
 
     initialize: function () {
-        this._injectServices();
+        this.__injectServices();
 
         // Protect the ServiceContainer
-        this._injectServices = null;
+        this.__injectServices = null;
     },
 
     /**
      * Function: _injectServices
      * {protected} function injects service instances, its portected because <Coco.ChildView> initialization differs
      */
-    _injectServices: function () {
+    __injectServices: function () {
         var serviceContainer = new Coco.ServiceContainer();
 
         for(var i = 0; i < this.$inject.length; i++) {
+            console.debug(this.$name + ".inject service: " + this.$inject[i]);
             this.$services[this.$inject[i]] = serviceContainer.getService(this.$inject[i]);
         }
     },

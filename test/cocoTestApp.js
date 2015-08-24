@@ -7,6 +7,7 @@
 var Coco = require("../src/js/de/_3m5/Coco.Init.js");
 var TestCollection = require("./testCollection");
 var TestView = require("./testView");
+var TestView2 = require("./testView2");
 
 var CocoApplication = dejavu.Class.declare({
 
@@ -20,9 +21,21 @@ var CocoApplication = dejavu.Class.declare({
         console.log(testModel);
         console.log(testModel.getAttributes());
 
-        new TestView(testModel);
+        //new TestView(testModel);
         //testview is autrendered by flag
         //testView.render();
+
+        new Coco.Router('.routerView', {
+            dashboard: {
+                path: '/',
+                view: TestView,
+                model: testModel
+            },
+            imprint: {
+                path: '/testView2',
+                view: TestView2
+            }
+        }, '/');
     }
 
 });

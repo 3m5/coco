@@ -23,8 +23,9 @@ module.exports = Coco.ServiceContainer = dejavu.Class.declare({
          * @param serviceInstance
          */
         addService: function (serviceInstance) {
-            if(!this.__services.hasOwnProperty(serviceInstance.$serviceId)) {
-                this.__services[serviceInstance.$serviceId] = serviceInstance;
+            console.log(this.$name + "addService: ", serviceInstance.$serviceId);
+            if(!this.$static.__services.hasOwnProperty(serviceInstance.$serviceId)) {
+                this.$static.__services[serviceInstance.$serviceId] = serviceInstance;
             }
             else {
                 throw new Error("Service '" + serviceInstance.$serviceId + "' already defined with class '" + serviceInstance.$name + "'.");
@@ -40,8 +41,9 @@ module.exports = Coco.ServiceContainer = dejavu.Class.declare({
      * @param serviceId
      */
     getService: function (serviceId) {
-        if(Coco.ServiceContainer.__services.hasOwnProperty(serviceId)) {
-            return Coco.ServiceContainer.__services[serviceId];
+        console.debug(this.$name + ".getService " + serviceId + " ", this.$static.__services);
+        if(this.$static.__services.hasOwnProperty(serviceId)) {
+            return this.$static.__services[serviceId];
         }
 
         throw new Error("Service '" + serviceId + "' does not exist. Maybe you forgot to append .$service() at the end of the declaration of your class.");

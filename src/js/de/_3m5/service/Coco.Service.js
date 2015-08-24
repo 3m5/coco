@@ -1,5 +1,6 @@
 var Coco = Coco || {};
-Coco.ServiceProvider = require("../service/Coco.ServiceProvider.js");
+Coco.ServiceProvider = require("./Coco.ServiceProvider.js");
+Coco.ServiceContainer = Coco.ServiceContainer || require("./Coco.ServiceContainer.js");
 Coco.Utils = require("../lib/Coco.Utils.js");
 
 /**
@@ -30,6 +31,13 @@ module.exports = dejavu.AbstractClass.declare({
      * The internal instance id.
      */
     __id: Coco.Utils.uniqueId('s'),
+
+    initialize: function() {
+        //inject this service into ServiceContainer
+        Coco.ServiceContainer.addService(this);
+
+        this.$super();
+    },
 
     /**
      * Function: getId
