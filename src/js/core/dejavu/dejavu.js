@@ -671,6 +671,11 @@ define('mout/object/hasOwn',['require','exports','module'],function (require, ex
      * Safer Object.hasOwnProperty
      */
      function hasOwn(obj, prop){
+        if(obj == null) {
+            console.error("object is null or undefined: ", obj);
+            console.error("cant check fo property: ", prop);
+            return false;
+        }
          return Object.prototype.hasOwnProperty.call(obj, prop);
      }
 

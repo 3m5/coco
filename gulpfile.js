@@ -64,6 +64,7 @@ gulp.task('serve', function () {
     gulp.src(['./build', './build/js'])
         .pipe(server({
             port: 9090,
+            open: true,
             livereload: true,
             directoryListing: false
         }));

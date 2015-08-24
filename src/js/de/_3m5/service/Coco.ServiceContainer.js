@@ -1,5 +1,5 @@
 var Coco = Coco || {};
-Coco.Event = require("../event/Coco.Event.js");
+Coco.Event = Coco.Event|| require("../event/Coco.Event.js");
 /**
  * Class: Coco.ServiceContainer
  *
@@ -8,7 +8,7 @@ Coco.Event = require("../event/Coco.Event.js");
  *
  * @author Johannes Klauss <johannes.klauss@3m5.de>
  */
-Coco.ServiceContainer = dejavu.Class.declare({
+module.exports = Coco.ServiceContainer = dejavu.Class.declare({
     $name: 'ServiceContainer',
     $extends: Coco.Event,
 

@@ -157,7 +157,9 @@ module.exports = dejavu.AbstractClass.declare({
             context.__listeners[event] = [];
         }
 
+        console.log("get unique id....");
         var handle = Coco.Utils.uniqueId('e');
+        console.log("got unique id....", handle);
 
         context.__listeners[event].push({
             callback: callback.$bind(this),

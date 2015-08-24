@@ -21,35 +21,27 @@ Coco.SDK = dejavu.Class.declare({
     Event: require("./event/Coco.Event.js"),
 
     //PACKAGE MODEL
-    model: {
-        Model: require("./model/Coco.Model.js"),
-        Collection: require("./model/Coco.Collection.js")
-    },
+    Model: require("./model/Coco.Model.js"),
+    //Collection: require("./model/Coco.Collection.js"),
 
     //PACKAGE SERVICE
-    service: {
-        BaseRestService: require("./service/Coco.BaseRestService.js"),
-        Service: require("./service/Coco.Service.js"),
-        ServiceContainer: require("./service/Coco.ServiceContainer.js"),
-        ServiceProvider: require("./service/Coco.ServiceProvider.js")
-    },
+    BaseRestService: require("./service/Coco.BaseRestService.js"),
+    Service: require("./service/Coco.Service.js"),
+    ServiceContainer: require("./service/Coco.ServiceContainer.js"),
+    ServiceProvider: require("./service/Coco.ServiceProvider.js"),
 
     //PACKAGE LIB
-    lib: {
-        HashMap: require("./lib/Coco.HashMap.js"),
-        //HbsLoader: require("lib/Coco.HbsLoader.js"), not needed anymore, hbs files are compiled by handlebars plugin
-        //DateHelper, not needed as well, use momentJS instead
-        Math: require("./lib/Coco.Math.js"),
-        Utils: require("./lib/Coco.Utils.js"),
-        Storage: require("./lib/Coco.Storage.js"),
-        StringUtils: require("./lib/Coco.StringUtils.js")
-    },
+    HashMap: require("./lib/Coco.HashMap.js"),
+    //HbsLoader: require("lib/Coco.HbsLoader.js"), not needed anymore, hbs files are compiled by handlebars plugin
+    //DateHelper, not needed as well, use momentJS instead
+    Math: require("./lib/Coco.Math.js"),
+    Utils: require("./lib/Coco.Utils.js"),
+    Storage: require("./lib/Coco.Storage.js"),
+    StringUtils: require("./lib/Coco.StringUtils.js"),
 
     //PACKAGE MODEL
-    view: {
-        View: require("./view/Coco.View.js"),
-        ChildView: require("./view/Coco.ChildView.js")
-    },
+    View: require("./view/Coco.View.js"),
+    ChildView: require("./view/Coco.ChildView.js"),
 
     //////// CLASS DEFINITIONS END
     ////////////////////////////////////////////////////////////

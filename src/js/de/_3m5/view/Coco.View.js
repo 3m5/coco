@@ -1,7 +1,14 @@
 /** @namespace **/
 var Coco = Coco || {};
-Coco.ServiceProvider = require("../service/Coco.ServiceProvider.js");
+var Handlebars = Handlebars || require("handlebars");
 
+Coco.Event = Coco.Event || require("../event/Coco.Event.js");
+Coco.ServiceProvider = require("../service/Coco.ServiceProvider.js");
+Coco.Utils = Coco.Utils || require("../lib/Coco.Utils.js");
+Coco.Model = Coco.Model || require("../model/Coco.Model.js");
+Coco.Collection = Coco.Collection || require("../model/Coco.Collection.js");
+//! do not require ChildView here!, because there is no Coco.View class during require process !
+//Coco.ChildView = Coco.ChildView || require("./Coco.ChildView.js");
 /**
  * Class: Coco.View
  *
@@ -12,7 +19,7 @@ Coco.ServiceProvider = require("../service/Coco.ServiceProvider.js");
  *
  * @author Johannes Klauss <johannes.klauss@3m5.de>
  */
-module.exports = dejavu.Class.declare({
+module.exports = Coco.View = dejavu.Class.declare({
     $name: 'View',
 
     $extends: Coco.ServiceProvider,
@@ -40,14 +47,17 @@ module.exports = dejavu.Class.declare({
              * @protected
              */
             _add: function (model) {
-                var etherObjects = {};
-                var etherModel = model.getEtherKeys();
-
-                for (var i = 0; i < etherModel.length; i++) {
-                    etherObjects[model.$name + ":" + etherModel[i]] = model.boundGet;
-                }
-
-                this.__etherStore = $.extend(this.__etherStore, etherObjects);
+                console.log("get etherStore: ");
+                //var etherObjects = {};
+                //var etherModel = model.getEtherKeys();
+                //
+                //if(etherModel) {
+                //    for (var i = 0; i < etherModel.length; i++) {
+                //        etherObjects[model.$name + ":" + etherModel[i]] = model.boundGet;
+                //    }
+                //}
+                //
+                //this.__etherStore = $.extend(this.__etherStore, etherObjects);
             },
 
             /**
@@ -63,8 +73,9 @@ module.exports = dejavu.Class.declare({
                 var property = etherKey.substr(etherKey.indexOf(':') + 1);
                 var reg = new RegExp(etherKey, "ig");
 
-                for (var key in this.__etherStore) {
-                    if (this.__etherStore.hasOwnProperty(key)) {
+                console.log("get etherStore: ", this.__etherStore);
+                for (var key in this.$static.ether.__etherStore) {
+                    if (this.$static.ether.__etherStore.hasOwnProperty(key)) {
                         if (reg.test(key) === true) {
                             // this.__etherStore[key] returns the .boundGet() method for given key of current model.
                             var value = this.__etherStore[key](property);
@@ -191,7 +202,7 @@ module.exports = dejavu.Class.declare({
      *
      * @type Coco.Model
      */
-    model: null,
+    _model: null,
 
     /**
      * Variable: collection
@@ -199,13 +210,19 @@ module.exports = dejavu.Class.declare({
      *
      * @type Coco.Collection
      */
-    collection: null,
+    _collection: null,
 
     /**
      * Variable _eventsDelegated
      * @protected Flag to show if <Coco.View._events> are still delegated or not
      */
     _eventsDelegated: false,
+
+    /**
+     * Variable _firstRendered
+     * @protected Flag to show if <Coco.View> is rendered once or never
+     */
+    _firstRendered: false,
 
     /**
      * Ctor.
@@ -235,7 +252,7 @@ module.exports = dejavu.Class.declare({
         }
 
         if ($model != null && !modelSet) {
-            console.error("Invalid model object! Coco.Model or Coco.Collection expected, given: ", $model);
+            Log.error("Invalid model object! Coco.Model or Coco.Collection expected, given: " + $model);
         }
 
         // Extend the options
@@ -247,31 +264,36 @@ module.exports = dejavu.Class.declare({
         // Call this._onInitialize before this.$el is set, to prevent any multiple rendering on initialization.
         this._onInitialize();
 
+        if(this._getService('router') != null) {
+            this.listenTo(this._getService('router'), Coco.Event.HIDE_VIEW + this.$name, () => {this.showLoading();});
+        }
+
         // Create the html wrapper element.
         this.$el = $(this._anchor);
+        if(this.$el == null || this.$el.length == 0) {
+            console.error(this.$name + "-anchor [" + this._anchor + "] not found in DOM: ", this.$el);
+        }
         this.$el.attr('data-coco', this.__id);
 
         this.__configure();
 
-        if (Coco.HbsLoader.isHandlebar(this._template)) {
-            // _template is a path to a handlebars file, so we load and compile it
-
+        // Check if template is handlebar template ...
+        //no more HbsLoader - we use handlebars by npm
+        /*if (Coco.HbsLoader.isHandlebar(this._template)) {
             this.__parseTemplate();
-        }
-        else if (typeof this._template === 'function') {
-            // _template is a compiled hbs, so we just assign it to __tpl
-
-            this.__tpl = this._template;
+            //this.render();
         }
         else if (this._template !== null) {
-            // _template is assumed to be a CSS selector, which refers to a existing DOM node.
-
+            // ... or css selector
             this.__tpl = Handlebars.compile($(this._template).html());
-        }
-
-        // We have a compiled template, so call _onFirstRender.
-        if (this.__tpl != null) {
-            this._onFirstRender();
+        }*/
+        //we have a precompiled template
+        if(this.__tpl != null) {
+            //no autorender anymore!
+            //this.render();
+            //this._onFirstRender();
+        } else {
+            console.warn(this.$name + " no Template set during initilization!");
         }
     },
 
@@ -286,7 +308,7 @@ module.exports = dejavu.Class.declare({
      * @return {jQuery|null}
      */
     $: function (selector) {
-        if (this.$el === null) {
+        if (this.$el == null) {
             throw new Error("$el of " + this.$name + " (" + this.getId() + ") is null. Please provide an _anchor.");
         }
 
@@ -306,16 +328,16 @@ module.exports = dejavu.Class.declare({
             return;
         }
 
-        if (this.model !== null) {
-            this.stopListening(this.model);
-            this.model.destroy();
+        if (this._model !== null) {
+            this.stopListening(this._model);
+            this._model.destroy();
 
-            delete this.model;
+            delete this._model;
         }
 
-        this.model = model;
+        this._model = model;
 
-        this.$self._add(this.model);
+        Coco.View.ether._add(this._model);
     },
 
     /**
@@ -331,18 +353,18 @@ module.exports = dejavu.Class.declare({
             return;
         }
 
-        if (this.collection !== null) {
-            this.stopListening(this.collection);
-            this.collection.destroy();
+        if (this._collection !== null) {
+            this.stopListening(this._collection);
+            this._collection.destroy();
 
-            delete this.collection;
+            delete this._collection;
         }
 
-        this.collection = collection;
+        this._collection = collection;
 
-        this.collection.each(function (model) {
-            this.$self._add(model);
-        }.$bind(this));
+        this._collection.each((model) => {
+            Coco.View.ether._add(model);
+        });
     },
 
     /**
@@ -353,7 +375,7 @@ module.exports = dejavu.Class.declare({
      * @return Coco.Model - The current <Coco.Model> instance or null.
      */
     getModel: function () {
-        return this.model;
+        return this._model;
     },
 
     /**
@@ -364,7 +386,7 @@ module.exports = dejavu.Class.declare({
      * @return Coco.Collection - The current <Coco.Collection> instance or null.
      */
     getCollection: function () {
-        return this.collection;
+        return this._collection;
     },
 
     /**
@@ -428,31 +450,35 @@ module.exports = dejavu.Class.declare({
      */
     render: function () {
         if (this.__tpl === null && this._template === null) {
+            console.error("Could not render Coco.View [" + this.$name + "], no template found! ", this.__tpl);
             return this;
         }
 
-        var html = (typeof this.__tpl === 'function') ? this.__tpl(this._getHBSModel()) : this.__tpl;
+        //we use require now, so hbs templates are precompiled, just add the model here
+        //var html = (typeof this.__tpl === 'function') ? this.__tpl(this._getHBSModel()) : this.__tpl;
+        var html = this.__tpl(this._getHBSModel());
 
-        /**
-         * Since all DOM events are attached to `this.$el` we need to preserve it's jQuery data like events, etc.
-         * So we detach the inner Elements.
-         */
         this.$('> :first-child').detach();
         this.$el.empty().append(html);
 
         if (this.__isActive) {
-            // Empty/append ONLY IF the $el inside main container is NOT THE SAME
-            if (this._getService('router').$container.children().first()[0] != this.$el[0]) {
+
+            // Empty/append ONLY IF the $el inside main container is not THE SAME
+            if(this._getService('router').$container.children().first()[0] != this.$el[0]) {
                 this._getService('router').$container.empty().append(this.$el);
             }
 
             this.hideLoading();
         }
 
+
+        if(this._firstRendered === false) {
+            this._firstRendered = true;
+            this._onFirstRender();
+        }
+        this.delegateEvents();
         this.trigger(Coco.Event.RENDER);
         this.trigger(Coco.Event.RENDER + this.$name);
-
-        return this;
     },
 
     /**
@@ -463,26 +489,24 @@ module.exports = dejavu.Class.declare({
     showLoading: function() {
         // Show loader only after delay
         // Because we don't want the pages to flash if the loading was really fast
-        clearTimeout(window.loadingTimeout);
-
-        window.loadingTimeout = setTimeout(function() {
+        clearTimeout(window.loading_timeout);
+        window.loading_timeout = setTimeout(() => {
             if (this._getService('router').$container) {
                 this._getService('router').$container.addClass('loading');
             }
-        }.$bind(this), 300);
+        }, 300);
     },
 
     /**
      * Function: hideLoading()
      */
     hideLoading: function() {
-        clearTimeout(window.loadingTimeout);
-
-        setTimeout(function() {
+        clearTimeout(window.loading_timeout);
+        setTimeout(() => {
             if (this._getService('router').$container) {
                 this._getService('router').$container.removeClass('loading application-loading');
             }
-        }.$bind(this), 10);
+        }, 10);
     },
 
     /**
@@ -497,25 +521,33 @@ module.exports = dejavu.Class.declare({
         var props = {};
 
         //use only simple comparison, to catch null and undefined
-        if (this.collection != null || this.model != null) {
+        if (this._collection != null || this._model != null) {
             /**
              * The available properties when using a collection are models and length
              * @deprecated Will be removed on Jan 27 2014
              *
              * Use collection.models and collection.size instead of model and length.
              */
-            if (this.collection != null && this.model != null) {
+            if (this._collection != null && this._model != null) {
                 console.warn(this.$name + " collection AND model are set at once, but only one model can be used in template, collection will override model data!");
             }
-            props = (this.collection == null) ? this.model.getAttributes() : {
-                collection: {
-                    models: this.collection.getAllAttributes(),
-                    size: this.collection.size()
-                }
-            };
+            props = (this._collection == null) ? this._model.getAttributes() : {collection: {models: this._collection.getAllAttributes(), size: this._collection.size()}};
         }
 
         return props;
+    },
+
+    /**
+     * Function: getDOM()
+     * Returns the DOM of the view. Calling this function will always cause a render of this view.
+     *
+     * Return:
+     * @return {*} - The DOM representation of the <Coco.View> instance.
+     */
+    getDOM: function () {
+        this.render();
+
+        return this.$el.get();
     },
 
     /**
@@ -539,14 +571,14 @@ module.exports = dejavu.Class.declare({
     remove: function (removeAssoc) {
         this.trigger(Coco.Event.DESTROY, this);
 
-        if (removeAssoc && this.model !== null) {
-            this.model.destroy();
-            this.model = null;
+        if (removeAssoc && this._model !== null) {
+            this._model.destroy();
+            this._model = null;
         }
 
-        if (removeAssoc && this.collection !== null) {
-            this.collection.destroy();
-            this.collection = null;
+        if (removeAssoc && this._collection !== null) {
+            this._collection.destroy();
+            this._collection = null;
         }
 
         //stop listening jQuery events
@@ -594,8 +626,6 @@ module.exports = dejavu.Class.declare({
             throw new Error("View '" + view.$name + "' is not a instance of Coco.ChildView. To add the view as a child view extend from Coco.ChildView rather than from Coco.View");
         }
 
-        view.autoRender();
-
         if (!this.__childViews.hasOwnProperty(selector)) {
             this.__childViews[selector] = [];
         }
@@ -604,20 +634,20 @@ module.exports = dejavu.Class.declare({
             this.__childViews[selector].unshift(view);
 
             if ($addToAllMatching) {
-                this.$el.find(selector).prepend(view.getCachedDOM());
+                this.$el.find(selector).prepend(view.getDOM());
             }
             else {
-                this.$el.find(selector).first().prepend(view.getCachedDOM());
+                this.$el.find(selector).first().prepend(view.getDOM());
             }
         }
         else {
             this.__childViews[selector].push(view);
 
             if ($addToAllMatching) {
-                this.$el.find(selector).append(view.getCachedDOM());
+                this.$el.find(selector).append(view.getDOM());
             }
             else {
-                this.$el.find(selector).first().append(view.getCachedDOM());
+                this.$el.find(selector).first().append(view.getDOM());
             }
         }
 
@@ -626,7 +656,6 @@ module.exports = dejavu.Class.declare({
          * if the <Coco.View> instance is a child view, since it's only inserted into the DOM after the above line.
          * So we need to call the child views _onFirstRender again.
          */
-        view._onFirstRender();
 
         return view;
     },
@@ -639,7 +668,7 @@ module.exports = dejavu.Class.declare({
      * @param {string} selector - CSS selector to add childviews
      * @param {Coco.View} viewDefinition - class of <Coco.View> to add
      */
-    addChildViews: function (collection, selector, viewDefinition) {
+    addChildViews: function (collection, selector, view_definition) {
         if (!(collection instanceof Coco.Collection)) {
             throw new Error("Collection '" + collection.$name + "' is not a instance of Coco.Collection.");
         }
@@ -652,12 +681,12 @@ module.exports = dejavu.Class.declare({
         var $virtualElement = $(document.createDocumentFragment());
 
         // Append all childviews to it
-        collection.each(function (model) {
-            var viewInstance = new viewDefinition(model);
-            this.__childViews[selector].push(viewInstance);
+        collection.each((model) => {
+            var view_instance = new view_definition(model);
+            this.__childViews[selector].push(view_instance);
 
-            $virtualElement.append(viewInstance.getCachedDOM());
-        }.$bind(this));
+            $virtualElement.append(view_instance.getDOM());
+        });
 
         // Append virtual element to actual HTML
         this.$el.find(selector).first().append($virtualElement);
@@ -730,7 +759,7 @@ module.exports = dejavu.Class.declare({
     /**
      * Function: countChildViews
      *
-     * @returns true or false if childview still exists
+     * @returns int - number of childviews
      */
     countChildViews: function () {
         for (var views in this.__childViews) {
@@ -848,75 +877,31 @@ module.exports = dejavu.Class.declare({
     },
 
     /**
-     * Parses the template if one is given.
-     *
-     * @private
-     */
-    __parseTemplate: function () {
-        var handlebarId = this.__loadHandlebars();
-
-        this._template = '#' + handlebarId;
-
-        if (Coco.config.cacheHbs) {
-            if (Coco.Cache.hasCachedHbs(handlebarId)) {
-                this.__tpl = Coco.Cache.getCachedHbs(handlebarId);
-
-                return;
-            }
-
-            this.__tpl = Handlebars.compile($(this._template).html());
-
-            Coco.Cache.cacheHbs(handlebarId, this.__tpl);
-
-            return;
-        }
-
-        this.__tpl = Handlebars.compile($(this._template).html());
-    },
-
-    /**
      * Configures the View based on the given options and sets the defined eventHandlers
      *
      * @private
      */
     __configure: function () {
-        if (this.model !== null) {
-            this.listenTo(this.model, Coco.Event.DESTROY, function () {
-                this.stopListening(this.model);
+        if (this._model !== null) {
+            this.listenTo(this._model, Coco.Event.DESTROY, () => {
+                this.stopListening(this._model);
 
-                this.model = null;
-            }.$bind(this));
+                this._model = null;
+            });
 
             //this works only with 1 model
             if (this._options.syncModelWithForm) {
-                this.$el.on('change', 'select, textarea, input', function (e) {
+                this.$el.on('change', 'select, textarea, input', (e) => {
                     var $ele = $(e.target);
 
-                    if (this.model.has($ele.prop('name'))) {
-                        this.model.set($ele.prop('name'), $ele.val());
+                    if (this._model.has($ele.prop('name'), false)) {
+                        this._model.set($ele.prop('name'), $ele.val());
                     }
-                }.$bind(this));
+                });
             }
         }
 
         this.listenTo(this, Coco.Event.RENDER, this.__renderChildViews);
-
-        this.delegateEvents();
-    },
-
-    /**
-     * Load handlebar file into DOM.
-     *
-     * @param $callback     An optional callback to execute. If no callback is given, the AJAX request will be synchronous.
-     * @return string       Returns the id attribute of the handlebar tag in the DOM without the '#'.
-     * @private
-     */
-    __loadHandlebars: function ($callback) {
-        if (!Coco.HbsLoader.isLoaded(this._template)) {
-            return Coco.HbsLoader.parse(this._template, $callback);
-        }
-
-        return Coco.HbsLoader.getHbsId(Coco.HbsLoader.getFileName(this._template));
     },
 
     /**
@@ -953,8 +938,8 @@ module.exports = dejavu.Class.declare({
             }
         }
 
-        this.eachChildView(function (view) {
-            view.delegateEvents();
+        this.eachChildView((view) => {
+            view.delegateEvents(null);
         });
     },
 
@@ -982,8 +967,8 @@ module.exports = dejavu.Class.declare({
             }
         }
 
-        this.eachChildView(function (view) {
-            view.undelegateEvents();
+        this.eachChildView((view) => {
+            view.undelegateEvents(null);
         });
     },
 

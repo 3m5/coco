@@ -311,6 +311,7 @@ module.exports = Coco.Model = dejavu.Class.declare({
         }
 
         if ($fix == null) {
+            console.log("Coco.Utils.cast ... ???");
             return (this.__attributes.hasOwnProperty($attribute)) ? Coco.Utils.cast(this.__attributes[$attribute], $castTo, $attribute) : null;
         }
 
@@ -450,6 +451,7 @@ module.exports = Coco.Model = dejavu.Class.declare({
      * @return {boolean}    True if the typed is matched, otherwise false.
      */
     is: function (attribute, type) {
+        console.log("Coco.Utils. type");
         if (!this.__attributes.hasOwnProperty(attribute)) {
             return type === Coco.Utils.UNDEFINED;
         }

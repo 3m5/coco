@@ -9,9 +9,9 @@ var Coco = require("../src/js/de/_3m5/Coco.Init.js");
 
 module.exports = dejavu.Class.declare({
     $name: "TestCollection",
-    $extends : Coco.model.Collection,
+    $extends : Coco.Collection,
 
-    _modelClass: Coco.model.Model
+    _modelClass: Coco.Model
 
 
 });

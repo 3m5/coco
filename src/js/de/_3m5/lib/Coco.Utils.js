@@ -1,3 +1,4 @@
+var Coco = Coco || {};
 /**
  * Class: Coco.Utils
  *
@@ -6,7 +7,7 @@
  *
  * @author Johannes Klauss <johannes.klauss@3m5.de>
  */
-module.exports = dejavu.Class.declare({
+Coco.Utils = module.exports = dejavu.Class.declare({
     $name: "Utils",
 
     /**
@@ -15,7 +16,7 @@ module.exports = dejavu.Class.declare({
      *
      * @public
      */
-    $constants: {
+    //$constants: {
         /**
          * Constant: BOOLEAN
          *
@@ -70,15 +71,15 @@ module.exports = dejavu.Class.declare({
          *
          * for undefined casting
          */
-        UNDEFINED: 99
-    },
+        UNDEFINED: 99,
+    //},
 
     $statics: {
         __id: 0
     },
 
-    $finals: {
-        $statics: {
+    //$finals: {
+    //    $statics: {
             /**
              * Function: uniqueId
              *
@@ -97,9 +98,10 @@ module.exports = dejavu.Class.declare({
                     throw new Error("$prefix is not allowed to end with a number in Coco.Utils.uniqueId().");
                 }
 
-                var id = ++this.$static.__id + '';
+                var id = ++Coco.Utils.$static.__id + '';
 
-                return $prefix ? "" + $prefix + id : id;
+                var x = $prefix ? "" + $prefix + id : id;
+                return x;
             },
 
             /**
@@ -115,7 +117,7 @@ module.exports = dejavu.Class.declare({
              * @returns {string|number} - created random id
              */
             randomId: function ($prefix) {
-                var rand = window.btoa(Math.floor(Math.random() * 5000000) + '' + new Date().getTime() + '' + (++this.__id));
+                var rand = window.btoa(Math.floor(Math.random() * 5000000) + '' + new Date().getTime() + '' + (++Coco.Utils.$static.__id));
 
                 return $prefix ? "" + $prefix + rand.substr(0, 32) : rand.substr(0, 32);
             },
@@ -172,7 +174,7 @@ module.exports = dejavu.Class.declare({
                  * returns matched navigator String if any mobile device detected, otherwise null
                  */
                 any: function() {
-                    return (Coco.Utils.isMobile.Android() || Coco.Utils.isMobile.BlackBerry() || Coco.Utils.isMobile.iOS() || Coco.Utils.isMobile.Opera() || Coco.Utils.isMobile.Windows());
+                    return (Coco.Utils.$static.isMobile.Android() || Coco.Utils.$static.isMobile.BlackBerry() || Coco.Utils.$static.isMobile.iOS() || Coco.Utils.$static.isMobile.Opera() || Coco.Utils.$static.isMobile.Windows());
                 }
             },
 
@@ -228,6 +230,8 @@ module.exports = dejavu.Class.declare({
                         return value;
                 }
             }
-        }
-    }
+        //}
+    //}
 });
+
+module.exports = new Coco.Utils();

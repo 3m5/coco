@@ -1,8 +1,9 @@
 var Coco = Coco || {};
-Coco.View = require("./Coco.View.js");
-Coco.Utils = require("../lib/Coco.Utils.js");
-Coco.Model = require("../model/Coco.Model.js");
-Coco.Collection = require("../model/Coco.Collection.js");
+
+Coco.Utils = Coco.Utils || require("../lib/Coco.Utils.js");
+Coco.Model = Coco.Model || require("../model/Coco.Model.js");
+Coco.Collection = Coco.Collection || require("../model/Coco.Collection.js");
+Coco.View = Coco.View || require("./Coco.View.js");
 
 /**
  * Class: Coco.ChildView
@@ -16,7 +17,7 @@ Coco.Collection = require("../model/Coco.Collection.js");
  *
  * @author Johannes Klauss <johannes.klauss@3m5.de>
  */
-module.exports = dejavu.Class.declare({
+module.exports = Coco.ChildView = dejavu.Class.declare({
     $name: 'ChildView',
 
     $extends: Coco.View,
@@ -29,8 +30,9 @@ module.exports = dejavu.Class.declare({
      * @param {string}                      $template               Will override `this._template`
      */
     initialize: function ($model, $syncModelWithForms, $template) {
+        console.log("injectServices........");
         this._injectServices();
-        
+
         //kill service injection
         this._injectServices = null;
 
@@ -39,27 +41,30 @@ module.exports = dejavu.Class.declare({
 
         var modelSet = false;
 
+        console.log("set model: ", $model);
+
         // Set the model if given
         if($model instanceof Coco.Model) {
             modelSet = true;
             this.setModel($model);
         }
 
+        console.log("childvview........");
         // Set the collection if given
-        if ($model instanceof Coco.Collection) {
+        if (!modelSet && $model instanceof Coco.Collection) {
             modelSet = true;
             this.setCollection($model);
         }
 
-        if($model != null && !modelSet) {
-            console.error("Invalid model object! Coco.Model or Coco.Collection expected, given: " + $model);
+        if($model && !modelSet) {
+            console.error("Invalid model object! Coco.Model or Coco.Collection expected, given: ", $model);
         }
 
         // Extend the options
         this._options.syncModelWithForm = (null != $syncModelWithForms) ? $syncModelWithForms : false;
 
         // Set the template
-        this._template = (typeof $template !== 'undefined' && null !== $template) ? $template : this._template;
+        this._template = (typeof $template !== 'undefined' && null != $template) ? $template : this._template;
 
         // Call this._onInitialize before this.$el is set, to prevent any multiple rendering on initialization.
         this._onInitialize();
@@ -72,13 +77,16 @@ module.exports = dejavu.Class.declare({
 
         // Check if template is handlebar template...
         // We don't render anything here. Since it's a child view, the Coco.View.getDom method is called in Coco.View.addChildView, which will cause the rendering.
-        if (Coco.HbsLoader.isHandlebar(this._template)) {
-            this.__parseTemplate();
-        }
-        else if (this._template !== null) {
-            //... or css selector
-            this.__tpl = $(this._template).html();
-        }
+
+        //_tpl is used per default!
+
+        //if (Coco.HbsLoader.isHandlebar(this._template)) {
+        //    this.__parseTemplate();
+        //}
+        //else if (this._template !== null) {
+        //    //... or css selector
+        //    this.__tpl = $(this._template).html();
+        //}
 
         // Omit the this._onFirstRender() call.
     },
