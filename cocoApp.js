@@ -4,7 +4,8 @@
  */
 /** @namespace **/
 
-var Coco = require("../src/js/de/_3m5/Coco.Init.js");
+var Coco = require("3m5-coco");
+
 var TestCollection = require("./testCollection");
 var TestView = require("./testView");
 var TestView2 = require("./testView2");
@@ -43,6 +44,7 @@ var CocoApplication = dejavu.Class.declare({
 $(document).ready(() => {
     new CocoApplication();
 })
+//module.exports = new CocoApplication();
 
 /** @class Coco.config **/
 if(!Coco.config) {
