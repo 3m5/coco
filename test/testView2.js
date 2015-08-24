@@ -39,7 +39,7 @@ module.exports = dejavu.Class.declare({
     __tpl: require("./testTemplate.hbs"),
 
     onActive: function() {
-        console.log("this is no autorendered class, so call it, after onActive was called (by Router)");
+        console.log(this.$name + " is no autorendered class, so call 'this.render()', after onActive was called (by Router)");
         this.loadData();
     },
 

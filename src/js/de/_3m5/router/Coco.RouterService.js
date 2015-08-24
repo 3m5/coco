@@ -523,7 +523,7 @@ Coco.RouterService = dejavu.Class.declare({
      */
     __callRouteView: function (route) {
         if(typeof route.view === 'function') {
-            console.log("callRouteView: ", route);
+            console.debug("callRouteView: ", route);
             if (route.model && route.model instanceof Coco.Model) {
                 route.view = new route.view(route.model);
             } else {

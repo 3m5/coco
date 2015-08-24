@@ -22,7 +22,7 @@ var CocoApplication = dejavu.Class.declare({
         console.log(testModel.getAttributes());
 
         //new TestView(testModel);
-        //testview is autrendered by flag
+        //testview is autorendered by flag
         //testView.render();
 
         new Coco.Router('.routerView', {

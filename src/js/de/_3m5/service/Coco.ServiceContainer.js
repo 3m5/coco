@@ -9,7 +9,7 @@ Coco.Event = Coco.Event|| require("../event/Coco.Event.js");
  * @author Johannes Klauss <johannes.klauss@3m5.de>
  */
 module.exports = Coco.ServiceContainer = dejavu.Class.declare({
-    $name: 'ServiceContainer',
+    $name: 'Coco.ServiceContainer',
     $extends: Coco.Event,
 
     $statics: {
@@ -23,7 +23,7 @@ module.exports = Coco.ServiceContainer = dejavu.Class.declare({
          * @param serviceInstance
          */
         addService: function (serviceInstance) {
-            console.log(this.$name + "addService: ", serviceInstance.$serviceId);
+            console.debug("register service for Coco: ", serviceInstance.$serviceId);
             if(!this.$static.__services.hasOwnProperty(serviceInstance.$serviceId)) {
                 this.$static.__services[serviceInstance.$serviceId] = serviceInstance;
             }
@@ -41,7 +41,6 @@ module.exports = Coco.ServiceContainer = dejavu.Class.declare({
      * @param serviceId
      */
     getService: function (serviceId) {
-        console.debug(this.$name + ".getService " + serviceId + " ", this.$static.__services);
         if(this.$static.__services.hasOwnProperty(serviceId)) {
             return this.$static.__services[serviceId];
         }

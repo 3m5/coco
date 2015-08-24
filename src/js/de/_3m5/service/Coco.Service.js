@@ -2,6 +2,7 @@ var Coco = Coco || {};
 Coco.ServiceProvider = require("./Coco.ServiceProvider.js");
 Coco.ServiceContainer = Coco.ServiceContainer || require("./Coco.ServiceContainer.js");
 Coco.Utils = require("../lib/Coco.Utils.js");
+Coco.StringUtils = Coco.StringUtils || require("../lib/Coco.StringUtils.js");
 
 /**
  * Class: Coco.Service
@@ -25,7 +26,7 @@ module.exports = dejavu.AbstractClass.declare({
      * Variable: $serviceId
      * This will be the name of the service.
      */
-    $serviceId: 'service',
+    $serviceId: '',
 
     /**
      * The internal instance id.
@@ -33,6 +34,9 @@ module.exports = dejavu.AbstractClass.declare({
     __id: Coco.Utils.uniqueId('s'),
 
     initialize: function() {
+        if(Coco.StringUtils.isEmpty(this.$serviceId)) {
+            throw new Error(this.$name + " has no service id!");
+        }
         //inject this service into ServiceContainer
         Coco.ServiceContainer.addService(this);
 

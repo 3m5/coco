@@ -1,5 +1,8 @@
 var Coco = Coco || {};
+
 var Handlebars  = require('handlebars');
+//require non public Coco classes
+require("./service/Coco.ServiceContainer.js");
 require("./helpers/HandlebarsHelpers.js");
 require("./router/Coco.RouterService.js");
 /**
@@ -26,20 +29,18 @@ Coco.SDK = dejavu.Class.declare({
 
     //PACKAGE SERVICE
     Service: require("./service/Coco.Service.js"),
-    ServiceContainer: require("./service/Coco.ServiceContainer.js"),
     ServiceProvider: require("./service/Coco.ServiceProvider.js"),
 
     //PACKAGE ROUTER
     Router: require("./router/Coco.Router.js"),
-    //RouterService: require("./router/Coco.RouterService.js"), no public class!
 
     //REST
     BaseRestService: require("./service/Coco.BaseRestService.js"),
 
     //PACKAGE LIB
     HashMap: require("./lib/Coco.HashMap.js"),
-    HbsLoader: {error: "not needed anymore, hbs files are compiled by handlebars npm-module"},
-    DateHelper: {error: "not needed as well, use momentJS instead"},
+    HbsLoader: {error: "not available anymore, hbs files are compiled by handlebars npm-module"},
+    DateHelper: {error: "not available anymore, use momentJS instead (npm-module)"},
     Math: require("./lib/Coco.Math.js"),
     Utils: require("./lib/Coco.Utils.js"),
     Storage: require("./lib/Coco.Storage.js"),
@@ -77,7 +78,7 @@ Coco.SDK = dejavu.Class.declare({
         }
 
         console.debug("-------------------------------------------");
-        console.debug("Coco.js v" + this.$static.version);
+        console.debug("Coco.js v" + this.$static.version + " initialized.");
         console.debug("Bugreport@ GitHub: https://github.com/3m5/coco/issues");
         console.debug("Handlebars v" + Handlebars.VERSION);
         console.debug("registered Handlebars helpers: ", Handlebars.helpers);

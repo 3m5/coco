@@ -38,7 +38,6 @@ module.exports = dejavu.Class.declare({
     initialize: function (selector, routing, $initialPath) {
         this.$super();
 
-        console.log("Router: ", this.$services.router);
         this.listenTo(this.$services.router, Coco.Event.SHOW_VIEW, this.__onShowView);
         this.listenTo(this.$services.router, Coco.Event.HIDE_VIEW, this.__onHideView);
 
