@@ -243,6 +243,12 @@ module.exports = dejavu.AbstractClass.declare({
             }
         }
 
+        Object.keys(data).forEach((k) => {
+            if (typeof(data[k]) != 'boolean' && !data[k]) {
+                delete data[k];
+            }
+        });
+
         //console.debug("Calling REST service (method: '" + method + "', URL: " + url + ") with data: ", data);
 		$.ajax({
 			url: url,
