@@ -20,7 +20,8 @@ var CocoApplication = dejavu.Class.declare({
         console.log(testModel);
         console.log(testModel.getAttributes());
 
-        var testView = new TestView(testModel);
+        new TestView(testModel);
+        //testview is autrendered by flag
         //testView.render();
     }
 
