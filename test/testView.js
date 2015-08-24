@@ -24,6 +24,8 @@ module.exports = dejavu.Class.declare({
         //"EVENT CSS-Selector": "eventhandler-function"        
     },
 
+    _autoRender: true,
+
     /**
      * Variable: _template
      * Path to a handlebars file (relative to web root) or an CSS selector to an existing DOM element.

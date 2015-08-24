@@ -1,6 +1,6 @@
 /** @namespace **/
 var Coco = Coco || {};
-var Handlebars = Handlebars || require("handlebars");
+//var Handlebars = Handlebars || require("handlebars");
 
 Coco.Event = Coco.Event || require("../event/Coco.Event.js");
 Coco.ServiceProvider = require("../service/Coco.ServiceProvider.js");
@@ -225,6 +225,12 @@ module.exports = Coco.View = dejavu.Class.declare({
     _firstRendered: false,
 
     /**
+     * Variable _autoRender
+     * @protected Flag to render this class after initialization
+     */
+    _autoRender: false,
+
+    /**
      * Ctor.
      *
      * @param {Coco.Model|Coco.Collection}  $model                  Can be a new or existing model.
@@ -252,7 +258,7 @@ module.exports = Coco.View = dejavu.Class.declare({
         }
 
         if ($model != null && !modelSet) {
-            Log.error("Invalid model object! Coco.Model or Coco.Collection expected, given: " + $model);
+            console.error("Invalid model object! Coco.Model or Coco.Collection expected, given: ", $model);
         }
 
         // Extend the options
@@ -277,23 +283,14 @@ module.exports = Coco.View = dejavu.Class.declare({
 
         this.__configure();
 
-        // Check if template is handlebar template ...
-        //no more HbsLoader - we use handlebars by npm
-        /*if (Coco.HbsLoader.isHandlebar(this._template)) {
-            this.__parseTemplate();
-            //this.render();
-        }
-        else if (this._template !== null) {
-            // ... or css selector
-            this.__tpl = Handlebars.compile($(this._template).html());
-        }*/
-        //we have a precompiled template
+        //we only use precompiled templates
         if(this.__tpl != null) {
             //no autorender anymore!
-            //this.render();
-            //this._onFirstRender();
+            if(this._autoRender === true) {
+                this.render();
+            }
         } else {
-            console.warn(this.$name + " no Template set during initilization!");
+            console.warn(this.$name + " has no Template set during initilization!");
         }
     },
 

@@ -5,7 +5,7 @@
 /** @namespace **/
 
 var Coco = require("../src/js/de/_3m5/Coco.Init.js");
-//var TestCollection = require("./testCollection");
+var TestCollection = require("./testCollection");
 var TestView = require("./testView");
 
 var CocoApplication = dejavu.Class.declare({
@@ -14,14 +14,14 @@ var CocoApplication = dejavu.Class.declare({
         console.log("CocoTestApp initialized, look at available Coco-Classes: ", Coco);
 
         var innerModel = new Coco.Model({id:123, label:"innerModel", properts: "myInnerProperty"});
-        //var innerCollection = new TestCollection([{id:1, label:11}, {id:2, label:22}]);
-        var testModel = new Coco.Model({id:12, label:"myLabel", property: innerModel, properties: []});
+        var innerCollection = new TestCollection([{id:1, label:11}, {id:2, label:22}]);
+        var testModel = new Coco.Model({id:12, label:"myLabel", property: innerModel, properties: innerCollection});
 
         console.log(testModel);
         console.log(testModel.getAttributes());
 
         var testView = new TestView(testModel);
-        testView.render();
+        //testView.render();
     }
 
 });

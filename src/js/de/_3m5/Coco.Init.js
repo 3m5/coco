@@ -22,7 +22,7 @@ Coco.SDK = dejavu.Class.declare({
 
     //PACKAGE MODEL
     Model: require("./model/Coco.Model.js"),
-    //Collection: require("./model/Coco.Collection.js"),
+    Collection: require("./model/Coco.Collection.js"),
 
     //PACKAGE SERVICE
     BaseRestService: require("./service/Coco.BaseRestService.js"),
@@ -47,7 +47,7 @@ Coco.SDK = dejavu.Class.declare({
     ////////////////////////////////////////////////////////////
 
     $statics: {
-        version: "0.9.96",
+        version: "0.9.98",
         initialized: false,
         html: false,
         i18n: false
