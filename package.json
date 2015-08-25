@@ -2,9 +2,9 @@
   "name": "3m5-coco",
   "version": "0.0.973",
   "description": "a simple MVC Framework",
-  "main": "src/js/de/_3m5/Coco.Init.js",
+  "main": "lib/js/de/_3m5/Coco.Init.js",
   "scripts": {
-    "compile": "babel -d lib/ src/",
+    "compile": "gulp clean; babel -d lib/ src/",
     "prepublish": "npm run compile",
     "test": "test"
   },
