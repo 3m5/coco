@@ -27,7 +27,7 @@ Coco.SDK = dejavu.Class.declare({
             loaderDelay: 300        // When views are swapped by Router, this time adjusts when the loading class
         },
         restService: {              //restService configuration
-            path: "/rest/",             //restService path
+            path: "rest/",             //restService path
             cacheGet: 600,          //cache time for GET Requests of same url in seconds
             cachePost: null         //cache time for GET Requests of same url in seconds
         }

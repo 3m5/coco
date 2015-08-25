@@ -48,21 +48,12 @@ module.exports = dejavu.AbstractClass.declare({
         CROSSDOMAIN: true
     },
 
-	/**
-	 * Ctor.
-	 */
-    initialize: function () {
+    /**
+     * Ctor.
+     */
+    initialize: function() {
         //call constructor for service registration
         this.$super();
-        if(!Coco.config || !Coco.config.restService) {
-            console.error("Coco.config.restService is not set - could not initialize " + this.$serviceId + " ", Coco.config);
-            return;
-        }
-        this.$super();
-
-        if(Coco.StringUtils.isEmpty(this._restServicePath)) {
-            console.error(this.$name + "._restServicePath not set!");
-        }
         this._onInitialize();
     },
 
@@ -126,17 +117,14 @@ module.exports = dejavu.AbstractClass.declare({
 	 * @param {string} endpoint the REST endpoint
 	 */
 	_buildEndpointURL : function(endpoint, pathParameter) {
-        if(Coco.StringUtils.isEmpty(this._restServicePath)) {
-            console.error(this.$name + "._restServicePath not set!");
-            return;
+        if (Coco.StringUtils.isEmpty(this._restServicePath)) {
+            throw new Error(this.$serviceId + "._restServicePath not set!");
         }
-        if(Coco.StringUtils.isEmpty(Coco.config.baseUrl)) {
-            console.error("Coco.config.baseUrl  not set!");
-            return;
+        if (Coco.StringUtils.isEmpty(Coco.config.baseUrl)) {
+            throw new Error("Coco.config.baseUrl  not set! ", Coco.config);
         }
-        if(Coco.StringUtils.isEmpty(Coco.config.restService.path)) {
-            console.error("Coco.config.restService.path not set!");
-            return;
+        if (!Coco.config.restService || Coco.StringUtils.isEmpty(Coco.config.restService.path)) {
+            throw new Error("Coco.config.restService.path not set! ", Coco.config);
         }
         if(endpoint == null) {
             endpoint = "";
