@@ -4,6 +4,8 @@
   "description": "a simple MVC Framework",
   "main": "src/js/de/_3m5/Coco.Init.js",
   "scripts": {
+    "compile": "babel -d lib/ src/",
+    "prepublish": "npm run compile",
     "test": "test"
   },
   "repository": {

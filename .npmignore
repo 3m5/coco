@@ -7,5 +7,5 @@ npm-debug.log
 .gitignore
 build
 node_modules
-src/html
+src
 test
