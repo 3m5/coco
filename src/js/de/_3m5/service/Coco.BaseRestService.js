@@ -52,8 +52,10 @@ module.exports = dejavu.AbstractClass.declare({
 	 * Ctor.
 	 */
     initialize: function () {
-        if(!Coco.config.restService) {
-            console.error("Coco.config.restService is not set - could not initialize " + this.$serviceId);
+        //call constructor for service registration
+        this.$super();
+        if(!Coco.config || !Coco.config.restService) {
+            console.error("Coco.config.restService is not set - could not initialize " + this.$serviceId + " ", Coco.config);
             return;
         }
         this.$super();

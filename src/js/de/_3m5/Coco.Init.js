@@ -20,6 +20,19 @@ Coco.SDK = dejavu.Class.declare({
     $name: "Coco.Init",
 
     ////////////////////////////////////////////////////////////
+    //////// CONFIGURATION
+    config: {
+        baseUrl: "/",              //server context path
+        router: {
+            loaderDelay: 300        // When views are swapped by Router, this time adjusts when the loading class
+        },
+        restService: {              //restService configuration
+            path: "/rest/",             //restService path
+            cacheGet: 600,          //cache time for GET Requests of same url in seconds
+            cachePost: null         //cache time for GET Requests of same url in seconds
+        }
+    },
+
     //////// CLASS DEFINITIONS
     Event: require("./event/Coco.Event.js"),
 
@@ -54,14 +67,14 @@ Coco.SDK = dejavu.Class.declare({
     ////////////////////////////////////////////////////////////
 
     $statics: {
-        version: "0.9.975",
+        version: "0.9.976",
         initialized: false,
         html: false,
         i18n: false
     },
 
     testFunction() {
-        console.log("call test function.... hallo erik");
+        console.log("call ES6 test function...");
     },
 
     initialize: function () {

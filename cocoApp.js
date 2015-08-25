@@ -43,21 +43,16 @@ var CocoApplication = dejavu.Class.declare({
 
 $(document).ready(() => {
     new CocoApplication();
-})
-//module.exports = new CocoApplication();
+});
 
-/** @class Coco.config **/
-if(!Coco.config) {
-    Coco.config = {
-        cacheHbs: true,             // If set to true, handlebar files will be cached, which increases the performance of View and ChildView creation.
-        baseUrl: "baseURL",              //server context path
-        router: {
-            loaderDelay: 300        // When views are swapped by Router, this time adjusts when the loading class
-        },
-        restService: {              //restService configuration
-            path: null,             //restService path
-            cacheGet: 600,          //cache time for GET Requests of same url in seconds
-            cachePost: null         //cache time for GET Requests of same url in seconds
-        }
-    };
-}
+Coco.config = {
+    baseUrl: "baseURL",              //server context path
+    router: {
+        loaderDelay: 300        // When views are swapped by Router, this time adjusts when the loading class
+    },
+    restService: {              //restService configuration
+        path: null,             //restService path
+        cacheGet: 600,          //cache time for GET Requests of same url in seconds
+        cachePost: null         //cache time for GET Requests of same url in seconds
+    }
+};
