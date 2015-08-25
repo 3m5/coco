@@ -1,6 +1,5 @@
 /** @namespace **/
 var Coco = Coco || {};
-//var Handlebars = Handlebars || require("handlebars");
 
 Coco.Event = Coco.Event || require("../event/Coco.Event.js");
 Coco.ServiceProvider = require("../service/Coco.ServiceProvider.js");
@@ -155,16 +154,6 @@ module.exports = Coco.View = dejavu.Class.declare({
     _anchor: '<div></div>',
 
     /**
-     * Variable: _template
-     * Path to a handlebars file (relative to web root) or an CSS selector to an existing DOM element.
-     * If a path is given, Coco will set it to the id of the script tag, after the file has been loaded.
-     *
-     * @protected
-     * @type string|Function
-     */
-    _template: null,
-
-    /**
      * Variable: _events
      * Developer defined jQuery events.
      *
@@ -234,9 +223,8 @@ module.exports = Coco.View = dejavu.Class.declare({
      *
      * @param {Coco.Model|Coco.Collection}  $model                  Can be a new or existing model.
      * @param {Object}                      $syncModelWithForms     Override default options of view (optional).
-     * @param {string}                      $template               Will override `this._template`
      */
-    initialize: function ($model, $syncModelWithForms, $template) {
+    initialize: function ($model, $syncModelWithForms) {
         this.$super();
 
         // Assign new id to the view object
@@ -262,9 +250,6 @@ module.exports = Coco.View = dejavu.Class.declare({
 
         // Extend the options
         this._options.syncModelWithForm = (null != $syncModelWithForms) ? $syncModelWithForms : false;
-
-        // Set the template
-        this._template = ($template != null) ? $template : this._template;
 
         // Call this._onInitialize before this.$el is set, to prevent any multiple rendering on initialization.
         this._onInitialize();
@@ -458,7 +443,7 @@ module.exports = Coco.View = dejavu.Class.declare({
      * @return Coco.View - The current <Coco.View> instance.
      */
     render: function () {
-        if (this.__tpl === null && this._template === null) {
+        if (this.__tpl === null) {
             console.error("Could not render Coco.View [" + this.$name + "], no template found! ", this.__tpl);
             return this;
         }

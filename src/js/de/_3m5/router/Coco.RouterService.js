@@ -2,7 +2,7 @@ var Coco = Coco || {};
 Coco.Service = Coco.Service || require("../service/Coco.Service.js");
 Coco.Event = Coco.Event || require("../event/Coco.Event.js");
 Coco.Model = Coco.Model || require("../model/Coco.Model.js");
-var Handlebars = require("handlebars");
+var Handlebars = require("handlebars/runtime");
 /**
  * Class: Coco.RouterService
  *

@@ -3,7 +3,7 @@
  * created at 14.01.14
  */
 
-var Handlebars  = require('handlebars');
+var Handlebars  = require('handlebars/runtime');
 
 Handlebars.registerHelper('ifNot', function (v1, options) {
     if (!v1) {

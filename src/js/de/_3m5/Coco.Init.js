@@ -1,6 +1,6 @@
 var Coco = Coco || {};
 
-var Handlebars  = require('handlebars');
+var Handlebars  = require('handlebars/runtime');
 //require non public Coco classes
 require("./service/Coco.ServiceContainer.js");
 require("./helpers/HandlebarsHelpers.js");
