@@ -53,7 +53,7 @@ gulp.task('html', function() {
 
 // clean up target folder
 gulp.task('clean', function() {
-    return gulp.src(["build/*"], {read: false})
+    return gulp.src(["build/*", "lib/*"], {read: false})
         .pipe(clean());
 });
 
