@@ -44,7 +44,8 @@ gulp.task('test', function() {
 // copy local index file to build folder
 gulp.task('vendor', function() {
     return gulp.src(['./src/js/core/**'])
-        .pipe(gulp.dest('./build/js/vendor'));
+        .pipe(gulp.dest('./build/js/vendor'))
+        .pipe(gulp.dest('./lib/vendor'));
 });
 
 // copy local index file to build folder
@@ -74,7 +75,7 @@ gulp.task('serve', function () {
 });
 
 gulp.task('compile', function() {
-    runsSequence(['clean'], ['babel']);
+    runsSequence(['clean'], ['babel', 'vendor']);
 });
 
 gulp.task('babel', function() {
