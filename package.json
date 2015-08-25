@@ -2,9 +2,9 @@
   "name": "3m5-coco",
   "version": "0.0.973",
   "description": "a simple MVC Framework",
-  "main": "lib/js/de/_3m5/Coco.Init.js",
+  "main": "lib/Coco.Init.js",
   "scripts": {
-    "compile": "gulp clean; babel -d lib/ src/",
+    "compile": "gulp compile",
     "prepublish": "npm run compile",
     "test": "test"
   },
@@ -47,6 +47,7 @@
     "domain": "0.0.1",
     "es6ify": "^1.6.0",
     "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.5.2",
     "gulp-streamify": "0.0.5",
@@ -54,7 +55,8 @@
     "gulp-util": "^3.0.4",
     "handlebars": "^3.0.2",
     "hbsfy": "^2.2.1",
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "run-sequence": "^1.1.2"
   },
   "license": "ISC",
   "bugs": {

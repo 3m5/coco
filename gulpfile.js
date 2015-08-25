@@ -1,11 +1,13 @@
 var gulp         = require('gulp'),
     browserify   = require('browserify'),
+    babel        = require('gulp-babel'),
     clean        = require('gulp-clean'),
     domain       = require('domain'),
     tap          = require('gulp-tap'),
     streamify    = require('gulp-streamify'),
     concat       = require('gulp-concat'),
     server       = require('gulp-webserver'),
+    runsSequence = require('run-sequence'),
     gutil        = require('gulp-util');
 
 
@@ -70,6 +72,17 @@ gulp.task('serve', function () {
         }));
     return gulp.watch(['src/**', 'test/**'], ['test', 'html', 'vendor']);
 });
+
+gulp.task('compile', function() {
+    runsSequence(['clean'], ['babel']);
+});
+
+gulp.task('babel', function() {
+    return gulp.src('src/js/de/_3m5/**/*.js')
+        .pipe(babel())
+        .pipe(gulp.dest('lib/'));
+});
+
 
 // The default task (called when you run `gulp` from cli)
 gulp.task('default', ['serve']);
