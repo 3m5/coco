@@ -18,7 +18,7 @@ npm install 3m5-coco
 
 to install...
 
-## Sample `cocoApp.js`
+## Sample `application.js`
 
 This file will give you a taste of how to use Coco.JS
 
