@@ -1,5 +1,7 @@
 # Coco changelog
 
+## 0.0.981
+
 ## 0.0.980
 
 - Bugfix: fixed illegal call of service injection in Coco.ChildView
