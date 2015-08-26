@@ -470,13 +470,13 @@ module.exports = Coco.View = dejavu.Class.declare({
             //use delayed callback, to let the DOM get rendered
             setTimeout(() => {
                 this._onFirstRender();
-            }, 1)
+            });
         }
         this.delegateEvents();
         setTimeout(() => {
             this.trigger(Coco.Event.RENDER);
             this.trigger(Coco.Event.RENDER + this.$name);
-        },1);
+        });
     },
 
     /**
@@ -502,6 +502,7 @@ module.exports = Coco.View = dejavu.Class.declare({
         clearTimeout(window.loading_timeout);
         setTimeout(() => {
             if (this._getRouter() && this._getRouter().$container) {
+                //TODO test & reactivate this...
                 //this._getRouter().$container.removeClass('loading application-loading');
             }
         }, 10);

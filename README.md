@@ -90,5 +90,8 @@ Coco.config = {
 };
 ```
 
+## License
+
+Coco is under <a href="http://opensource.org/licenses/ISC" target="ISC">ISC-License</a>
 
 [npm-url]: https://www.npmjs.com/package/3m5-coco
