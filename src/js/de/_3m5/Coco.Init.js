@@ -59,9 +59,16 @@ Coco.SDK = dejavu.Class.declare({
     Storage: require("./lib/Coco.Storage.js"),
     StringUtils: require("./lib/Coco.StringUtils.js"),
 
-    //PACKAGE MODEL
+    //PACKAGE VIEW
     View: require("./view/Coco.View.js"),
     ChildView: require("./view/Coco.ChildView.js"),
+
+    //PLUGINS
+    Plugins: {
+        i18n: {
+            Translator: require("./plugins/i18n/Coco.Translator.js")
+        }
+    },
 
     //////// CLASS DEFINITIONS END
     ////////////////////////////////////////////////////////////
