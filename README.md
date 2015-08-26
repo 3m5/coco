@@ -2,9 +2,6 @@
 **a simple JavaScript MVC Framework**
 **developed by <a href="http://www.3m5.de">3m5. Media GmbH</a>**
 
-[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url]
-[![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url]
-
 ## What is 3m5-coco?
 
 +based on dejavu class model
@@ -26,3 +23,4 @@
 This file will give you a taste of how to use Coco.JS
 
 
+[npm-url]: https://www.npmjs.com/package/3m5-coco
