@@ -2,6 +2,7 @@ var Coco = Coco || {};
 Coco.ServiceProvider = Coco.ServiceProvider || require("../service/Coco.ServiceProvider.js");
 Coco.Utils = Coco.Utils || require("../lib/Coco.Utils.js");
 Coco.Collection = Coco.Collection || require("./Coco.Collection.js");
+Coco.Event = require("../event/Coco.Event.js");
 /**
  * Class: Coco.Model
  *
