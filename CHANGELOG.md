@@ -2,6 +2,8 @@
 
 ## 0.0.981
 
+- Change: trigger RENDER-Events & _onFirstRender in Coco.View delayed to get the DOM really rendered
+
 ## 0.0.980
 
 - Bugfix: fixed illegal call of service injection in Coco.ChildView
