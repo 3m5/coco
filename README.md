@@ -8,12 +8,17 @@
 ## What is 3m5-coco?
 
 +based on dejavu class model
+
 +use handlebars template engine
+
 +use jQuery for DOM-manipulation
+
 +use ES6 standard - precompiled by babel
 
 +this framework is a npm module, use
+
 +npm install 3m5-coco
+
 +to install...
 
 ## Sample `cocoApp.js`
