@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="[npm-url]">
+    <img height="192" width="192" src="https://www.3m5.de/fileadmin/coco/COCO.png">
+  </a>
+</p>
+
 # 3m5-coco
 **a simple JavaScript MVC Framework**
 **developed by <a href="http://www.3m5.de">3m5. Media GmbH</a>**
