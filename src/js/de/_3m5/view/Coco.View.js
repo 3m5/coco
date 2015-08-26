@@ -265,7 +265,7 @@ module.exports = Coco.View = dejavu.Class.declare({
         }
         this.$el.attr('data-coco', this.__id);
 
-        this.__configure();
+        this._configure();
 
         //we only use precompiled templates
         if(this.__tpl != null) {
@@ -616,8 +616,8 @@ module.exports = Coco.View = dejavu.Class.declare({
      * @returns {Coco.ChildView}
      */
     addChildView: function (selector, view, $strategy, $addToAllMatching) {
-        if (!(view instanceof Coco.ChildView)) {
-            throw new Error("View '" + view.$name + "' is not a instance of Coco.ChildView. To add the view as a child view extend from Coco.ChildView rather than from Coco.View");
+        if (!(view instanceof Coco.View)) {
+            throw new Error("View '" + view.$name + "' is not a instance of Coco.View. To add the view as a child view extend from Coco.ChildView rather than from Coco.View");
         }
 
         if (!this.__childViews.hasOwnProperty(selector)) {
@@ -875,7 +875,7 @@ module.exports = Coco.View = dejavu.Class.declare({
      *
      * @private
      */
-    __configure: function () {
+    _configure: function () {
         if (this._model !== null) {
             this.listenTo(this._model, Coco.Event.DESTROY, () => {
                 this.stopListening(this._model);

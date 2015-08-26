@@ -31,10 +31,18 @@ module.exports = dejavu.AbstractClass.declare({
     $services: {},
 
     initialize: function () {
-        this.__injectServices();
+        this._injectServices();
+    },
 
+    _injectServices: function() {
+        if(this.__injectServices != null) {
+            this.__injectServices();
+        } else {
+            console.warn("Services already injected, do not call this._injectServices twice!");
+            return;
+        }
         // Protect the ServiceContainer
-        this.__injectServices = null;
+        delete this.__injectServices;
     },
 
     /**

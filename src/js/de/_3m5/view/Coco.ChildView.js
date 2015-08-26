@@ -41,15 +41,12 @@ module.exports = Coco.ChildView = dejavu.Class.declare({
 
         var modelSet = false;
 
-        console.log("set model: ", $model);
-
         // Set the model if given
         if($model instanceof Coco.Model) {
             modelSet = true;
             this.setModel($model);
         }
 
-        console.log("childvview........");
         // Set the collection if given
         if (!modelSet && $model instanceof Coco.Collection) {
             modelSet = true;
@@ -73,22 +70,7 @@ module.exports = Coco.ChildView = dejavu.Class.declare({
         this.$el = $(this._anchor);
         this.$el.attr('data-coco', this.__id);
 
-        this.__configure();
-
-        // Check if template is handlebar template...
-        // We don't render anything here. Since it's a child view, the Coco.View.getDom method is called in Coco.View.addChildView, which will cause the rendering.
-
-        //_tpl is used per default!
-
-        //if (Coco.HbsLoader.isHandlebar(this._template)) {
-        //    this.__parseTemplate();
-        //}
-        //else if (this._template !== null) {
-        //    //... or css selector
-        //    this.__tpl = $(this._template).html();
-        //}
-
-        // Omit the this._onFirstRender() call.
+        this._configure();
     },
 
     /**
