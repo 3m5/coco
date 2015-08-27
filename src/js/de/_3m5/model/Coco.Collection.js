@@ -101,7 +101,8 @@ module.exports = dejavu.Class.declare({
             // If attribute is a model store it, otherwise create a new model and set it's attributes.
             model = (!(attributes[i] instanceof this._modelClass)) ? new this._modelClass(attributes[i]) : attributes[i];
 
-            this.listenTo(model, Coco.Event.DESTROY, this.__onModelDestroy);
+            //TODO check this
+            model.addEventListener(Coco.Event.DESTROY, this.__onModelDestroy, true);
             this._models.push(model);
             this.trigger(Coco.Event.ADD, model, this);
         }

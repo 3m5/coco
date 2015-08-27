@@ -35,6 +35,7 @@ Coco.SDK = dejavu.Class.declare({
 
     //////// CLASS DEFINITIONS
     Event: require("./event/Coco.Event.js"),
+    EventDispatcher: require("./event/Coco.EventDispatcher.js"),
 
     //PACKAGE MODEL
     Model: require("./model/Coco.Model.js"),
@@ -75,9 +76,7 @@ Coco.SDK = dejavu.Class.declare({
 
     $statics: {
         version: "0.0.981",
-        initialized: false,
-        html: false,
-        i18n: false
+        initialized: false
     },
 
     testFunction() {
@@ -104,19 +103,8 @@ Coco.SDK = dejavu.Class.declare({
         console.debug("registered Handlebars helpers: ", Handlebars.helpers);
         console.debug("jQuery v" + $().jquery);
 
-        if (Coco.Plugins != null) {
-            if (Coco.Plugins.html != null) {
-                console.debug("Detected Coco.Plugins.html");
-
-                Coco.Init.html = true;
-            }
-            if (Coco.Plugins.i18n != null) {
-                console.debug("Detected Coco.Plugins.i18n");
-
-                this.$statics.i18n = true;
-            }
-        } else {
-            console.debug("No Coco.Plugins detected.");
+        if (this.Plugins != null) {
+            console.debug("Detected Coco.Plugins: ", this.Plugins);
         }
 
         console.debug("-------------------------------------------");

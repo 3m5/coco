@@ -1,6 +1,6 @@
 var Coco = Coco || {};
-Coco.Event = Coco.Event || require("../event/Coco.Event.js");
-Coco.ServiceContainer = Coco.ServiceContainer || require("./Coco.ServiceContainer.js");
+Coco.Event = require("../event/Coco.Event.js");
+Coco.ServiceContainer = require("./Coco.ServiceContainer.js");
 
 /**
  * Class: Coco.ServiceProvider
