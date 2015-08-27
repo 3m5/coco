@@ -16,13 +16,11 @@
 
 +use jQuery for DOM-manipulation
 
-+use ES6 standard - precompiled by babel
++use ES6 standard - transpiled by babel --> ES5 standard published to npm
 
 this framework is a <a href="https://www.npmjs.com/package/3m5-coco" target="npm">npm module</a>, use
 
 npm install 3m5-coco
-
-to install...
 
 ## Sample `application.js`
 

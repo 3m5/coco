@@ -34,7 +34,7 @@ module.exports = dejavu.Class.declare({
      *
      * @protected
      */
-    __tpl: require("./testTemplate.hbs"),
+    _template: require("./testTemplate.hbs"),
 
     /**
      * Constructor

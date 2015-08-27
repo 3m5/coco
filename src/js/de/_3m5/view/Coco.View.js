@@ -268,7 +268,7 @@ module.exports = Coco.View = dejavu.Class.declare({
         this._configure();
 
         //we only use precompiled templates
-        if(this.__template != null) {
+        if(this._template != null) {
             //no autorender anymore!
             if(this._autoRender === true && this._getRouter() == null) {
                 //only autoRender here, if no router is used!
@@ -443,13 +443,12 @@ module.exports = Coco.View = dejavu.Class.declare({
      * @return Coco.View - The current <Coco.View> instance.
      */
     render: function () {
-        if (this.__template === null) {
-            throw new Error("Could not render Coco.View [" + this.$name + "], no template found! ", this.__template);
+        if (this._template === null) {
+            throw new Error("Could not render Coco.View [" + this.$name + "], no template found! ", this._template);
         }
 
         //we use require now, so hbs templates are precompiled, just add the model here
-        //var html = (typeof this.__template === 'function') ? this.__template(this._getHBSModel()) : this.__template;
-        var html = this.__template(this._getHBSModel());
+        var html = this._template(this._getHBSModel());
 
         this.$('> :first-child').detach();
         this.$el.empty().append(html);

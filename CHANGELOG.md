@@ -1,8 +1,9 @@
 # Coco changelog
 
-## 0.0.981
+## 0.0.981 (unpublished)
 
 - Change: trigger RENDER-Events & _onFirstRender in Coco.View delayed to get the DOM really rendered
+- Change: replaced __tpl by _template in Coco.View
 
 ## 0.0.980
 
