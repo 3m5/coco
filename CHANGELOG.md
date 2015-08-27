@@ -1,6 +1,10 @@
 # Coco changelog
 
-## 0.0.981 (unpublished)
+## 0.1.0
+
+- Change: use Coco.EventDispatcher instead of Coco.Event for Event-Handling
+
+## 0.0.981
 
 - Change: trigger RENDER-Events & _onFirstRender in Coco.View delayed to get the DOM really rendered
 - Change: replaced __tpl by _template in Coco.View
