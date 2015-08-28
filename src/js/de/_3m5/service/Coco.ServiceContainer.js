@@ -10,7 +10,7 @@ Coco.Event = Coco.Event|| require("../event/Coco.Event.js");
  */
 module.exports = Coco.ServiceContainer = dejavu.Class.declare({
     $name: 'Coco.ServiceContainer',
-    $extends: Coco.Event,
+    $extends: Coco.EventDispatcher,
 
     $statics: {
         __services: {},
