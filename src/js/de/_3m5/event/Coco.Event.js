@@ -21,6 +21,7 @@ module.exports = dejavu.Class.declare({
      */
     type: null,
 
+    //available types are:
     $constants: {
         /**
          * Event: INITIALIZED
@@ -114,30 +115,6 @@ module.exports = dejavu.Class.declare({
     },
 
     /**
-     * The saved listeners.
-     */
-    __listeners: {},
-
-    /**
-     * All contexts the instance is listen to.
-     */
-    __ctx: [],
-
-    $abstracts: {
-        /**
-         * Function: {abstract} getId()
-         *
-         * returns unique identifier for inheritance, it's needed to get unique event context
-         *
-         * If you inherit from Coco.Event you always have to implement this function.
-         *
-         * @returns: {String} uid
-         */
-        getId: function () {
-        }
-    },
-
-    /**
      * Ctor.
      */
     initialize: function (type) {
@@ -161,36 +138,7 @@ module.exports = dejavu.Class.declare({
      */
     listenTo: function (context, event, callback) {
         console.warn(this.$name + ".listenTo is deprecated! Use Coco.EventDispatcher.addEventListener(eventType, listener, $once) instead...");
-        context.addEventListener(event, callback);
-        return;
-
-        if (callback == null) {
-            throw new Error("The given callback does not exist in " + this.$name + ".");
-        }
-
-        if (context == null) {
-            throw new Error("Tried to attach a listener in " + this.$name + " for the Event " + event + ". But the context is null.");
-        }
-
-        if (typeof context.__listeners[event] === "undefined") {
-            context.__listeners[event] = [];
-        }
-
-        var handle = Coco.Utils.uniqueId('e');
-
-        context.__listeners[event].push({
-            callback: callback.$bind(this),
-            keep: true,
-            ctx: this.getId(),
-            handle: handle
-        });
-
-        this.__ctx.push({
-            __listeners: context.__listeners,
-            id: context.getId()
-        });
-
-        return handle;
+        return context.addEventListener(event, callback);
     },
 
     /**
@@ -223,14 +171,8 @@ module.exports = dejavu.Class.declare({
      * @param {Function}    callback   - The callback
      */
     once: function (context, event, callback) {
-        if (typeof context.__listeners[event] === "undefined") {
-            context.__listeners[event] = [];
-        }
-
-        context.__listeners[event].push({
-            callback: callback.$bind(this),
-            keep: false
-        });
+        console.warn(this.$name + ".once is deprecated! Use Coco.EventDispatcher.addEventListener(eventType, listener, $once) instead...");
+        return context.addEventListener(event, callback, true);
     },
 
     /**
@@ -248,83 +190,7 @@ module.exports = dejavu.Class.declare({
      * @param {string}      $handle     - {optional} The handle for a specific callback that should be detached.
      */
     stopListening: function ($context, $event, $handle) {
-        var sum = 0,
-            event = null,
-            i = 0;
-
-        if ($context != null) {
-            sum += 3;
-        }
-
-        if ($event != null) {
-            sum += 5;
-        }
-
-        if ($handle != null) {
-            sum += 7;
-        }
-
-        switch (sum) {
-            case 0:
-                // No parameters given
-                for (i = 0; i < this.__ctx.length; i++) {
-                    var ctxListeners = this.__ctx[i].__listeners;
-
-                    for (var e in ctxListeners) {
-                        if (ctxListeners.hasOwnProperty(e)) {
-                            for (var j = 0; j < ctxListeners[e].length; j++) {
-                                if (ctxListeners[e][j].ctx === this.getId()) {
-                                    this.__ctx[i].__listeners[e].splice(j, 1);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                break;
-
-            case 3:
-                // $context are given
-                for (i = 0; i < this.__ctx.length; i++) {
-                    ctxListeners = this.__ctx[i].__listeners;
-
-                    if (this.__ctx[i].id !== $context.getId()) {
-                        continue;
-                    }
-
-                    for (e in ctxListeners) {
-                        if (ctxListeners.hasOwnProperty(e)) {
-                            for (j = 0; j < ctxListeners[e].length; j++) {
-                                if (ctxListeners[e][j].ctx === this.getId()) {
-                                    this.__ctx[i].__listeners[e].splice(j, 1);
-                                }
-                            }
-                        }
-                    }
-                }
-
-                break;
-
-            case 8:
-                // $context and $event are given
-                $context.__listeners[$event] = [];
-
-                break;
-
-            case 15:
-                // $context, $event and $handle are given
-                var l = $context.__listeners[$event];
-
-                for(i = 0; i < l.length; i++) {
-                    if(l[i].handle === $handle) {
-                        l.splice(i, 1);
-
-                        break;
-                    }
-                }
-
-                break;
-        }
+        console.warn(this.$name + ".stopListening is deprecated! By use of Coco.EventDispatcher.addEventListener(eventType, listener, $once) no stopListening here is needed anymore");
     },
 
     /**
@@ -364,97 +230,6 @@ module.exports = dejavu.Class.declare({
         this._dispatchEvent(event);
 
         return;
-
-        var cbObject = (this.__listeners[event]) ? this.__listeners[event].slice(0) : null,
-            i = -1,
-            l = (this.__listeners[event]) ? this.__listeners[event].length : 0,
-            a1 = arguments[0],
-            a2 = arguments[1],
-            a3 = arguments[2],
-            a4 = arguments[3],
-            a5 = arguments[4];
-
-        switch (arguments.length) {
-            case 0:
-                while (++i < l) {
-                    cbObject[i].callback.call();
-
-                    this.__checkForRemove(event, i);
-                }
-                break;
-            case 1:
-                while (++i < l) {
-                    cbObject[i].callback.call(a1);
-
-                    this.__checkForRemove(event, i);
-                }
-                break;
-            case 2:
-                while (++i < l) {
-                    cbObject[i].callback.call(a1, a2);
-
-                    this.__checkForRemove(event, i);
-                }
-                break;
-            case 3:
-                while (++i < l) {
-                    cbObject[i].callback.call(a1, a2, a3);
-
-                    this.__checkForRemove(event, i);
-                }
-                break;
-            case 4:
-                while (++i < l) {
-                    cbObject[i].callback.call(a1, a2, a3, a4);
-
-                    this.__checkForRemove(event, i);
-                }
-                break;
-            case 5:
-                while (++i < l) {
-                    cbObject[i].callback.call(a1, a2, a3, a4, a5);
-
-                    this.__checkForRemove(event, i);
-                }
-                break;
-            default:
-                while (++i < l) {
-                    cbObject[i].callback.call(arguments);
-
-                    this.__checkForRemove(event, i);
-                }
-        }
-
-        this.__removeOnceListeners(event);
-    },
-
-    /**
-     * If callback is a one time listener mark it so we can delete it at the end of the trigger function.
-     *
-     * @param {number|string}   event   The event
-     * @param {number}          i       The listener.
-     * @private
-     */
-    __checkForRemove: function (event, i) {
-        if (this.__listeners && this.__listeners[event] && this.__listeners[event][i] && !this.__listeners[event][i].keep) {
-            this.__listeners[event][i].doDelete = true;
-        }
-    },
-
-    /**
-     * Actually remove the one time listeners.
-     *
-     * @param {number|string}   event
-     * @private
-     */
-    __removeOnceListeners: function (event) {
-        if(this.__listeners[event]) {
-            for(var i = this.__listeners[event].length - 1; i >= 0; i--) {
-                if(this.__listeners[event][i].doDelete) {
-                    this.__listeners[event].splice(i, 1);
-                }
-            }
-        }
     },
 
     /**

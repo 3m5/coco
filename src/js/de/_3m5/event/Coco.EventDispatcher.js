@@ -15,6 +15,20 @@ module.exports = dejavu.Class.declare({
      */
     __listeners: {},
 
+    $abstracts: {
+        /**
+         * Function: {abstract} getId()
+         *
+         * returns unique identifier for inheritance, it's needed to get unique event context
+         *
+         * If you inherit from Coco.Event you always have to implement this function.
+         *
+         * @returns: {String} uid
+         */
+        getId: function () {
+        }
+    },
+
     /**
      * Ctor.
      */
