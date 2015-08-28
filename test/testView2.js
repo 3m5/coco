@@ -43,6 +43,16 @@ module.exports = dejavu.Class.declare({
         this.loadData();
     },
 
+    _onInitialize() {
+        this.addEventListener(Coco.Event.RENDER, () => {
+            this._onRender();
+        }, true);
+    },
+
+    _onRender(event) {
+        console.log(this.$name + ".onRender ", event);
+    },
+
     loadData: function() {
         setTimeout(() => {
             this.render();
@@ -53,15 +63,7 @@ module.exports = dejavu.Class.declare({
      * Constructor
      */
     _onFirstRender: function () {
-        console.error(this.$name + " rendered");
-    },
-
-    /**
-     * Override Coco.View function render, to do sth before or after that, e.g. return the rendered content
-     */
-    render: function () {
-        console.log(this.$name + ".render...");
-        this.$super();
+        console.error(this.$name + " rendered 1st time");
     },
 
     /**

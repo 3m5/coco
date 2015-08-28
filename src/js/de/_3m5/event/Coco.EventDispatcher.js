@@ -1,16 +1,14 @@
 var Coco = Coco || {};
 /**
- * Package: Plugins.html
- *
- * Class: Coco.Plugins.event.EventDispatcher
+ * Class: Coco.EventDispatcher
  *
  * Description:
  * Event dispatcher class for dispatching events to all java script classes.
  *
- * (c) 2014 3m5. Media GmbH
+ * (c) 2015 3m5. Media GmbH
  */
 module.exports = dejavu.Class.declare({
-    $name: "EventDispatcher",
+    $name: "Coco.EventDispatcher",
 
     /**
      * Private map of listeners.
@@ -194,7 +192,7 @@ module.exports = dejavu.Class.declare({
      * Dispatches an event to all event listeners. If there are no event listeners nothing happens.
      *
      * Parameter:
-     * @param {Coco.Plugins.event.Event|string}      event  - The event type to dispatch. You can supply a string as shortcut when you don't want to pass any parameters to the event listener.
+     * @param {Coco.Event}      event  - The event type to dispatch. You can supply a string as shortcut when you don't want to pass any parameters to the event listener.
      */
     _dispatchEvent : function(event) {
         if (event == null) {
@@ -204,13 +202,14 @@ module.exports = dejavu.Class.declare({
         // get event type
         var eventType = null;
         var hasEventParam = false;
+        //console.warn("check eventType: ", event);
         if (typeof event === 'string') {
             eventType = event;
-        //} else if (event instanceof Coco.Plugins.event.Event) {
-        //    eventType = event.type;
-        //    hasEventParam = true;
+        } else if (event instanceof require("./Coco.Event.js")) {
+            eventType = event.type;
+            hasEventParam = true;
         } else {
-            throw new Error("Unknown event parameter in " + this.$name + "._dispatchEvent. Must be string or Coco.Plugins.event.Event!");
+            throw new Error("Unknown event parameter in " + this.$name + "._dispatchEvent. Must be typeof string!");
         }
 
         // check if we have event listeners
@@ -223,7 +222,6 @@ module.exports = dejavu.Class.declare({
         // iterate over all event listeners
         var i = -1;
         while (++i < listeners.length) {
-            console.log("while listenersss " + i + " ", listeners);
             if(listeners[i].listener == null) {
                 console.warn("invalid eventlistener registered: ", listeners[i]);
                 continue;

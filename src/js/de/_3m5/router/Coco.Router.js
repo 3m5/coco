@@ -38,11 +38,8 @@ module.exports = dejavu.Class.declare({
     initialize: function (selector, routing, $initialPath) {
         this.$super();
 
-        this._getService("router").addEventListener(Coco.Event.SHOW_VIEW, this.__onShowView);
-        this._getService("router").addEventListener(Coco.Event.HIDE_VIEW, this.__onHideView);
-
-        //this.listenTo(this.$services.router, Coco.Event.SHOW_VIEW, this.__onShowView);
-        //this.listenTo(this.$services.router, Coco.Event.HIDE_VIEW, this.__onHideView);
+        this._getService("router").addEventListener(Coco.Event.SHOW_VIEW, () => {this.__onShowView();});
+        this._getService("router").addEventListener(Coco.Event.HIDE_VIEW, () => {this.__onHideView();});
 
         this.__$container = $(selector);
 

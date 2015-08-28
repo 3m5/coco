@@ -36,6 +36,16 @@ module.exports = dejavu.Class.declare({
      */
     _template: require("./testTemplate.hbs"),
 
+    _onInitialize() {
+        this.addEventListener(Coco.Event.RENDER, () => {
+            this._onRender();
+        })
+    },
+
+    _onRender(event) {
+        console.log(this.$name + ".onRender ", event);
+    },
+
     /**
      * Constructor
      */

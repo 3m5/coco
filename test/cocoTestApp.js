@@ -18,6 +18,7 @@ var CocoApplication = dejavu.Class.declare({
         var innerCollection = new TestCollection([{id:1, label:11}, {id:2, label:22}]);
         var testModel = new Coco.Model({id:12, label:"myLabel", property: innerModel, properties: innerCollection});
 
+        innerCollection.add(innerModel);
         console.log(testModel);
         console.log(testModel.getAttributes());
 

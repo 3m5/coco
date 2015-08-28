@@ -10,9 +10,16 @@ Coco.EventDispatcher = require("./Coco.EventDispatcher.js");
  *
  * @author Johannes Klauss <johannes.klauss@3m5.de>
  */
-module.exports = dejavu.AbstractClass.declare({
+module.exports = dejavu.Class.declare({
     $name: 'Event',
     $extends: Coco.EventDispatcher,
+
+    /**
+     * Variable type {string}
+     *
+     * the type of dispatched event
+     */
+    type: null,
 
     $constants: {
         /**
@@ -128,7 +135,8 @@ module.exports = dejavu.AbstractClass.declare({
     /**
      * Ctor.
      */
-    initialize: function () {
+    initialize: function (type) {
+        this.type = type;
     },
 
     /**
@@ -147,7 +155,8 @@ module.exports = dejavu.AbstractClass.declare({
      * @returns {string}    -   The generated handle.
      */
     listenTo: function (context, event, callback) {
-        console.warn(this.$name + ".listenTo is deprecated! Use Coco.EventDispatcher.addEventListener(eventType, listener, $once) instead...")
+        console.warn(this.$name + ".listenTo is deprecated! Use Coco.EventDispatcher.addEventListener(eventType, listener, $once) instead...");
+
         if (callback == null) {
             throw new Error("The given callback does not exist in " + this.$name + ".");
         }
@@ -346,6 +355,8 @@ module.exports = dejavu.AbstractClass.declare({
      */
     trigger: function (event) {
         this._dispatchEvent(event);
+
+        return;
 
         var cbObject = (this.__listeners[event]) ? this.__listeners[event].slice(0) : null,
             i = -1,
