@@ -3,6 +3,8 @@
 ## 0.1.0
 
 - Change: use Coco.EventDispatcher instead of Coco.Event for Event-Handling
+- Deprecated: Coco.Event.listenTo
+- Deprecated: Coco.Event.trigger
 
 ## 0.0.981
 
