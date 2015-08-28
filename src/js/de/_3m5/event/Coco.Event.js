@@ -11,7 +11,7 @@ Coco.EventDispatcher = require("./Coco.EventDispatcher.js");
  * @author Johannes Klauss <johannes.klauss@3m5.de>
  */
 module.exports = dejavu.Class.declare({
-    $name: 'Event',
+    $name: 'Coco.Event',
     $extends: Coco.EventDispatcher,
 
     /**

@@ -254,7 +254,7 @@ module.exports = Coco.Model = dejavu.Class.declare({
 
                     // Throw special key changed event
                     //this.trigger(Coco.Event.CHANGE_KEY + key, object[key], this, oldObject[key]);
-                    this._dispatchEvent(new Coco.ModelEvent(Coco.Event.CHANGE_KEY + key, object[key], this, key));
+                    this._dispatchEvent(new Coco.ModelEvent(Coco.Event.CHANGE_KEY + key, this, key));
 
                     // Trigger all dependent computed attributes when an observed attribute changed.
                     this.__triggerObservers(key);
