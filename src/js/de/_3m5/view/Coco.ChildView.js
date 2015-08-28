@@ -30,7 +30,6 @@ module.exports = Coco.ChildView = dejavu.Class.declare({
      * @param {string}                      $template               Will override `this._template`
      */
     initialize: function ($model, $syncModelWithForms, $template) {
-        console.log("injectServices........");
         this._injectServices();
 
         //kill service injection
