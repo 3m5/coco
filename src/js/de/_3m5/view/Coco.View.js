@@ -1,11 +1,12 @@
 /** @namespace **/
 var Coco = Coco || {};
 
-Coco.Event = Coco.Event || require("../event/Coco.Event.js");
+Coco.Event = require("../event/Coco.Event.js");
+Coco.ViewEvent = require("../event/Coco.ViewEvent.js");
 Coco.ServiceProvider = require("../service/Coco.ServiceProvider.js");
-Coco.Utils = Coco.Utils || require("../lib/Coco.Utils.js");
-Coco.Model = Coco.Model || require("../model/Coco.Model.js");
-Coco.Collection = Coco.Collection || require("../model/Coco.Collection.js");
+Coco.Utils = require("../lib/Coco.Utils.js");
+Coco.Model = require("../model/Coco.Model.js");
+Coco.Collection = require("../model/Coco.Collection.js");
 //! do not require ChildView here!, because there is no Coco.View class during require process !
 /**
  * Class: Coco.View
@@ -474,8 +475,9 @@ module.exports = Coco.View = dejavu.Class.declare({
         }
         this.delegateEvents();
         setTimeout(() => {
-            this.trigger(Coco.Event.RENDER);
-            this.trigger(Coco.Event.RENDER + this.$name);
+            //this.trigger(Coco.Event.RENDER);
+            //this.trigger(Coco.Event.RENDER + this.$name);
+            this._dispatchEvent(new Coco.ViewEvent(Coco.Event.RENDER, this));
         });
     },
 
@@ -568,7 +570,8 @@ module.exports = Coco.View = dejavu.Class.declare({
      * @param {boolean} removeAssoc   - If set to true, the associated model/collection will trigger it's destroy event.
      */
     remove: function (removeAssoc) {
-        this.trigger(Coco.Event.DESTROY, this);
+        //this.trigger(Coco.Event.DESTROY, this);
+        this._dispatchEvent(new Coco.ViewEvent(Coco.Event.DESTROY, this));
 
         if (removeAssoc && this._model !== null) {
             this._model.destroy();
