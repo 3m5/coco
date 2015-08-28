@@ -491,7 +491,7 @@ Coco.RouterService = dejavu.Class.declare({
         if(this.__currentRoute != null) {
             //this.trigger(Coco.Event.HIDE_VIEW);
             //this.trigger(Coco.Event.HIDE_VIEW + this.__currentRoute.view.$name);
-            this._dispatchEvent(new Coco.RouterEvent(Coco.Event.HIDE_VIEW, this.__currentRoute.view));
+            this._dispatchEvent(new Coco.RouterEvent(Coco.Event.HIDE_VIEW, this.__currentRoute));
 
             this.__currentRoute.view.deactivate();
         }
@@ -514,7 +514,7 @@ Coco.RouterService = dejavu.Class.declare({
 
         this.__currentRoute = $.extend({}, this.__nextRoute);
 
-        this._dispatchEvent(new Coco.RouterEvent(Coco.Event.CHANGE_ROUTE, this.__currentRoute.view, this.__currentRoute));
+        this._dispatchEvent(new Coco.RouterEvent(Coco.Event.CHANGE_ROUTE, this.__currentRoute));
 
         this.__callRouteMethod(this.__nextRoute, 'onRenderedActive');
 

@@ -13,11 +13,6 @@ module.exports = dejavu.Class.declare({
     $extends: Coco.Event,
 
     /**
-     * <Coco.Router> that dispatched this event.
-     */
-    view: null,
-
-    /**
      * Variable newRoute {object}
      *
      * the type of dispatched event
@@ -30,15 +25,12 @@ module.exports = dejavu.Class.declare({
      * Parameter:
      * @param {<Coco.View>}  view      - The <Coco.View> that dispatched the event
      */
-    initialize: function (type, view) {
+    initialize: function (type, newRoute) {
         this.$super(type);
-        if (view == null) {
-            throw new Error("Missing view parameter in " + this.$name + ".initialize");
+        if (newRoute == null) {
+            throw new Error("Missing newRoute parameter in " + this.$name + ".initialize");
         }
-        if (!(view instanceof require("../view/Coco.View.js"))) {
-            throw new Error("Invalid view parameter in " + this.$name + ".initialize. Must be Coco.View!");
-        }
-        this.view = view;
+        this.newRoute = newRoute;
     }
 
 });
