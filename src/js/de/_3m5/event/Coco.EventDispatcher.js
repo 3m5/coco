@@ -1,9 +1,10 @@
-var Coco = Coco || {};
 /**
  * Class: Coco.EventDispatcher
  *
  * Description:
  * Event dispatcher class for dispatching events to all java script classes.
+ *
+ * @author Andreas Wiedenfeld <andreas.wiedenfeld@3m5.de>
  *
  * (c) 2015 3m5. Media GmbH
  */

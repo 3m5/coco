@@ -16,7 +16,7 @@ Coco.Model = require("./Coco.Model.js");
 module.exports = dejavu.Class.declare({
     $name: 'Collection',
 
-    $extends: Coco.Event,
+    $extends: Coco.EventDispatcher,
 
     /**
      * The internal collection id.
