@@ -1,5 +1,5 @@
 var Coco = Coco || {};
-Coco.Event = require("../event/Coco.Event.js");
+Coco.EventDispatcher = require("../event/Coco.EventDispatcher.js");
 Coco.ServiceContainer = require("./Coco.ServiceContainer.js");
 
 /**
@@ -15,7 +15,7 @@ Coco.ServiceContainer = require("./Coco.ServiceContainer.js");
 module.exports = dejavu.AbstractClass.declare({
     $name: 'ServiceProvider',
 
-    $extends: Coco.Event,
+    $extends: Coco.EventDispatcher,
 
     /**
      * Variable: $inject

@@ -1,5 +1,6 @@
 var Coco = Coco || {};
-Coco.Service = require("../service/Coco.Service.js");
+Coco.Service = require("../Coco.Service.js");
+Coco.RestServiceEvent = require("../event/Coco.RestServiceEvent.js");
 /**
  * Class: BaseRestService
  *
@@ -249,7 +250,7 @@ module.exports = dejavu.AbstractClass.declare({
 			data: data,
 			dataType: 'json', //dont use jsonp for RESTservices, only GET requests allowed with jsonp
             processData: (window.FormData && data instanceof FormData ? false : true),
-            success: function(response) {
+            success: (response) => {
                 if(method == "GET") {
                     if(Coco.config.restService.cacheGet == null) {
                         this._getCache.put(cacheKey, response);
@@ -265,22 +266,24 @@ module.exports = dejavu.AbstractClass.declare({
                 }
 
                 callbackSuccess(response);
-            }.$bind(this),
-			error: function(error) {
+            },
+			error: (error) => {
                 if(error != null && error.status == 401) {
                     //Authorization failed - throw Event
-                    this.trigger(Coco.Event.AUTHORIZATION_FAILED);
-                }
-
-                if(error != null && error.status == 500) {
+                    //this.trigger(Coco.Event.AUTHORIZATION_FAILED);
+                    this._dispatchEvent(new Coco.RestServiceEvent(Coco.Event.AUTHORIZATION_FAILED, error.status, error));
+                } else if(error != null && error.status == 500) {
                     //Authorization failed - throw Event
-                    this.trigger(Coco.Event.INTERNAL_SERVER_ERROR, error);
+                    //this.trigger(Coco.Event.INTERNAL_SERVER_ERROR, error);
+                    this._dispatchEvent(new Coco.RestServiceEvent(Coco.Event.INTERNAL_SERVER_ERROR, error.status, error));
+                } else {
+                    this._dispatchEvent(new Coco.RestServiceEvent(Coco.Event.REST_SERVER_ERROR, error.status, error));
                 }
 
                 if(callbackError != null) {
                     callbackError(error);
                 }
-            }.$bind(this)
+            }
 		});
 	},
 	

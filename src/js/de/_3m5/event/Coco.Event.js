@@ -78,6 +78,11 @@ module.exports = dejavu.Class.declare({
          */
         RESET: 'coco:reset',
         /**
+         * Event: REST_SERVER_ERROR
+         * Called in <Coco.Collection> when the collection has been reset.
+         */
+        REST_SERVER_ERROR: 'coco:rest-server-error',
+        /**
          * Event: SORTED
          * Called in <Coco.Collection> when the collection has been sorted.
          */
@@ -156,6 +161,8 @@ module.exports = dejavu.Class.declare({
      */
     listenTo: function (context, event, callback) {
         console.warn(this.$name + ".listenTo is deprecated! Use Coco.EventDispatcher.addEventListener(eventType, listener, $once) instead...");
+        context.addEventListener(event, callback);
+        return;
 
         if (callback == null) {
             throw new Error("The given callback does not exist in " + this.$name + ".");

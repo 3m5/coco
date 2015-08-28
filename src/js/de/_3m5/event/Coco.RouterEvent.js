@@ -9,13 +9,20 @@ Coco.Event = require("./Coco.Event.js");
  * (c) 2015 3m5. Media GmbH
  */
 module.exports = dejavu.Class.declare({
-    $name: "Coco.ViewEvent",
+    $name: "Coco.RouterEvent",
     $extends: Coco.Event,
 
     /**
-     * <Coco.View> that dispatched this event.
+     * <Coco.Router> that dispatched this event.
      */
     view: null,
+
+    /**
+     * Variable newRoute {object}
+     *
+     * the type of dispatched event
+     */
+    newRoute: "",
 
     /**
      * Ctor.
