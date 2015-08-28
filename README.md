@@ -10,17 +10,23 @@
 
 ## What is 3m5-coco?
 
-+based on dejavu class model
++ based on dejavu class model
 
-+use handlebars template engine
++ use handlebars template engine
 
-+use jQuery for DOM-manipulation
++ use jQuery for DOM-manipulation
 
-+use ES6 standard - transpiled by babel --> ES5 standard published to npm
++ use ES6 standard - transpiled by babel --> ES5 standard published to npm
+
++ compatible to browserify and webpack
+
+## installation
 
 this framework is a <a href="https://www.npmjs.com/package/3m5-coco" target="npm">npm module</a>, use
 
+´´´
 npm install 3m5-coco
+´´´
 
 ## Sample `application.js`
 
