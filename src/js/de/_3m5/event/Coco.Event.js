@@ -21,6 +21,13 @@ module.exports = dejavu.Class.declare({
      */
     type: null,
 
+    /**
+     * Variable data {object}
+     *
+     * the data of dispatched event
+     */
+    data: null,
+
     //available types are:
     $constants: {
         /**
@@ -117,8 +124,9 @@ module.exports = dejavu.Class.declare({
     /**
      * Ctor.
      */
-    initialize: function (type) {
+    initialize: function (type, $data) {
         this.type = type;
+        this.data = $data;
     },
 
     /**

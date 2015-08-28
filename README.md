@@ -24,9 +24,9 @@
 
 this framework is a <a href="https://www.npmjs.com/package/3m5-coco" target="npm">npm module</a>, use
 
-´´´
+```js
 npm install 3m5-coco
-´´´
+```
 
 ## Sample `application.js`
 
