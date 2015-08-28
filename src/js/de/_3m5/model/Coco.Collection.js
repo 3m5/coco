@@ -1,5 +1,6 @@
 var Coco = Coco || {};
 Coco.Event = require("../event/Coco.Event.js");
+Coco.EventDispatcher = require("../event/Coco.EventDispatcher.js");
 Coco.ModelEvent = require("../event/Coco.ModelEvent.js");
 Coco.Utils = require("../lib/Coco.Utils.js");
 Coco.Model = require("./Coco.Model.js");

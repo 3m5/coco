@@ -1,5 +1,5 @@
 var Coco = Coco || {};
-Coco.Service = require("../Coco.Service.js");
+Coco.Service = require("./Coco.Service.js");
 Coco.RestServiceEvent = require("../event/Coco.RestServiceEvent.js");
 /**
  * Class: BaseRestService

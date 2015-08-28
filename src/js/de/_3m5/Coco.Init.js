@@ -36,7 +36,9 @@ Coco.SDK = dejavu.Class.declare({
     //////// CLASS DEFINITIONS
     Event: require("./event/Coco.Event.js"),
     ModelEvent: require("./event/Coco.ModelEvent.js"),
-    ViewEvent: require("./event/Coco.ViewEvent.js"),
+    RestServiceEvent: require("./event/Coco.RestServiceEvent.js"),
+    RouterEvent: require("./event/Coco.RestServiceEvent.js"),
+    ViewEvent: require("./event/Coco.RouterEvent.js"),
     EventDispatcher: require("./event/Coco.EventDispatcher.js"),
 
     //PACKAGE MODEL
