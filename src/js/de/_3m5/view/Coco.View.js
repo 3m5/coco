@@ -322,7 +322,6 @@ module.exports = Coco.View = dejavu.Class.declare({
         }
 
         if (this._model !== null) {
-            this.stopListening(this._model);
             this._model.destroy();
 
             delete this._model;
@@ -347,7 +346,6 @@ module.exports = Coco.View = dejavu.Class.declare({
         }
 
         if (this._collection !== null) {
-            this.stopListening(this._collection);
             this._collection.destroy();
 
             delete this._collection;
@@ -585,7 +583,6 @@ module.exports = Coco.View = dejavu.Class.declare({
 
         //stop listening jQuery events
         this.undelegateEvents();
-        this.stopListening();
         this.removeAllChildViews();
     },
 
