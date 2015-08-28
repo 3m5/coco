@@ -75,7 +75,7 @@ module.exports = dejavu.Class.declare({
             global: false,
             async: false,
             dataType: "json",
-            success: function (data) {
+            success: (data) => {
                 if(typeof data == "string") {
                     data = JSON.parse(data);
                 }
@@ -89,7 +89,7 @@ module.exports = dejavu.Class.declare({
 
                 this.createDomain(this.__domain);
                 this.fill(data);
-            }.$bind(this)
+            }
         });
     },
 

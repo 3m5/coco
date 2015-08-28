@@ -935,6 +935,7 @@ module.exports = Coco.View = dejavu.Class.declare({
                     throw new Error("The callback function '" + callback + "' does not exist in '" + this.$name + "'.");
                 }
 
+                //TODO remove dejavu binding
                 this.$el.on(event, selector, this[callback].$bind(this));
             }
         }

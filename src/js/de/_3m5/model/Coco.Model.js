@@ -567,7 +567,7 @@ module.exports = Coco.Model = dejavu.Class.declare({
      */
     isValid: function () {
         this.__validationError = null;
-        result = this._validate(this.getAttributes());
+        var result = this._validate(this.getAttributes());
 
         if (result !== true) {
             this.__validationError = result;

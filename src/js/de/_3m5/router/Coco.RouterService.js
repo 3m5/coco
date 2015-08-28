@@ -52,7 +52,7 @@ Coco.RouterService = dejavu.Class.declare({
 
     initialize: function () {
         this.$super();
-        $(window).on('hashchange', this.__onRouteChanged.$bind(this));
+        $(window).on('hashchange', (event) => {this.__onRouteChanged(event);});
 
         /**
          * The syntax in the helper is e.g. "id:id, linkOne:someKeyInTheModel"
@@ -407,6 +407,7 @@ Coco.RouterService = dejavu.Class.declare({
                 if (matched) {
                     var routeParts = this.__routes[i].path.slice(1).replace(/[()]/g, '').split('/');
                     this.__nextRoute = this.__mapArguments(pathParts, routeParts, this.__routes[i]);
+                    this.__nextRoute.key = i;
 
                     return true;
                 }

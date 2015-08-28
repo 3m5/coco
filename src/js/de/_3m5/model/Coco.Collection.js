@@ -596,12 +596,9 @@ module.exports = dejavu.Class.declare({
         //this.trigger(Coco.Event.DESTROY, this);
         this._dispatchEvent(new Coco.ModelEvent(Coco.Event.DESTROY, this));
 
-        this.each(function (model) {
+        this.each((model) => {
             // Destroy all models
             model.destroy();
-        }.$bind(this));
-
-        // Stop all remaining listeners
-        this.stopListening();
+        });
     }
 });
