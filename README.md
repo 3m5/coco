@@ -95,8 +95,9 @@ Coco.config = {
 ```
 
 ## Documentation
+```html
 <iframe src="https://raw.githubusercontent.com/3m5/coco/EventDispatcher/doc/index.html" ></iframe>
-
+```
 ## License
 
 Coco is under <a href="http://opensource.org/licenses/ISC" target="ISC">ISC-License</a>
