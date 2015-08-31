@@ -61,7 +61,7 @@ Coco.RouterService = dejavu.Class.declare({
          * In the for loop we then split the key1:key2 and add key1 as key to the parsedParams object and the value of
          * key2 as the key1 value.
          */
-        Handlebars.registerHelper('route', function(v1, v2) {
+        Handlebars.registerHelper('route', (v1, v2) => {
             var params = [];
             if (typeof v2 == 'string') {
                 params = v2.replace(/\s+/g, '').split(',');
