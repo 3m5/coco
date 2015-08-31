@@ -14,7 +14,7 @@ require("./router/Coco.RouterService.js");
  *
  * triggers <Coco.Event.INITIALIZED> Event on body when Coco is ready
  *
- * (c) 2014 3m5. Media GmbH
+ * (c) 2015 3m5. Media GmbH
  */
 Coco.SDK = dejavu.Class.declare({
     $name: "Coco.Init",

@@ -202,7 +202,7 @@ module.exports = dejavu.Class.declare({
     },
 
     /**
-     * Function: dispatchEvent
+     * Function: _dispatchEvent
      *
      * Dispatches an event to all event listeners. If there are no event listeners nothing happens.
      *
