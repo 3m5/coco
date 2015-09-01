@@ -581,6 +581,8 @@ module.exports = Coco.View = dejavu.Class.declare({
             this._collection = null;
         }
 
+        this.removeAllEventListener();
+
         //stop listening jQuery events
         this.undelegateEvents();
         this.removeAllChildViews();

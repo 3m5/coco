@@ -61,6 +61,12 @@ gulp.task('clean', function() {
         .pipe(clean());
 });
 
+// clean up target folder
+gulp.task('clean-lib', function() {
+    return gulp.src(["lib/*"], {read: false})
+        .pipe(clean());
+});
+
 gulp.task('serve', function () {
     gulp.run('test');
     gulp.run('html');
@@ -76,7 +82,7 @@ gulp.task('serve', function () {
 });
 
 gulp.task('compile', function() {
-    runsSequence(['clean'], ['babel', 'vendor']);
+    runsSequence(['clean-lib'], ['babel', 'vendor']);
 });
 
 gulp.task('babel', function() {

@@ -652,5 +652,7 @@ module.exports = dejavu.Class.declare({
             // Destroy all models
             model.destroy();
         });
+
+        this.removeAllEventListener();
     }
 });
