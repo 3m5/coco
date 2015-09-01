@@ -96,7 +96,7 @@ Coco.config = {
 
 ## Documentation
 <p align="center">
-    <a href="https://www.3m5.de/fileadmin/coco/">https://www.3m5.de/coco/</a>
+    <a href="https://www.3m5.de/fileadmin/coco/" target="doc">https://www.3m5.de/coco/</a>
 </p>
 
 ## License
