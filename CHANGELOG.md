@@ -5,6 +5,7 @@
 - Bugfix: fixed 'this'-bug in Coco.RouterService
 - Bugfix: fixed logical bug in Coco.Model/ Coco.Collection (removed illegal call of no more existing functions)
 - Update: Coco.Collection destroys now all model EventHandler after removing model
+- Update: Coco.Model, Collection, View & ChildView now remove all their EventListener when .destroy() is called
 
 ## 0.1.1
 
