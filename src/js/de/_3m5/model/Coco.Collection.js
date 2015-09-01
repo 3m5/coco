@@ -245,7 +245,8 @@ module.exports = dejavu.Class.declare({
         if (this._models.length > index) {
             var m = this._models.splice(index, 1);
 
-            this.stopListening(m[0]);
+          //TODO
+            //this.stopListening(m[0]);
 
             if ($silent !== true) {
                 //this.trigger(Coco.Event.REMOVE, m[0], this);

@@ -656,6 +656,5 @@ module.exports = Coco.Model = dejavu.Class.declare({
     destroy: function () {
         //this.trigger(Coco.Event.DESTROY, this);
         this._dispatchEvent(new Coco.ModelEvent(Coco.Event.DESTROY, this));
-        this.stopListening();
     }
 });
