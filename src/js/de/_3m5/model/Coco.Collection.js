@@ -116,7 +116,6 @@ module.exports = dejavu.Class.declare({
             this._models.push(model);
             this._addModelHandle(model, handle);
 
-            //this.trigger(Coco.Event.ADD, model, this);
             this._dispatchEvent(new Coco.ModelEvent(Coco.Event.ADD, model));
         }
 
@@ -168,7 +167,7 @@ module.exports = dejavu.Class.declare({
      *
      * Parameter:
      * @param {integer}  index      - The index position.
-     * 
+     *
      * @param {Coco.Model}  model   - The <Coco.Model> instance to add.
      *
      * Event:
@@ -179,7 +178,6 @@ module.exports = dejavu.Class.declare({
             if(index >= 0 && index <= this._models.length)
             {
                 this._models.splice(index, 0, model);
-                //this.trigger(Coco.Event.ADD, model, this);
                 this._dispatchEvent(new Coco.ModelEvent(Coco.Event.ADD, model));
             }else{
                 throw new Error("index out of bound error");
@@ -300,7 +298,6 @@ module.exports = dejavu.Class.declare({
             this._removeModelHandles(m[0]);
 
             if ($silent !== true) {
-                //this.trigger(Coco.Event.REMOVE, m[0], this);
                 this._dispatchEvent(new Coco.ModelEvent(Coco.Event.REMOVE, m[0]));
             }
         }
@@ -409,7 +406,7 @@ module.exports = dejavu.Class.declare({
             var handle = model.addEventListener(Coco.Event.DESTROY, (event) => {this.__onModelDestroy(event);}, true);
             this._models.push(model);
             this._addModelHandle(handle, model);
-            //this.trigger(Coco.Event.ADD, model, this);
+
             this._dispatchEvent(new Coco.ModelEvent(Coco.Event.ADD, model));
         }
     },
@@ -427,9 +424,7 @@ module.exports = dejavu.Class.declare({
     pop: function () {
         var model = this._models.pop();
 
-        //this.trigger(Coco.Event.REMOVE, model, this);
         this._dispatchEvent(new Coco.ModelEvent(Coco.Event.REMOVE, model));
-
 
         return model;
     },
@@ -446,9 +441,9 @@ module.exports = dejavu.Class.declare({
      */
     unshift: function (model) {
         if (model instanceof this._modelClass) {
-            this._models.unshift(model);
-            //this.trigger(Coco.Event.ADD, model, this);
+            this._removeModelHandles(model);
             this._dispatchEvent(new Coco.ModelEvent(Coco.Event.ADD, model));
+            return this._models.unshift(model);
         }
     },
 
@@ -465,7 +460,6 @@ module.exports = dejavu.Class.declare({
     shift: function () {
         var model = this._models.shift();
 
-        //this.trigger(Coco.Event.REMOVE, model, this);
         this._dispatchEvent(new Coco.ModelEvent(Coco.Event.REMOVE, model));
 
         return model;
@@ -652,7 +646,6 @@ module.exports = dejavu.Class.declare({
      * all attached models.
      */
     destroy: function () {
-        //this.trigger(Coco.Event.DESTROY, this);
         this._dispatchEvent(new Coco.ModelEvent(Coco.Event.DESTROY, this));
 
         this.each((model) => {

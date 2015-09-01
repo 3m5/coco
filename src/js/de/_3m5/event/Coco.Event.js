@@ -213,7 +213,7 @@ module.exports = dejavu.Class.declare({
      * @param {string}      $handle     - {optional} The handle for a specific callback that should be detached.
      */
     off: function ($context, $event, $handle) {
-        this.stopListening($context, $event, $handle);
+        console.warn(this.$name + ".off is deprecated! By use of Coco.EventDispatcher.addEventListener(eventType, listener, $once) no stopListening here is needed anymore");
     },
 
     /**
