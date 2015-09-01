@@ -1,5 +1,13 @@
 # Coco changelog
 
+## 0.1.2
+
+- Bugfix: fixed 'this'-bug in Coco.RouterService
+
+## 0.1.1
+
+- Bugfix: fixed logical bug in Coco.View (removed illegal call of no more exisitng function
+
 ## 0.1.0
 
 - Change: use Coco.EventDispatcher instead of Coco.Event for Event-Handling
