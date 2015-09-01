@@ -110,7 +110,7 @@ module.exports = dejavu.Class.declare({
      * Removes an event listener from this class. If there is no such event listener the method does nothing.
      *
      * Parameter:
-     * @param {string|number}  eventTypeOrHandle  - The event type to remove all event listeners for or the event handle to remove a specific event listener.
+     * @param {Symbol|String}  handle  - The event type to remove all event listeners for or the event handle to remove a specific event listener.
      */
     removeEventListener : function(eventTypeOrHandle) {
         if (eventTypeOrHandle == null) {

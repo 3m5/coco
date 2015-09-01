@@ -13,7 +13,7 @@ module.exports = dejavu.Class.declare({
 
     _modelClass: Coco.Model,
 
-    initialize() {
+    _onInitialize() {
         this.addEventListener(Coco.Event.ADD, (event) => {this._onModelAdded(event);});
         this.addEventListener(Coco.Event.REMOVE, this._onModelRemoved.bind(this), true);
     },

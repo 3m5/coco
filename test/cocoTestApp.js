@@ -22,6 +22,8 @@ var CocoApplication = dejavu.Class.declare({
         console.log(testModel);
         console.log(testModel.getAttributes());
 
+        innerCollection.remove(innerModel);
+
         //new TestView(testModel);
         //testview is autorendered by flag
         //testView.render();
