@@ -10,7 +10,7 @@ require("./router/Coco.RouterService.js");
  *
  * 3m5. Javascript SDK main class (Coco.SDK)
  *
- * instantiates automatically on $(document).ready Event
+ * exports Coco as module, so just "var Coco = require('3m5-coco')" to us it!
  *
  * triggers <Coco.Event.INITIALIZED> Event on body when Coco is ready
  *
@@ -79,7 +79,7 @@ Coco.SDK = dejavu.Class.declare({
     ////////////////////////////////////////////////////////////
 
     $statics: {
-        version: "0.1.2",
+        version: "0.1.3",
         initialized: false
     },
 
