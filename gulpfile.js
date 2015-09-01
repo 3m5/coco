@@ -85,7 +85,7 @@ gulp.task('documentate', function() {
         //.pipe(clean())
         .pipe(shell([
             'echo documentate code via gulp-shell...',
-            'ndoc -i src/js/de/_3m5 -o html doc -p .ndoc'
+            'ndoc -i src/js/de/_3m5 -o html build/doc -p .ndoc'
         ], {
             templateData: {
                 f: function (s) {
