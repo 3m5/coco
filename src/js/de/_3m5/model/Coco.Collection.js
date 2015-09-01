@@ -52,6 +52,7 @@ module.exports = dejavu.Class.declare({
     /**
      * Function: Constructor
      *
+     * Parameter:
      * @param {Array}   $models -   The models to add initial.
      */
     initialize: function ($models) {
@@ -126,8 +127,11 @@ module.exports = dejavu.Class.declare({
      *
      * stores all handles for one model, to delete eventlistener, after rmoving model from collection
      *
-     * @param {Coco.Model} model
-     * @param {Symbol} handle
+     * Parameter:
+     * @param {Coco.Model} model - model to add handle for
+     *
+     * @param {Symbol} handle - handle to add
+     *
      * @protected
      */
     _addModelHandle(model, handle) {
@@ -144,7 +148,8 @@ module.exports = dejavu.Class.declare({
      *
      * removes all handles for given model
      *
-     * @param {Coco.Model} model
+     * Parameter:
+     * @param {Coco.Model} model - model to remove EventListener from
      * @protected
      */
     _removeModelHandles(model) {
@@ -163,6 +168,7 @@ module.exports = dejavu.Class.declare({
      *
      * Parameter:
      * @param {integer}  index      - The index position.
+     * 
      * @param {Coco.Model}  model   - The <Coco.Model> instance to add.
      *
      * Event:
@@ -540,6 +546,7 @@ module.exports = dejavu.Class.declare({
      *
      * Parameter:
      * @param {String }propertyName - name of property to sort on
+     *
      * @param {boolean} $descending - (optional) sort direction: descending (default) == true
      */
     sortByProperty: function (propertyName, $descending) {
@@ -599,9 +606,14 @@ module.exports = dejavu.Class.declare({
     },
 
     /**
+     * Function: __onModelDestroy
+     *
+     * EventListener for Coco.Event.DESTROY - Event
+     *
      * Removes a model from the collection when it's destroyed.
      *
-     * @param {Coco.ModelEvent}  model
+     * Parameter:
+     * @param {Coco.ModelEvent}  model - model to remove
      * @private
      */
     __onModelDestroy: function (event) {
