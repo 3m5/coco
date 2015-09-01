@@ -8,7 +8,7 @@ require("./router/Coco.RouterService.js");
 /**
  * Class: .Coco
  *
- * 3m5. Javascript SDK main class (Coco.Init)
+ * 3m5. Javascript SDK main class (Coco.SDK)
  *
  * instantiates automatically on $(document).ready Event
  *
