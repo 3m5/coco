@@ -34,6 +34,11 @@ module.exports = dejavu.AbstractClass.declare({
         this._injectServices();
     },
 
+    /**
+     * Function: _injectServices
+     *
+     * {protected} function is called in constructor to inject services defined in $services-Array, deletes itself after calling 1st time
+     */
     _injectServices: function() {
         if(this.__injectServices != null) {
             this.__injectServices();
@@ -43,11 +48,21 @@ module.exports = dejavu.AbstractClass.declare({
         }
         // Protect the ServiceContainer
         delete this.__injectServices;
+        this._onServicesInjected();
     },
 
     /**
-     * Function: _injectServices
-     * {protected} function injects service instances, its portected because <Coco.ChildView> initialization differs
+     * Function: _onServicesInjected
+     *
+     * {protected} function is called after services were injected, use it as hook to prevent overriding constructor
+     */
+    _onServicesInjected() {
+    },
+
+    /**
+     * Function: __injectServices
+     *
+     * {private} function injects service instances
      */
     __injectServices: function () {
         var serviceContainer = new Coco.ServiceContainer();
@@ -60,13 +75,14 @@ module.exports = dejavu.AbstractClass.declare({
 
     /**
      * Function: _getService(serviceId)
+     *
      * {protected} returns special service by given service id
      *
      * Parameter:
      * @param serviceId - String service id to get
      *
      * Return:
-     * @returns service - <Coco.Service>
+     * @returns {Coco.Service} service
      */
     _getService : function(serviceId) {
         return this.$services[serviceId];
