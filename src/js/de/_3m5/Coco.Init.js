@@ -63,7 +63,7 @@ Coco.SDK = dejavu.Class.declare({
     Utils: require("./lib/Coco.Utils.js"),
     Storage: require("./lib/Coco.Storage.js"),
     StringUtils: require("./lib/Coco.StringUtils.js"),
-    URLHelper: require("./lib/Coco.URLHelper.js"),
+    URLHelper: require("./lib/Coco.URLHelper_.js"),
 
     //PACKAGE VIEW
     View: require("./view/Coco.View.js"),

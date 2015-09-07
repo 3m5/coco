@@ -9,7 +9,7 @@
  */
 'use strict';
 module.exports = dejavu.Class.declare({
-    $name: "StringUtils",
+    $name: "Coco.StringUtils",
 
     initialize: function () {
         console.error("Do not instantiate static class: " + this.$name);
