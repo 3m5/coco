@@ -61,6 +61,12 @@ gulp.task('clean', function() {
         .pipe(clean());
 });
 
+// clean up target folder
+gulp.task('clean-lib', function() {
+    return gulp.src(["lib/*"], {read: false})
+        .pipe(clean());
+});
+
 gulp.task('serve', function () {
     gulp.run('test');
     gulp.run('html');
@@ -76,23 +82,21 @@ gulp.task('serve', function () {
 });
 
 gulp.task('compile', function() {
-    runsSequence(['clean'], ['babel', 'vendor']);
+    runsSequence(['clean-lib'], ['babel', 'vendor']);
 });
 
+gulp.task('babel', function() {
+    return gulp.src('src/js/de/_3m5/**/*.js')
+        .pipe(babel())
+        .pipe(gulp.dest('lib/'));
+});
 
 gulp.task('documentate', function() {
     return gulp.src(["build/doc/*"], {read: false})
-        //.pipe(clean())
         .pipe(shell([
             'echo documentate code via gulp-shell...',
-            'ndoc -i src/js/de/_3m5 -o html doc -p .ndoc'
-        ], {
-            templateData: {
-                f: function (s) {
-                    return s.replace(/$/, '.bak')
-                }
-            }
-        }));
+            'ndoc -i src/js/de/_3m5 -o html build/doc -p .ndoc --rebuild-output'
+        ]));
 });
 
 

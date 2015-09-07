@@ -36,6 +36,12 @@ module.exports = dejavu.Class.declare({
     _models: [],
 
     /**
+     * Variable: __handles
+     * {private} Map of EventListener-handles for models from _models-Array
+     */
+    __handles: null,
+
+    /**
      * Variable: _modelClass
      * The class of the models. Calling <Coco.Collection.createOne> and <Coco.Collection.add> will always add models
      * with the class referred here.
@@ -46,6 +52,7 @@ module.exports = dejavu.Class.declare({
     /**
      * Function: Constructor
      *
+     * Parameter:
      * @param {Array}   $models -   The models to add initial.
      */
     initialize: function ($models) {
@@ -55,6 +62,8 @@ module.exports = dejavu.Class.declare({
 
         this.__$name = this.$name;
         this.__id = Coco.Utils.uniqueId("c");
+
+        this.__handles = new Map();
 
         this._onInitialize($models);
 
@@ -103,12 +112,53 @@ module.exports = dejavu.Class.declare({
             // If attribute is a model store it, otherwise create a new model and set it's attributes.
             model = (!(attributes[i] instanceof this._modelClass)) ? new this._modelClass(attributes[i]) : attributes[i];
 
-            model.addEventListener(Coco.Event.DESTROY, (event) => {this.__onModelDestroy(event);}, true);
+            var handle = model.addEventListener(Coco.Event.DESTROY, (event) => {this.__onModelDestroy(event);}, true);
             this._models.push(model);
-            //this.trigger(Coco.Event.ADD, model, this);
+            this._addModelHandle(model, handle);
+
             this._dispatchEvent(new Coco.ModelEvent(Coco.Event.ADD, model));
         }
 
+    },
+
+    /**
+     * Function: _addModelHandle
+     *
+     * stores all handles for one model, to delete eventlistener, after rmoving model from collection
+     *
+     * Parameter:
+     * @param {Coco.Model} model - model to add handle for
+     *
+     * @param {Symbol} handle - handle to add
+     *
+     * @protected
+     */
+    _addModelHandle(model, handle) {
+        var mh = this.__handles.get(model);
+        if(mh == null) {
+            mh = [];
+        }
+        mh.push(handle);
+        this.__handles.set(handle, mh);
+    },
+
+    /**
+     * Function: _removeModelHandles
+     *
+     * removes all handles for given model
+     *
+     * Parameter:
+     * @param {Coco.Model} model - model to remove EventListener from
+     * @protected
+     */
+    _removeModelHandles(model) {
+        var mh = this.__handles.get(model);
+        if(mh != null && mh.length > 0) {
+            for(var i = 0; i < mh.length; i++) {
+                model.removeEventListener(mh[i]);
+            }
+        }
+        this.__handles.delete(model);
     },
 
     /**
@@ -117,6 +167,7 @@ module.exports = dejavu.Class.declare({
      *
      * Parameter:
      * @param {integer}  index      - The index position.
+     *
      * @param {Coco.Model}  model   - The <Coco.Model> instance to add.
      *
      * Event:
@@ -127,7 +178,6 @@ module.exports = dejavu.Class.declare({
             if(index >= 0 && index <= this._models.length)
             {
                 this._models.splice(index, 0, model);
-                //this.trigger(Coco.Event.ADD, model, this);
                 this._dispatchEvent(new Coco.ModelEvent(Coco.Event.ADD, model));
             }else{
                 throw new Error("index out of bound error");
@@ -155,9 +205,10 @@ module.exports = dejavu.Class.declare({
 
         var model = new this._modelClass($attributes);
 
-        model.addEventListener(Coco.Event.DESTROY, (event) => {this.__onModelDestroy(event);}, true);
+        var handle = model.addEventListener(Coco.Event.DESTROY, (event) => {this.__onModelDestroy(event);}, true);
         this._models.push(model);
-        //this.trigger(Coco.Event.ADD, model, this);
+        this._addModelHandle(handle, model);
+
         this._dispatchEvent(new Coco.ModelEvent(Coco.Event.ADD, model));
 
         return model;
@@ -197,12 +248,11 @@ module.exports = dejavu.Class.declare({
      */
     reset: function () {
         for (var i = 0; i < this._models.length; i++) {
-            //this.trigger(Coco.Event.REMOVE, this._models[i], this);
+            //remove all model handles
+            this._removeModelHandles(this._models[i]);
             this._dispatchEvent(new Coco.ModelEvent(Coco.Event.REMOVE, this._models[i]));
         }
-
         this._models = [];
-        //this.trigger(Coco.Event.RESET, this);
         this._dispatchEvent(new Coco.ModelEvent(Coco.Event.RESET, this));
 
         return this;
@@ -245,11 +295,9 @@ module.exports = dejavu.Class.declare({
         if (this._models.length > index) {
             var m = this._models.splice(index, 1);
 
-          //TODO
-            //this.stopListening(m[0]);
+            this._removeModelHandles(m[0]);
 
             if ($silent !== true) {
-                //this.trigger(Coco.Event.REMOVE, m[0], this);
                 this._dispatchEvent(new Coco.ModelEvent(Coco.Event.REMOVE, m[0]));
             }
         }
@@ -355,8 +403,10 @@ module.exports = dejavu.Class.declare({
      */
     push: function (model) {
         if (model instanceof this._modelClass) {
+            var handle = model.addEventListener(Coco.Event.DESTROY, (event) => {this.__onModelDestroy(event);}, true);
             this._models.push(model);
-            //this.trigger(Coco.Event.ADD, model, this);
+            this._addModelHandle(handle, model);
+
             this._dispatchEvent(new Coco.ModelEvent(Coco.Event.ADD, model));
         }
     },
@@ -374,9 +424,7 @@ module.exports = dejavu.Class.declare({
     pop: function () {
         var model = this._models.pop();
 
-        //this.trigger(Coco.Event.REMOVE, model, this);
         this._dispatchEvent(new Coco.ModelEvent(Coco.Event.REMOVE, model));
-
 
         return model;
     },
@@ -393,9 +441,9 @@ module.exports = dejavu.Class.declare({
      */
     unshift: function (model) {
         if (model instanceof this._modelClass) {
-            this._models.unshift(model);
-            //this.trigger(Coco.Event.ADD, model, this);
+            this._removeModelHandles(model);
             this._dispatchEvent(new Coco.ModelEvent(Coco.Event.ADD, model));
+            return this._models.unshift(model);
         }
     },
 
@@ -412,7 +460,6 @@ module.exports = dejavu.Class.declare({
     shift: function () {
         var model = this._models.shift();
 
-        //this.trigger(Coco.Event.REMOVE, model, this);
         this._dispatchEvent(new Coco.ModelEvent(Coco.Event.REMOVE, model));
 
         return model;
@@ -493,6 +540,7 @@ module.exports = dejavu.Class.declare({
      *
      * Parameter:
      * @param {String }propertyName - name of property to sort on
+     *
      * @param {boolean} $descending - (optional) sort direction: descending (default) == true
      */
     sortByProperty: function (propertyName, $descending) {
@@ -529,7 +577,6 @@ module.exports = dejavu.Class.declare({
                 return $descending ? -1 : 1;
             }
 
-            //console.debug("ascending? " + $descending + " " + a.get(propertyName) + "<" + b.get(propertyName));
             if (Coco.Math.isNumber(a.get(propertyName))) {
                 val = parseFloat(a.get(propertyName)) < parseFloat(b.get(propertyName)) ? 1 : (parseFloat(a.get(propertyName)) === parseFloat(b.get(propertyName)) ? 0 : -1);
                 return $descending ? val : (-1 * val);
@@ -553,9 +600,14 @@ module.exports = dejavu.Class.declare({
     },
 
     /**
+     * Function: __onModelDestroy
+     *
+     * EventListener for Coco.Event.DESTROY - Event
+     *
      * Removes a model from the collection when it's destroyed.
      *
-     * @param {Coco.ModelEvent}  model
+     * Parameter:
+     * @param {Coco.ModelEvent}  model - model to remove
      * @private
      */
     __onModelDestroy: function (event) {
@@ -594,12 +646,13 @@ module.exports = dejavu.Class.declare({
      * all attached models.
      */
     destroy: function () {
-        //this.trigger(Coco.Event.DESTROY, this);
         this._dispatchEvent(new Coco.ModelEvent(Coco.Event.DESTROY, this));
 
         this.each((model) => {
             // Destroy all models
             model.destroy();
         });
+
+        this.removeAllEventListener();
     }
 });

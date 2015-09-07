@@ -54,8 +54,8 @@ Group: Event  {
    File: EventDispatcher  (event\Coco.EventDispatcher.js)
    File: ModelEvent  (event\Coco.ModelEvent.js)
    File: ViewEvent  (event\Coco.ViewEvent.js)
-   File: ViewEvent  (event\Coco.RestServiceEvent.js)
-   File: ViewEvent  (event\Coco.RouterEvent.js)
+   File: RestServiceEvent  (no auto-title, event\Coco.RestServiceEvent.js)
+   File: RouterEvent  (no auto-title, event\Coco.RouterEvent.js)
    }  # Group: Event
 
 Group: Model  {

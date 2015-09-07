@@ -5,14 +5,14 @@ E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\Coco.Init.js	144103505
 E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\router\Coco.Router.js	1440777868	1	Coco.Router
 E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\event\Coco.ModelEvent.js	1440777868	1	Coco.ModelEvent
 E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\lib\Coco.StringUtils.js	1434712496	1	Coco.StringUtils
-E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\view\Coco.View.js	1440778279	1	Coco.View
+E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\view\Coco.View.js	1441113790	1	Coco.View
 E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\event\Coco.ViewEvent.js	1440777868	1	Coco.ViewEvent
 E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\service\Coco.BaseRestService.js	1440777868	1	BaseRestService
-E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\event\Coco.EventDispatcher.js	1441033488	1	Coco.EventDispatcher
+E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\event\Coco.EventDispatcher.js	1441114249	1	Coco.EventDispatcher
 E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\service\Coco.ServiceProvider.js	1440777868	1	Coco.ServiceProvider
-E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\model\Coco.Collection.js	1440777868	1	Coco.Collection
+E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\model\Coco.Collection.js	1441114195	1	Coco.Collection
 E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\lib\Coco.Utils.js	1440413640	1	Coco.Utils
-E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\event\Coco.Event.js	1440777868	1	Coco.Event
+E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\event\Coco.Event.js	1441113259	1	Coco.Event
 E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\plugins\i18n\Coco.Translator.js	1440777868	1	Plugins.i18n
 E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\service\Coco.Service.js	1440430328	1	Coco.Service
 E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\lib\Coco.Math.js	1434704620	1	Coco.Math
@@ -25,4 +25,4 @@ E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\helpers\measure.js	139
 E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\helpers\HandlebarsHelpers.js	1440505581	0	E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\helpers\HandlebarsHelpers.js
 E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\service\Coco.ServiceContainer.js	1440777868	1	Coco.ServiceContainer
 E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\event\Coco.RouterEvent.js	1440777868	1	Coco.ViewEvent
-E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\model\Coco.Model.js	1440777868	1	Coco.Model
+E:\projekte\3m5\javascript_sdk\coco_module\src\js\de\_3m5\model\Coco.Model.js	1441113880	1	Coco.Model

@@ -105,12 +105,22 @@ module.exports = dejavu.Class.declare({
     },
 
     /**
+     * Function: removeAllEventListener
+     *
+     * Removes all event listener from this class.
+     */
+    removeAllEventListener() {
+        delete this.__listeners;
+        this.__listeners = {};
+    },
+
+    /**
      * Function: removeEventListener
      *
      * Removes an event listener from this class. If there is no such event listener the method does nothing.
      *
      * Parameter:
-     * @param {string|number}  eventTypeOrHandle  - The event type to remove all event listeners for or the event handle to remove a specific event listener.
+     * @param {Symbol|String}  handle  - The event type to remove all event listeners for or the event handle to remove a specific event listener.
      */
     removeEventListener : function(eventTypeOrHandle) {
         if (eventTypeOrHandle == null) {
@@ -118,7 +128,7 @@ module.exports = dejavu.Class.declare({
         }
         if (typeof eventTypeOrHandle === 'string') {
             this.__removeEventListenerByEventType(eventTypeOrHandle);
-        } else if (typeof eventTypeOrHandle === 'number') {
+        } else if (typeof eventTypeOrHandle === Symbol) {
             this.__removeEventListenerByHandle(eventTypeOrHandle);
         } else {
             throw new Error("Invalid parameter in " + this.$name + ".removeEventListener");

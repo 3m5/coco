@@ -96,7 +96,7 @@ Coco.config = {
 
 ## Documentation
 <p align="center">
-    <iframe src="https://raw.githubusercontent.com/3m5/coco/EventDispatcher/doc/index.html" ></iframe>
+    <a href="https://www.3m5.de/fileadmin/coco/" target="doc">https://www.3m5.de/coco/</a>
 </p>
 
 ## License
