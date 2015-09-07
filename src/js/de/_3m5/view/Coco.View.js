@@ -19,7 +19,7 @@ Coco.Collection = require("../model/Coco.Collection.js");
  * @author Johannes Klauss <johannes.klauss@3m5.de>
  */
 module.exports = Coco.View = dejavu.Class.declare({
-    $name: 'View',
+    $name: 'Coco.View',
 
     $extends: Coco.ServiceProvider,
 
@@ -46,7 +46,6 @@ module.exports = Coco.View = dejavu.Class.declare({
              * @protected
              */
             _add: function (model) {
-                console.log("get etherStore: ");
                 //var etherObjects = {};
                 //var etherModel = model.getEtherKeys();
                 //
@@ -72,7 +71,6 @@ module.exports = Coco.View = dejavu.Class.declare({
                 var property = etherKey.substr(etherKey.indexOf(':') + 1);
                 var reg = new RegExp(etherKey, "ig");
 
-                console.log("get etherStore: ", this.__etherStore);
                 for (var key in this.$static.ether.__etherStore) {
                     if (this.$static.ether.__etherStore.hasOwnProperty(key)) {
                         if (reg.test(key) === true) {
@@ -596,7 +594,6 @@ module.exports = Coco.View = dejavu.Class.declare({
      * @private
      */
     __renderChildViews: function () {
-        console.log("render childviews ", this)
         for (var selector in this.__childViews) {
             if (this.__childViews.hasOwnProperty(selector)) {
                 for (var i = 0; i < this.__childViews[selector].length; i++) {

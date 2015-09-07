@@ -18,7 +18,7 @@ Coco.View = Coco.View || require("./Coco.View.js");
  * @author Johannes Klauss <johannes.klauss@3m5.de>
  */
 module.exports = Coco.ChildView = dejavu.Class.declare({
-    $name: 'ChildView',
+    $name: 'Coco.ChildView',
 
     $extends: Coco.View,
 

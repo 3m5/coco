@@ -1,6 +1,5 @@
-var Coco = Coco || {};
-Coco.Service = require("./Coco.Service.js");
-Coco.RestServiceEvent = require("../event/Coco.RestServiceEvent.js");
+var RestServiceEvent = require("../event/Coco.RestServiceEvent.js");
+var Event = require("../event/Coco.Event.js");
 /**
  * Class: BaseRestService
  *
@@ -24,7 +23,7 @@ module.exports = dejavu.AbstractClass.declare({
 	/**
 	 * Super class: Coco.Service
 	 */
-    $extends: Coco.Service,
+    $extends: require("./Coco.Service.js"),
 
     /**
      * cache for GET requests
@@ -118,6 +117,7 @@ module.exports = dejavu.AbstractClass.declare({
 	 * @param {string} endpoint the REST endpoint
 	 */
 	_buildEndpointURL : function(endpoint, pathParameter) {
+		var Coco = require("../Coco.Init.js");
         if (Coco.StringUtils.isEmpty(this._restServicePath)) {
             throw new Error(this.$serviceId + "._restServicePath not set!");
         }
@@ -171,8 +171,7 @@ module.exports = dejavu.AbstractClass.declare({
                 }
             }
             if(value == null) {
-                console.error("missing path parameter: " + paramName + " not set...");
-                continue;
+                console.error("missing path parameter: " + paramName + " not set... ", pathParameter);
             }
             //replace position
             path = path.substring(0, paramStart) + value + path.substring(paramEnd);
@@ -234,6 +233,7 @@ module.exports = dejavu.AbstractClass.declare({
             }
         }
 
+		//delete empty keys from data object
         Object.keys(data).forEach((k) => {
             if (typeof(data[k]) != 'boolean' && !data[k]) {
                 delete data[k];
@@ -271,13 +271,13 @@ module.exports = dejavu.AbstractClass.declare({
                 if(error != null && error.status == 401) {
                     //Authorization failed - throw Event
                     //this.trigger(Coco.Event.AUTHORIZATION_FAILED);
-                    this._dispatchEvent(new Coco.RestServiceEvent(Coco.Event.AUTHORIZATION_FAILED, error.status, error));
+                    this._dispatchEvent(new RestServiceEvent(Event.AUTHORIZATION_FAILED, error.status, error));
                 } else if(error != null && error.status == 500) {
                     //Authorization failed - throw Event
                     //this.trigger(Coco.Event.INTERNAL_SERVER_ERROR, error);
-                    this._dispatchEvent(new Coco.RestServiceEvent(Coco.Event.INTERNAL_SERVER_ERROR, error.status, error));
+                    this._dispatchEvent(new RestServiceEvent(Event.INTERNAL_SERVER_ERROR, error.status, error));
                 } else {
-                    this._dispatchEvent(new Coco.RestServiceEvent(Coco.Event.REST_SERVER_ERROR, error.status, error));
+                    this._dispatchEvent(new RestServiceEvent(Event.REST_SERVER_ERROR, error.status, error));
                 }
 
                 if(callbackError != null) {

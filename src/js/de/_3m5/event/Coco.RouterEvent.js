@@ -17,7 +17,7 @@ module.exports = dejavu.Class.declare({
      *
      * the type of dispatched event
      */
-    newRoute: "",
+    newRoute: null,
 
     /**
      * Ctor.
