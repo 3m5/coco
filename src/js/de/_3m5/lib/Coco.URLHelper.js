@@ -26,10 +26,10 @@ module.exports = dejavu.Class.declare({
              * @returns <Coco.HashMap> of given URL GET-Parameters
              */
             getUrlVars: function () {
-                var vars = new Coco.HashMap();
+                var vars = new Map();
 
                 window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-                    vars.put(key, value);
+                    vars.set(key, value);
                 });
 
                 return vars;
