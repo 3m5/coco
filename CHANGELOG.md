@@ -2,7 +2,7 @@
 
 ## 0.1.4
 
-- in progress
+- correct Reference to Coco.URLHelper class
 
 ## 0.1.3
 
