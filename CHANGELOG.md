@@ -1,13 +1,20 @@
 # Coco changelog
 
+## 0.1.4
+
+- in progress
+
+## 0.1.3
+
+- Bugfix: fixed illegal usage of Coco.Classes in BaseRestService
+- Added: Coco.URLHelper class
+
 ## 0.1.2
 
 - Bugfix: fixed 'this'-bug in Coco.RouterService
 - Bugfix: fixed logical bug in Coco.Model/ Coco.Collection (removed illegal call of no more existing functions)
-- Bugfix: fixed illegal usage of Coco.Classes in BaseRestService
 - Update: Coco.Collection destroys now all model EventHandler after removing model
 - Update: Coco.Model, Collection, View & ChildView now remove all their EventListener when .destroy() is called
-- Added: Coco.URLHelper class
 
 ## 0.1.1
 
