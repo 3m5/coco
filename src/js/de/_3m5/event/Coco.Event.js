@@ -1,7 +1,3 @@
-var Coco = Coco || {};
-Coco.Utils = require("../lib/Coco.Utils.js");
-Coco.EventDispatcher = require("./Coco.EventDispatcher.js");
-
 /**
  * Class: Coco.Event
  *
@@ -12,7 +8,6 @@ Coco.EventDispatcher = require("./Coco.EventDispatcher.js");
  */
 module.exports = dejavu.Class.declare({
     $name: 'Coco.Event',
-    $extends: Coco.EventDispatcher,
 
     /**
      * Variable type {string}
@@ -122,7 +117,10 @@ module.exports = dejavu.Class.declare({
     },
 
     /**
-     * Ctor.
+     * Constructor
+     *
+     * @param type {string} - type of event to dispatch
+     * @param $data {object} - optional event data object to send
      */
     initialize: function (type, $data) {
         this.type = type;
@@ -145,8 +143,7 @@ module.exports = dejavu.Class.declare({
      * @returns {string}    -   The generated handle.
      */
     listenTo: function (context, event, callback) {
-        console.warn(this.$name + ".listenTo is deprecated! Use Coco.EventDispatcher.addEventListener(eventType, listener, $once) instead...");
-        return context.addEventListener(event, callback);
+        console.error(this.$name + ".listenTo is deprecated! Use Coco.EventDispatcher.addEventListener(eventType, listener, $once) instead...");
     },
 
     /**
@@ -164,7 +161,7 @@ module.exports = dejavu.Class.declare({
      * @returns {string}    -   The generated handle.
      */
     on: function (context, event, callback) {
-        return this.listenTo(context, event, callback);
+        console.error(this.$name + ".on is deprecated! Use Coco.EventDispatcher.addEventListener(eventType, listener, $once) instead...");
     },
 
     /**
@@ -179,8 +176,7 @@ module.exports = dejavu.Class.declare({
      * @param {Function}    callback   - The callback
      */
     once: function (context, event, callback) {
-        console.warn(this.$name + ".once is deprecated! Use Coco.EventDispatcher.addEventListener(eventType, listener, $once) instead...");
-        return context.addEventListener(event, callback, true);
+        console.error(this.$name + ".once is deprecated! Use Coco.EventDispatcher.addEventListener(eventType, listener, $once) instead...");
     },
 
     /**
@@ -198,7 +194,7 @@ module.exports = dejavu.Class.declare({
      * @param {string}      $handle     - {optional} The handle for a specific callback that should be detached.
      */
     stopListening: function ($context, $event, $handle) {
-        console.warn(this.$name + ".stopListening is deprecated! By use of Coco.EventDispatcher.addEventListener(eventType, listener, $once) no stopListening here is needed anymore");
+        console.error(this.$name + ".stopListening is deprecated! By use of Coco.EventDispatcher.addEventListener(eventType, listener, $once) no stopListening here is needed anymore");
     },
 
     /**
@@ -213,7 +209,7 @@ module.exports = dejavu.Class.declare({
      * @param {string}      $handle     - {optional} The handle for a specific callback that should be detached.
      */
     off: function ($context, $event, $handle) {
-        console.warn(this.$name + ".off is deprecated! By use of Coco.EventDispatcher.addEventListener(eventType, listener, $once) no stopListening here is needed anymore");
+        console.error(this.$name + ".off is deprecated! By use of Coco.EventDispatcher.addEventListener(eventType, listener, $once) no stopListening here is needed anymore");
     },
 
     /**
@@ -235,9 +231,7 @@ module.exports = dejavu.Class.declare({
      * @param {string} event    - The event to trigger
      */
     trigger: function (event) {
-        this._dispatchEvent(event);
-
-        return;
+        console.error(this.$name + ".trigger is deprecated! By use of Coco.EventDispatcher._dispatchEvent(event)");
     },
 
     /**
