@@ -53,10 +53,10 @@ module.exports = dejavu.Class.declare({
      */
     addEventListener : function(eventType, listener, $once) {
         if (eventType == null) {
-            throw new Error("Missing eventType parameter in " + this.$name + ".addEventListener");
+            throw new Error("Missing eventType parameter in " + this.$name + ".addEventListener", typeof eventType, eventType);
         }
         if (typeof eventType !== 'string') {
-            throw new Error("Invalid eventType parameter in " + this.$name + ".addEventListener");
+            throw new Error("Invalid eventType parameter in " + this.$name + ".addEventListener ", typeof eventType, eventType);
         }
         if (listener == null) {
             throw new Error("Missing listener parameter in " + this.$name + ".addEventListener");

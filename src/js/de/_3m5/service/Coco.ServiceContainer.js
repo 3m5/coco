@@ -45,6 +45,6 @@ module.exports = Coco.ServiceContainer = dejavu.Class.declare({
             return this.$static.__services[serviceId];
         }
 
-        throw new Error("Service '" + serviceId + "' does not exist. Maybe you forgot to append .$service() at the end of the declaration of your class.");
+        throw new Error("Service '" + serviceId + "' does not exist. Maybe you forgot to initialize your service at the end of the declaration of your class, or you did not require the serviceClass.js");
     }
 });
