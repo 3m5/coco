@@ -23,7 +23,7 @@ module.exports = dejavu.Class.declare({
              * {final static} parses current url for GET parameter
              *
              * Return:
-             * @returns <Coco.HashMap> of given URL GET-Parameters
+             * @returns {Map} of given URL GET-Parameters
              */
             getUrlVars: function () {
                 var vars = new Map();
