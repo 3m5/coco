@@ -106,7 +106,7 @@ module.exports = dejavu.AbstractClass.declare({
     },
 
 
-/**
+    /**
      * Function: _buildEndpointURL
      *
 	 * Builds the full endpoint URL absolute to the host. The URL looks like:
