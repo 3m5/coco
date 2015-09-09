@@ -208,10 +208,10 @@ module.exports = dejavu.AbstractClass.declare({
 
         if(method == "GET") {
             if(this._getCache == null) {
-                this._getCache = new Coco.HashMap();
+                this._getCache = new Map();
             }
 
-            var cacheData = this._getCache.getValue(cacheKey);
+            var cacheData = this._getCache.get(cacheKey);
             if(cacheData != null) {
                 //extend cached object, to prevent killing timeout variable
                 cacheData = $.extend({}, cacheData);
@@ -229,7 +229,7 @@ module.exports = dejavu.AbstractClass.declare({
                     return;
                 }
                 //cache timed out, delete it
-                this._getCache.remove(cacheKey);
+                this._getCache.delete(cacheKey);
             }
         }
 
@@ -253,12 +253,12 @@ module.exports = dejavu.AbstractClass.declare({
             success: (response) => {
                 if(method == "GET") {
                     if(Coco.config.restService.cacheGet == null) {
-                        this._getCache.put(cacheKey, response);
+                        this._getCache.set(cacheKey, response);
                     } else {
                         if(Coco.config.restService.cacheGet > 0) {
                             var timeout = new Date(new Date().getTime() + (1000 * Coco.config.restService.cacheGet));
 
-                            this._getCache.put(cacheKey, $.extend({cocoTimeout: timeout}, response));
+                            this._getCache.set(cacheKey, $.extend({cocoTimeout: timeout}, response));
                         } else {
                             //cache disabled
                         }

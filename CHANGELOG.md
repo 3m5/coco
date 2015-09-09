@@ -3,6 +3,7 @@
 ## 0.1.4
 
 - correct Reference to Coco.URLHelper class
+- replaced Coco.HAshMap by ECMA6 Map in RestBaseService
 
 ## 0.1.3
 
