@@ -200,6 +200,7 @@ module.exports = dejavu.AbstractClass.declare({
 	 */
     __call : function(endpoint, pathParameter, method, data, xhrFields, callbackSuccess, callbackError, $contentType) {
         var url = this._buildEndpointURL(endpoint, pathParameter);
+        var Coco = require("../Coco.Init.js");
 
         var cacheKey = url;
         if($contentType) {

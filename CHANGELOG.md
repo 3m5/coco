@@ -1,8 +1,14 @@
 # Coco changelog
 
+## 0.1.5
+
+- in progress
+
 ## 0.1.4
 
 - correct Reference to Coco.URLHelper class
+- replaced Coco.HashMap by ECMA6 Map in RestBaseService
+- removed Coco.EventDispatcher inheritance on Coco.Event
 
 ## 0.1.3
 
