@@ -2,7 +2,8 @@
 
 ## 0.1.5
 
-- in progress
+- added some error message for missing injected service
+- moved CHANGE_ROUTE Event-Type from Coco.Evnet to Coco.RouterEvent
 
 ## 0.1.4
 
