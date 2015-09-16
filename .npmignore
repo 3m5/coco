@@ -5,6 +5,7 @@ npm-debug.log
 .dejavurc
 .npmignore
 .gitignore
+.editorconfig
 build
 node_modules
 doc
