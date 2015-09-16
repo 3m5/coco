@@ -35,14 +35,13 @@ This file will give you a taste of how to use Coco.JS
 ```js
 /**
  * @author (c) Andreas Wiedenfeld <andreas.wiedenfeld@3m5.de>
- * updated at 26.08.2015
+ * updated at 16.09.2015
  */
 /** @namespace **/
 
 var Coco = require("3m5-coco");
 
 var TestCollection = require("./test/testCollection");
-var TestView = require("./test/testView");
 var TestView2 = require("./test/testView2");
 
 var CocoApplication = dejavu.Class.declare({
@@ -57,15 +56,11 @@ var CocoApplication = dejavu.Class.declare({
         console.log(testModel);
         console.log(testModel.getAttributes());
 
-        //new TestView(testModel);
-        //testview is autorendered by flag
-        //testView.render();
-
         //initialize a simple router
         new Coco.Router('.routerView', {
             dashboard: {
                 path: '/',
-                view: TestView,
+                view: require("./test/testView"),
                 model: testModel
             },
             imprint: {
