@@ -85,6 +85,10 @@ module.exports = dejavu.AbstractClass.declare({
      * @returns {Coco.Service} service
      */
     _getService : function(serviceId) {
-        return this.$services[serviceId];
+        var service = this.$services[serviceId];
+        if(service == null) {
+            console.error(this.$name + " service " + serviceId + " not injected!");
+        }
+        return service;
     }
 });

@@ -96,11 +96,6 @@ module.exports = dejavu.Class.declare({
          */
         VALID: 'coco:valid',
         /**
-         * Event: CHANGE_ROUTE
-         * Called in <Coco.RouterService> when the url changed.
-         */
-        CHANGE_ROUTE: 'coco:route:change',
-        /**
          * Event: FIRE_ROUTE
          */
         FIRE_ROUTE: 'coco:route:fire',

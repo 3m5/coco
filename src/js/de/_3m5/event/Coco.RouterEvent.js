@@ -19,6 +19,14 @@ module.exports = dejavu.Class.declare({
      */
     newRoute: null,
 
+    $constants: {
+        /**
+         * Event: CHANGE_ROUTE
+         * Called in <Coco.RouterService> when the url changed.
+         */
+        CHANGE_ROUTE: 'coco:route:change'
+    },
+
     /**
      * Ctor.
      *
