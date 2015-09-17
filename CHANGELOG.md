@@ -1,5 +1,9 @@
 # Coco changelog
 
+## 0.1.7
+
+- in progress
+
 ## 0.1.6
 
 - fixed require bugs for all Coco.Events
