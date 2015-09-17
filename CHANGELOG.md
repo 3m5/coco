@@ -1,5 +1,9 @@
 # Coco changelog
 
+## 0.1.6
+
+- in progress
+
 ## 0.1.5
 
 - added some error message for missing injected service
