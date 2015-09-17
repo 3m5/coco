@@ -511,8 +511,6 @@ Coco.RouterService = dejavu.Class.declare({
             this.__pushPathToHistory(window.location.hash);
         }
 
-        //this.trigger(Coco.Event.CHANGE_ROUTE, this.__nextRoute, this.__currentRoute);
-
         this.__currentRoute = $.extend({}, this.__nextRoute);
 
         this._dispatchEvent(new Coco.RouterEvent(Coco.Event.CHANGE_ROUTE, this.__currentRoute));

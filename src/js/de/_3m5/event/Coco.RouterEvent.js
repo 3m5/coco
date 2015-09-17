@@ -13,11 +13,18 @@ module.exports = dejavu.Class.declare({
     $extends: Coco.Event,
 
     /**
-     * Variable newRoute {object}
+     * Variable: newRoute {object}
      *
-     * the type of dispatched event
+     * the new route changed to
      */
     newRoute: null,
+
+    /**
+     * Variable: oldRoute {object}
+     *
+     * the old route changed from
+     */
+    oldRoute: null,
 
     $constants: {
         /**
@@ -33,12 +40,16 @@ module.exports = dejavu.Class.declare({
      * Parameter:
      * @param {<Coco.View>}  view      - The <Coco.View> that dispatched the event
      */
-    initialize: function (type, newRoute) {
+    initialize: function (type, newRoute, oldRoute) {
         this.$super(type);
         if (newRoute == null) {
             throw new Error("Missing newRoute parameter in " + this.$name + ".initialize");
         }
         this.newRoute = newRoute;
+        if (oldRoute == null) {
+            throw new Error("Missing oldRoute parameter in " + this.$name + ".initialize");
+        }
+        this.oldRoute = oldRoute;
     }
 
 });

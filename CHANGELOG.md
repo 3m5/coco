@@ -4,6 +4,7 @@
 
 - added some error message for missing injected service
 - moved CHANGE_ROUTE Event-Type from Coco.Evnet to Coco.RouterEvent
+- added oldRoute object to Coco.RouterEvent
 
 ## 0.1.4
 
