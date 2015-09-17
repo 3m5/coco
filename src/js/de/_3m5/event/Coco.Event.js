@@ -6,19 +6,21 @@
  *
  * @author Johannes Klauss <johannes.klauss@3m5.de>
  */
-module.exports = dejavu.Class.declare({
+var Model = module.exports = dejavu.Class.declare({
     $name: 'Coco.Event',
 
     /**
-     * Variable type {string}
+     * Variable: type {string}
      *
+     * Description:
      * the type of dispatched event
      */
     type: null,
 
     /**
-     * Variable data {object}
+     * Variable: data {object}
      *
+     * Description:
      * the data of dispatched event
      */
     data: null,
@@ -109,113 +111,6 @@ module.exports = dejavu.Class.declare({
     },
 
     /**
-     * Function: listenTo
-     *
-     * Adds a listener to given context.
-     *
-     * Parameter:
-     * @param {Coco.Event}  context    - The <Coco.Event> object to listen to for an event
-     *
-     * @param {string}      event      - The event to listen to
-     *
-     * @param {Function}    callback   - The callback
-     *
-     * Return:
-     * @returns {string}    -   The generated handle.
-     */
-    listenTo: function (context, event, callback) {
-        console.error(this.$name + ".listenTo is deprecated! Use Coco.EventDispatcher.addEventListener(eventType, listener, $once) instead...");
-    },
-
-    /**
-     * Function: on
-     * calls <Coco.Event.listenTo>
-     *
-     * Parameter:
-     * @param {Coco.Event}  context    - The <Coco.Event> object to listen to for an event
-     *
-     * @param {string}      event      - The event to listen to
-     *
-     * @param {Function}    callback   - The callback
-     *
-     * Return:
-     * @returns {string}    -   The generated handle.
-     */
-    on: function (context, event, callback) {
-        console.error(this.$name + ".on is deprecated! Use Coco.EventDispatcher.addEventListener(eventType, listener, $once) instead...");
-    },
-
-    /**
-     * Function: once
-     * Add a listener to call once.
-     *
-     * Parameter:
-     * @param {Coco.Event}  context    - The <Coco.Event> context to listen to for an event
-     *
-     * @param {string}      event      - The event to listen to
-     *
-     * @param {Function}    callback   - The callback
-     */
-    once: function (context, event, callback) {
-        console.error(this.$name + ".once is deprecated! Use Coco.EventDispatcher.addEventListener(eventType, listener, $once) instead...");
-    },
-
-    /**
-     * Function: stopListening
-     *
-     * Removes a listener.
-     * If no arguments are given, this instance will delete all listeners from every context where
-     * it attached callbacks.
-     *
-     * Parameter:
-     * @param {Coco.Event}  $context    - {optional} The <Coco.Event> context to stop listen.
-     *
-     * @param {string}      $event      - {optional} The event to listen off.
-     *
-     * @param {string}      $handle     - {optional} The handle for a specific callback that should be detached.
-     */
-    stopListening: function ($context, $event, $handle) {
-        console.error(this.$name + ".stopListening is deprecated! By use of Coco.EventDispatcher.addEventListener(eventType, listener, $once) no stopListening here is needed anymore");
-    },
-
-    /**
-     * Function: off
-     * calls: <Coco.Event.stopListening>
-     *
-     * Parameter:
-     * @param {Coco.Event}  $context    - {optional} The <Coco.Event> object to stop listen
-     *
-     * @param {string}      $event      - {optional} The event to listen off
-     *
-     * @param {string}      $handle     - {optional} The handle for a specific callback that should be detached.
-     */
-    off: function ($context, $event, $handle) {
-        console.error(this.$name + ".off is deprecated! By use of Coco.EventDispatcher.addEventListener(eventType, listener, $once) no stopListening here is needed anymore");
-    },
-
-    /**
-     * Function: trigger
-     * Triggers an event.
-     *
-     * Dispatch idea is taken from backbone.js. Love this approach.
-     *
-     * You can add as many arguments that will given to the callback functions as you like.
-     *
-     * If you add up to 5 additional arguments, they will be handles separately.
-     *
-     * Example:
-     * `this.trigger('some:event', arg1, arg2, arg3);` will lead to `callback(arg1, arg2, arg3)`
-     *
-     * `this.trigger('some:event', arg1, arg2, arg3, arg4, arg5, arg6, arg7);` will lead to `callback(arguments)`
-     *
-     * Parameter:
-     * @param {string} event    - The event to trigger
-     */
-    trigger: function (event) {
-        console.error(this.$name + ".trigger is deprecated! By use of Coco.EventDispatcher._dispatchEvent(event)");
-    },
-
-    /**
      * Function: _createModelChangeKey
      * {protected} creates an Event String for the model Event <Coco.Event.CHANGE_KEY>
      *
@@ -223,6 +118,6 @@ module.exports = dejavu.Class.declare({
      * key - String of key to create Change-Event to
      */
     _createModelChangeKey : function(key) {
-        return this.$static.CHANGE_KEY + key;
+        return Model.CHANGE_KEY + key;
     }
 });

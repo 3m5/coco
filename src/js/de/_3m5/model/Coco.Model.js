@@ -92,8 +92,7 @@ module.exports = Coco.Model = dejavu.Class.declare({
     _etherKeys: [],
 
     /**
-     * Constructor.
-     * It should not be necessary to overwrite this method in your subclass.
+     * Function: Constructor
      *
      * Parameter:
      * @param {Object} $attributes  -   {optional}  The attributes that are set to the models attributes on creation.

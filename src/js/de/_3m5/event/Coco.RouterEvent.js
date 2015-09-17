@@ -1,7 +1,7 @@
 var Coco = Coco || {};
 Coco.Event = require("./Coco.Event.js");
 /**
- * Class: Coco.ViewEvent
+ * Class: Coco.RouterEvent
  *
  * Description:
  * Event class that will be dispatched by for Events in <Coco.View> or <Coco.ChildView>.
@@ -15,6 +15,7 @@ module.exports = dejavu.Class.declare({
     /**
      * Variable: newRoute {object}
      *
+	 * Description:
      * the new route changed to
      */
     newRoute: null,
@@ -49,7 +50,7 @@ module.exports = dejavu.Class.declare({
     },
 
     /**
-     * Ctor.
+     * Function: Constructor
      *
      * Parameter:
      * @param {string}  type          - The type that dispatched the event

@@ -13,16 +13,22 @@ module.exports = dejavu.Class.declare({
     $extends: Coco.Event,
 
     /**
+     * Variable: model
+     *
+     * Description:
      * <Coco.Model> or <Coco.Collection> that dispatched this event.
      */
     model: null,
     /**
+     * Variable: key
+     *
+     * Description:
      * Key that has changed in case of an change event.
      */
     key: null,
 
     /**
-     * Ctor.
+     * Function: Constructor
      *
      * Parameter:
      * @param {string}                        type       - the type of this event

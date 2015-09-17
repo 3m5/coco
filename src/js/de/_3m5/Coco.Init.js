@@ -56,7 +56,7 @@ Coco.SDK = dejavu.Class.declare({
     BaseRestService: require("./service/Coco.BaseRestService.js"),
 
     //PACKAGE LIB
-    HashMap: require("./lib/Coco.HashMap.js"),
+    HashMap: {error: "not needed anymore, use ES6 classes 'map' or 'set' instead"},
     HbsLoader: {error: "not available anymore, hbs files are compiled by handlebars npm-module"},
     DateHelper: {error: "not available anymore, use momentJS instead (npm-module)"},
     Math: require("./lib/Coco.Math.js"),

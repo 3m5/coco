@@ -1,7 +1,7 @@
 var Coco = Coco || {};
 Coco.Event = require("./Coco.Event.js");
 /**
- * Class: Coco.ViewEvent
+ * Class: Coco.RestServiceEvent
  *
  * Description:
  * Event class that will be dispatched by for Events in <Coco.View> or <Coco.ChildView>.
@@ -13,14 +13,23 @@ module.exports = dejavu.Class.declare({
     $extends: Coco.Event,
 
     /**
-     * {object} that dispatched this event.
+     * Variable: error
+     *
+     * Description:
+     * {object} the (response) error
      */
     error: null,
 
+    /**
+     * Variable: status
+     *
+     * Description:
+     * {int} the (response) error state (default: -1)
+     */
     status: -1,
 
     /**
-     * Ctor.
+     * Function: Constructor
      *
      * Parameter:
      * @param {string}  type    - The type of this dispatched the event

@@ -13,12 +13,15 @@ module.exports = dejavu.Class.declare({
     $extends: Coco.Event,
 
     /**
+     * Variable: view
+     *
+     * Description:
      * <Coco.View> that dispatched this event.
      */
     view: null,
 
     /**
-     * Ctor.
+     * Function: Constructor
      *
      * Parameter:
      * @param {<Coco.View>}  view      - The <Coco.View> that dispatched the event

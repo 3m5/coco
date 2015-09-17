@@ -50,8 +50,17 @@ Coco.RouterService = dejavu.Class.declare({
      */
     __pathHistoryIndex: -1,
 
-    initialize: function () {
-        this.$super();
+	/**
+	 * Function: _onServicesInjected
+	 *
+	 * Description:
+	 * override callback, after service initialization was completed
+	 *
+	 * Event:
+	 * triggers <Coco.RouterEvent>(Coco.RouterEvent.HIDE_VIEW, ...) when current views is hidden
+	 * triggers <Coco.RouterEvent>(Coco.RouterEvent.CHANGE_ROUTE, ...) when route is changing
+	 */
+	_onServicesInjected: function () {
         $(window).on('hashchange', (event) => {this.__onRouteChanged(event);});
 
         /**
@@ -472,7 +481,7 @@ Coco.RouterService = dejavu.Class.declare({
     /**
      * Fires a route and executes the attached callback methods of the view that will be showed and the view that will
      * be hidden.
-     *
+	 *
      * @private
      */
     __fireRoute: function () {

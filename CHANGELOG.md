@@ -3,11 +3,12 @@
 ## 0.1.5
 
 - added some error message for missing injected service
-- moved CHANGE_ROUTE Event-Type from Coco.Evnet to Coco.RouterEvent
-- moved FIRE_ROUTE Event-Type from Coco.Evnet to Coco.RouterEvent
-- moved SHOW_VIEW Event-Type from Coco.Evnet to Coco.RouterEvent
-- moved HIDE_VIEW Event-Type from Coco.Evnet to Coco.RouterEvent
+- moved CHANGE_ROUTE Event-Type from Coco.Event to Coco.RouterEvent
+- moved FIRE_ROUTE Event-Type from Coco.Event to Coco.RouterEvent
+- moved SHOW_VIEW Event-Type from Coco.Event to Coco.RouterEvent
+- moved HIDE_VIEW Event-Type from Coco.Event to Coco.RouterEvent
 - added oldRoute object to Coco.RouterEvent
+- removed Coco.HashMap from library, use ES classes instead
 
 ## 0.1.4
 

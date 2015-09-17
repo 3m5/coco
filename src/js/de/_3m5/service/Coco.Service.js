@@ -13,8 +13,6 @@ Coco.StringUtils = Coco.StringUtils || require("../lib/Coco.StringUtils.js");
  * This {abstract} class is extensible for building injectable services.
  * This service class holds the basic information to define a service.
  *
- * Append .$service() after your declare function and before semicolon to tell Coco that this is an injectable service class.
- *
  * @author Johannes Klauss <johannes.klauss@3m5.de>
  */
 module.exports = dejavu.AbstractClass.declare({
@@ -24,6 +22,8 @@ module.exports = dejavu.AbstractClass.declare({
 
     /**
      * Variable: $serviceId
+     *
+     * Description:
      * This will be the name of the service.
      */
     $serviceId: '',
@@ -33,6 +33,12 @@ module.exports = dejavu.AbstractClass.declare({
      */
     __id: Coco.Utils.uniqueId('s'),
 
+    /**
+     * Function: Constructor
+     *
+     * Description:
+     * registers this service in Coco context for service injection
+     */
     initialize: function() {
         if(Coco.StringUtils.isEmpty(this.$serviceId)) {
             throw new Error(this.$name + " has no service id!");

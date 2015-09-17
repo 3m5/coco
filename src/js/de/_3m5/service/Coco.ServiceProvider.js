@@ -60,7 +60,7 @@ module.exports = dejavu.AbstractClass.declare({
     },
 
     /**
-     * Function: __injectServices
+     * __injectServices
      *
      * {private} function injects service instances
      */
