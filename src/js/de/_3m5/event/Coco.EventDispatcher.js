@@ -39,6 +39,7 @@ module.exports = dejavu.Class.declare({
     /**
      * Function: addEventListener
      *
+     * Description:
      * Adds an event listener to this class. Save the returned event listener handle for removing this listener again.
      *
      * Parameter:

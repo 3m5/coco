@@ -2,7 +2,7 @@
 
 ## 0.1.6
 
-- in progress
+- fixed require bugs for all Coco.Events
 
 ## 0.1.5
 

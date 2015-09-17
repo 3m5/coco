@@ -1,7 +1,7 @@
 var Coco = Coco || {};
 Coco.ServiceProvider = require("../service/Coco.ServiceProvider.js");
 Coco.Utils = require("../lib/Coco.Utils.js");
-Coco.Event = Coco.Event || require("../event/Coco.Event.js");
+Coco.RouterEvent = require("../event/Coco.RouterEvent.js");
 /**
  * Class: Coco.Router
  *
@@ -35,11 +35,9 @@ module.exports = dejavu.Class.declare({
      * @param routing       {Object}    -   A object containing routing information.
      * @param $initialPath  {Object}    -   A optional $initialPath to start the application with. Defaults to '/'
      */
-    initialize: function (selector, routing, $initialPath) {
-        this.$super();
-
-        this._getService("router").addEventListener(Coco.Event.SHOW_VIEW, () => {this.__onShowView();});
-        this._getService("router").addEventListener(Coco.Event.HIDE_VIEW, () => {this.__onHideView();});
+    _onServicesInjected: function (selector, routing, $initialPath) {
+        this._getService("router").addEventListener(Coco.RouterEvent.SHOW_VIEW, () => {this.__onShowView();});
+        this._getService("router").addEventListener(Coco.RouterEvent.HIDE_VIEW, () => {this.__onHideView();});
 
         this.__$container = $(selector);
 

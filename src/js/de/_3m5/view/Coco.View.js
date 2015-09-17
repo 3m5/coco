@@ -2,6 +2,7 @@
 var Coco = Coco || {};
 
 Coco.Event = require("../event/Coco.Event.js");
+Coco.RouterEvent = require("../event/Coco.RouterEvent.js");
 Coco.ViewEvent = require("../event/Coco.ViewEvent.js");
 Coco.ServiceProvider = require("../service/Coco.ServiceProvider.js");
 Coco.Utils = require("../lib/Coco.Utils.js");
@@ -254,7 +255,7 @@ module.exports = Coco.View = dejavu.Class.declare({
         this._onInitialize();
 
         if(this._getRouter() != null) {
-            this._getRouter().addEventListener(Coco.Event.HIDE_VIEW + this.$name, () => {this.showLoading();});
+            this._getRouter().addEventListener(Coco.RouterEvent.HIDE_VIEW + this.$name, () => {this.showLoading();});
         }
 
         // Create the html wrapper element.
