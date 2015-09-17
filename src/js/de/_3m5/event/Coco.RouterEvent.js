@@ -38,7 +38,9 @@ module.exports = dejavu.Class.declare({
      * Ctor.
      *
      * Parameter:
-     * @param {<Coco.View>}  view      - The <Coco.View> that dispatched the event
+     * @param {string}  type          - The type that dispatched the event
+     * @param {object}  newRoute      - The new route changed to
+     * @param {object}  oldRoute      - The old route changed from
      */
     initialize: function (type, newRoute, oldRoute) {
         this.$super(type);
