@@ -35,7 +35,10 @@ module.exports = dejavu.Class.declare({
      * @param routing       {Object}    -   A object containing routing information.
      * @param $initialPath  {Object}    -   A optional $initialPath to start the application with. Defaults to '/'
      */
-    _onServicesInjected: function (selector, routing, $initialPath) {
+    initialize: function (selector, routing, $initialPath) {
+        //you HAVE to use constructor, because of the given variables
+        this.$super();
+
         this._getService("router").addEventListener(Coco.RouterEvent.SHOW_VIEW, () => {this.__onShowView();});
         this._getService("router").addEventListener(Coco.RouterEvent.HIDE_VIEW, () => {this.__onHideView();});
 
