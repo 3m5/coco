@@ -94,17 +94,7 @@ module.exports = dejavu.Class.declare({
          * Event: VALID
          * Called in <Coco.Model> when the validation of the model passed.
          */
-        VALID: 'coco:valid',
-        /**
-         * Event: HIDE_VIEW
-         * Called in <Coco.RouterService> when the url changed.
-         */
-        HIDE_VIEW: 'coco:view:hide',
-        /**
-         * Event: SHOW_VIEW
-         * Called in <Coco.RouterService> when the url changed.
-         */
-        SHOW_VIEW: 'coco:view:show'
+        VALID: 'coco:valid'
     },
 
     /**
