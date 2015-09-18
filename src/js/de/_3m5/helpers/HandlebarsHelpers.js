@@ -20,7 +20,33 @@ Handlebars.registerHelper('nl2br', function (value) {
     return value.replace(/\n/g, "<br/>");
 });
 
+Handlebars.registerHelper('ifCond', (v1, operator, v2, options) => {
+    switch (operator) {
+        case '==':
+            return (v1 == v2) ? options.fn(this) : options.inverse(this);
+        case '!=':
+            return (v1 != v2) ? options.fn(this) : options.inverse(this);
+        case '===':
+            return (v1 === v2) ? options.fn(this) : options.inverse(this);
+        case '<':
+            return (v1 < v2) ? options.fn(this) : options.inverse(this);
+        case '<=':
+            return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+        case '>':
+            return (v1 > v2) ? options.fn(this) : options.inverse(this);
+        case '>=':
+            return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+        case '&&':
+            return (v1 && v2) ? options.fn(this) : options.inverse(this);
+        case '||':
+            return (v1 || v2) ? options.fn(this) : options.inverse(this);
+        default:
+            return options.inverse(this);
+    }
+});
+
 Handlebars.registerHelper('is', function (v1, v2, options) {
+    console.warn("Handlebars.Helper 'is' is deprecated! use 'ifCond' instead!");
     if (v1 == v2) {
         return options.fn(this);
     }
@@ -29,6 +55,7 @@ Handlebars.registerHelper('is', function (v1, v2, options) {
 });
 
 Handlebars.registerHelper('isNot', function (v1, v2, options) {
+    console.warn("Handlebars.Helper 'isNot' is deprecated! use 'ifCond' instead!");
     if (v1 != v2) {
         return options.fn(this);
     }
@@ -37,6 +64,7 @@ Handlebars.registerHelper('isNot', function (v1, v2, options) {
 });
 
 Handlebars.registerHelper('isGreater', function (v1, v2, options) {
+    console.warn("Handlebars.Helper 'isGreater' is deprecated! use 'ifCond' instead!");
     if (v1 > v2) {
         return options.fn(this);
     }
@@ -45,6 +73,7 @@ Handlebars.registerHelper('isGreater', function (v1, v2, options) {
 });
 
 Handlebars.registerHelper('isGreaterThan', function (v1, v2, options) {
+    console.warn("Handlebars.Helper 'isGreaterThan' is deprecated! use 'ifCond' instead!");
     if (v1 >= v2) {
         return options.fn(this);
     }
@@ -53,6 +82,7 @@ Handlebars.registerHelper('isGreaterThan', function (v1, v2, options) {
 });
 
 Handlebars.registerHelper('isLess', function (v1, v2, options) {
+    console.warn("Handlebars.Helper 'isLess' is deprecated! use 'ifCond' instead!");
     if (v1 < v2) {
         return options.fn(this);
     }
@@ -61,6 +91,7 @@ Handlebars.registerHelper('isLess', function (v1, v2, options) {
 });
 
 Handlebars.registerHelper('isLessThan', function (v1, v2, options) {
+    console.warn("Handlebars.Helper 'isLessThan' is deprecated! use 'ifCond' instead!");
     if (v1 <= v2) {
         return options.fn(this);
     }
@@ -78,14 +109,6 @@ Handlebars.registerHelper('testIf', function () {
 
     if (v1 <= v2) {
         return options.fn(this);
-    }
-
-    return options.inverse(this);
-});
-
-Handlebars.registerHelper('trans', function (v1, options) {
-    if (Coco.Init.i18n && v1.length > 0 && Coco.Plugins.i18n.Translator.has) {
-
     }
 
     return options.inverse(this);

@@ -2,7 +2,7 @@
 
 ## 0.1.7
 
-- in progress
+- added Handlebars.Helper 'ifCond' - deprecates: 'is', 'isNot', 'isGreater', 'isGreaterThan', 'isLess', 'isLessThan'
 
 ## 0.1.6
 

@@ -29,6 +29,8 @@ module.exports = dejavu.Class.declare({
 
     /**
      * Function: Constructor
+	 *
+	 * Description:
      * Initialize the routing functionality of Coco.
      *
      * @param selector      {string}    -   A CSS selector to append the current views.
