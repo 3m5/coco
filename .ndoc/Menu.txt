@@ -72,7 +72,7 @@ Group: View  {
 
 Group: Service  {
 
-   File: BaseRestService  (service\Coco.BaseRestService.js)
+   File: Coco.BaseRestService  (service\Coco.BaseRestService.js)
    File: Coco.Service  (service\Coco.Service.js)
    File: Coco.ServiceContainer  (service\Coco.ServiceContainer.js)
    File: Coco.ServiceProvider  (service\Coco.ServiceProvider.js)

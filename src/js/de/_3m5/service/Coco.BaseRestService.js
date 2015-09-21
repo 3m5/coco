@@ -18,7 +18,7 @@ module.exports = dejavu.AbstractClass.declare({
 	/**
 	 * Class name.
 	 */
-    $name: "BaseRestService",
+    $name: "Coco.BaseRestService",
 
 	/**
 	 * Super class: Coco.Service
