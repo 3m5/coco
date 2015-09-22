@@ -1,8 +1,9 @@
 # Coco changelog
 
-## 0.1.7
+## 0.1.63
 
 - added Handlebars.Helper 'ifCond' - deprecates: 'is', 'isNot', 'isGreater', 'isGreaterThan', 'isLess', 'isLessThan'
+- hotfix
 
 ## 0.1.6
 
