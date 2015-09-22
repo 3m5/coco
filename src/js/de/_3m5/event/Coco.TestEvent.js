@@ -14,7 +14,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-//declare function require(name:string);
+var Event2 = require("./Coco.Event2.js");
 var TestEvent = (function (_super) {
     __extends(TestEvent, _super);
     /**
@@ -34,15 +34,15 @@ var TestEvent = (function (_super) {
          * Variable: _key
          *
          * Description:
-         * Key that has changed in case of an change event.
+         * protected key that has changed in case of an change event.
          */
         this._key = null;
         if (model == null) {
             throw new Error("Missing model parameter in " + this.$name + ".initialize");
         }
-        //if (!(model instanceof require("../model/Coco.Model.js") || model instanceof require("../model/Coco.Collection.js"))) {
-        //    throw new Error("Invalid model parameter in " + this.$name + ".initialize. Must be Coco.Model or Coco.Collection!");
-        //}
+        if (!(model instanceof require("../model/Coco.Model.js") || model instanceof require("../model/Coco.Collection.js"))) {
+            throw new Error("Invalid model parameter in " + this.$name + ".initialize. Must be Coco.Model or Coco.Collection!");
+        }
         this._key = $key;
     }
     Object.defineProperty(TestEvent.prototype, "model", {
@@ -50,7 +50,7 @@ var TestEvent = (function (_super) {
          * Function: get model
          *
          * Description:
-         * return <Coco.Model> or <Coco.Collection> that dispatched this event.
+         * getter only - return <Coco.Model> or <Coco.Collection> that dispatched this event.
          */
         get: function () {
             return this._data;
@@ -63,7 +63,7 @@ var TestEvent = (function (_super) {
          * Function: get key
          *
          * Description:
-         * returns the key of the model event depends to
+         * getter only - returns the key of the model event depends to
          *
          * @return {String}
          */
@@ -75,4 +75,4 @@ var TestEvent = (function (_super) {
     });
     return TestEvent;
 })(Event2);
-exports.TestEvent = TestEvent;
+module.exports = TestEvent;

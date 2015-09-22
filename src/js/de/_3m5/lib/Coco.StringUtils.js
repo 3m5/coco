@@ -7,7 +7,6 @@
  *
  * (c) 2013 3m5. Media GmbH
  */
-'use strict';
 module.exports = dejavu.Class.declare({
     $name: "Coco.StringUtils",
 

@@ -5,6 +5,7 @@ var Handlebars  = require('handlebars/runtime');
 require("./service/Coco.ServiceContainer.js");
 require("./helpers/HandlebarsHelpers.js");
 require("./router/Coco.RouterService.js");
+
 /**
  * Class: .Coco
  *
@@ -35,11 +36,14 @@ Coco.SDK = dejavu.Class.declare({
 
     //////// CLASS DEFINITIONS
     Event: require("./event/Coco.Event.js"),
+	Event2: require("./event/Coco.Event2.js").Event2,
+	Event3: require("./event/Coco.Event3.js"),
     ModelEvent: require("./event/Coco.ModelEvent.js"),
     RestServiceEvent: require("./event/Coco.RestServiceEvent.js"),
     RouterEvent: require("./event/Coco.RouterEvent.js"),
     ViewEvent: require("./event/Coco.ViewEvent.js"),
-    TestEvent: require("./event/Coco.TestEvent.js"),
+	TestEvent: require("./event/Coco.TestEvent.js"),
+    TestModelEvent: require("./event/Coco.TestModelEvent.js"),
     EventDispatcher: require("./event/Coco.EventDispatcher.js"),
 
     //PACKAGE MODEL
@@ -81,7 +85,7 @@ Coco.SDK = dejavu.Class.declare({
     ////////////////////////////////////////////////////////////
 
     $statics: {
-        version: "0.1.61",
+        version: "0.1.62",
         initialized: false
     },
 

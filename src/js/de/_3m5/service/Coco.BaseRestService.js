@@ -13,7 +13,6 @@ var Event = require("../event/Coco.Event.js");
  *
  * (c) 2014 3m5. Media GmbH
  */
-'use strict';
 module.exports = dejavu.AbstractClass.declare({
 	/**
 	 * Class name.

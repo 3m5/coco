@@ -8,8 +8,7 @@
  */
 var Event2 = (function () {
     function Event2(type, $data) {
-        this.$name = 'Coco.Event';
-        this.INITIALIZED = 'coco:initialized';
+        this.$name = 'Coco.Event2';
         this._type = type;
         this._data = $data;
     }
@@ -43,17 +42,13 @@ var Event2 = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Event2, "ADD", {
-        /**
-         * Event: ADD
-         * Called in <Coco.Collection> when a new <Coco.Model> has been added.
-         */
-        get: function () {
-            return 'coco:add';
-        },
-        enumerable: true,
-        configurable: true
-    });
+    /**
+     * Event: ADD
+     * Called in <Coco.Collection> when a new <Coco.Model> has been added.
+     */
+    Event2.ADD = function () {
+        return 'coco:add';
+    };
     Object.defineProperty(Event2, "AUTHORIZATION_FAILED", {
         /**
          * Event: AUTHORIZATION_FAILED
@@ -186,6 +181,12 @@ var Event2 = (function () {
         enumerable: true,
         configurable: true
     });
+    //available types are:
+    /**
+     * Event: INITIALIZED
+     * Called in <Coco> when Coco is initialized.
+     */
+    Event2.INITIALIZED = 'coco:initialized';
     return Event2;
 })();
-exports.Event2 = Event2;
+module.exports = Event2;

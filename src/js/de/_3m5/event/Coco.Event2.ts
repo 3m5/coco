@@ -6,8 +6,9 @@
  *
  * @author: andreas.wiedenfeld@3m5.de on 21.09.2015.
  */
-export class Event2 {
-    public $name:String = 'Coco.Event';
+class Event2 {
+
+    public $name:String = 'Coco.Event2';
 
     /**
      * Variable: _type {string}
@@ -15,7 +16,7 @@ export class Event2 {
      * Description:
      * the type of dispatched event
      */
-    protected _type : String;
+    private _type:String;
 
     /**
      * Function: get type
@@ -54,14 +55,14 @@ export class Event2 {
      * Event: INITIALIZED
      * Called in <Coco> when Coco is initialized.
      */
-    public const
-    INITIALIZED:String = 'coco:initialized';
+    public static
+        INITIALIZED:String = 'coco:initialized';
 
     /**
      * Event: ADD
      * Called in <Coco.Collection> when a new <Coco.Model> has been added.
      */
-    public static get ADD():String {
+    public static ADD():String {
         return 'coco:add';
     }
 
@@ -166,3 +167,4 @@ export class Event2 {
         this._data = $data;
     }
 }
+export = Event2;

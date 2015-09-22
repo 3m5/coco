@@ -16,7 +16,6 @@ var Handlebars = require("handlebars/runtime");
  *
  * @author Johannes Klauss <johannes.klauss@3m5.de>
  */
-'use strict';
 Coco.RouterService = dejavu.Class.declare({
     $name: 'RouterService',
 

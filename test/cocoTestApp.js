@@ -24,6 +24,13 @@ var CocoApplication = dejavu.Class.declare({
 
         innerCollection.remove(innerModel);
 
+		// !!! NOTICE !!!
+		// typescript and es6 objects only work WITHOUT any usage of dejavu!
+		//console.log(".Coco.TestEvent ", Coco.TestEvent);
+		//console.log(".Coco.TestModelEvent ", Coco.TestModelEvent);
+		//console.log(".Coco.Event2 ", Coco.Event2);
+		//var testEvent = new Coco.Event2("asd", innerModel);
+
         //new TestView(testModel);
         //testview is autorendered by flag
         //testView.render();

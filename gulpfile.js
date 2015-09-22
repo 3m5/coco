@@ -9,6 +9,7 @@ var gulp         = require('gulp'),
     concat       = require('gulp-concat'),
     server       = require('gulp-webserver'),
     runsSequence = require('run-sequence'),
+	traceur		 = require('gulp-traceur'),
     gutil        = require('gulp-util');
 
 
@@ -20,7 +21,7 @@ es6ify.traceurOverrides = {experimental: true};
 
 // Browserify, transform and concat all javascript
 gulp.task('test', function() {
-    gulp.src('test/cocoTestApp.js', {read:false})
+    gulp.src(['test/cocoTestApp.js'], {read:false})
         .pipe(tap(function(file) {
             var d = domain.create();
 
@@ -33,7 +34,7 @@ gulp.task('test', function() {
             d.run(function() {
                 file.contents = browserify({entries: [file.path]})
                     .add(es6ify.runtime)
-                    .transform(es6ify.configure(/^(?!.*node_modules)+.+\.js$/))
+                    .transform(es6ify.configure(/^(?!.*(bower_components|node_modules))+.+\.js$/))
                     .transform(hbsfy)
                     .bundle();
             });
@@ -42,8 +43,13 @@ gulp.task('test', function() {
         .pipe(gulp.dest('./build/js'))
 });
 
+gulp.task('traceur:runtime', function() {
+	return gulp.src(traceur.RUNTIME_PATH)
+		.pipe(gulp.dest('./src/js/core/traceur'));
+});
+
 // copy local index file to build folder
-gulp.task('vendor', function() {
+gulp.task('vendor', ['traceur:runtime'], function() {
     return gulp.src(['./src/js/core/**'])
         .pipe(gulp.dest('./build/js/vendor'))
         .pipe(gulp.dest('./lib/vendor'));

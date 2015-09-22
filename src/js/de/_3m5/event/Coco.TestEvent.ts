@@ -9,15 +9,18 @@
 /// <reference path="./Coco.Event2.d.ts"/>
 /// <reference path="./Coco.Event2.ts"/>
 
-//declare function require(name:string);
-export class TestEvent extends Event2 {
-    $name:String = "Coco.ModelEvent";
+declare function require(name:string);
+
+var Event2 = require("./Coco.Event2.js");
+
+class TestEvent extends Event2 {
+    public $name:String = "Coco.ModelEvent";
 
     /**
      * Function: get model
      *
      * Description:
-     * return <Coco.Model> or <Coco.Collection> that dispatched this event.
+     * getter only - return <Coco.Model> or <Coco.Collection> that dispatched this event.
      */
     public get model():Object {
         return this._data;
@@ -27,7 +30,7 @@ export class TestEvent extends Event2 {
      * Variable: _key
      *
      * Description:
-     * Key that has changed in case of an change event.
+     * protected key that has changed in case of an change event.
      */
     protected _key:String = null;
 
@@ -35,7 +38,7 @@ export class TestEvent extends Event2 {
      * Function: get key
      *
      * Description:
-     * returns the key of the model event depends to
+     * getter only - returns the key of the model event depends to
      *
      * @return {String}
      */
@@ -58,9 +61,10 @@ export class TestEvent extends Event2 {
         if (model == null) {
             throw new Error("Missing model parameter in " + this.$name + ".initialize");
         }
-        //if (!(model instanceof require("../model/Coco.Model.js") || model instanceof require("../model/Coco.Collection.js"))) {
-        //    throw new Error("Invalid model parameter in " + this.$name + ".initialize. Must be Coco.Model or Coco.Collection!");
-        //}
+        if (!(model instanceof require("../model/Coco.Model.js") || model instanceof require("../model/Coco.Collection.js"))) {
+            throw new Error("Invalid model parameter in " + this.$name + ".initialize. Must be Coco.Model or Coco.Collection!");
+        }
         this._key = $key;
     }
 }
+export = TestEvent;

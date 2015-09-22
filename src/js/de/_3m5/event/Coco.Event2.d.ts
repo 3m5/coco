@@ -6,7 +6,7 @@
  *
  * @author: andreas.wiedenfeld@3m5.de on 21.09.2015.
  */
-export declare class Event2 {
+declare class Event2 {
     $name: String;
     /**
      * Variable: _type {string}
@@ -14,7 +14,7 @@ export declare class Event2 {
      * Description:
      * the type of dispatched event
      */
-    protected _type: String;
+    private _type;
     /**
      * Function: get type
      *
@@ -44,13 +44,12 @@ export declare class Event2 {
      * Event: INITIALIZED
      * Called in <Coco> when Coco is initialized.
      */
-    const: any;
-    INITIALIZED: String;
+    static INITIALIZED: String;
     /**
      * Event: ADD
      * Called in <Coco.Collection> when a new <Coco.Model> has been added.
      */
-    static ADD: String;
+    static ADD(): String;
     /**
      * Event: AUTHORIZATION_FAILED
      * Called in <Coco.BaseRestService> if http status 401 was received
@@ -113,3 +112,4 @@ export declare class Event2 {
     static VALID: String;
     constructor(type: String, $data: Object);
 }
+export = Event2;

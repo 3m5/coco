@@ -8,7 +8,6 @@ var Coco = Coco || {};
  *
  * (c) 2013 3m5. Media GmbH
  */
-'use strict';
 Coco.File = dejavu.Class.declare({
     //className
     $name: "Coco.File",
@@ -41,7 +40,6 @@ Coco.File = dejavu.Class.declare({
             **/
             saveAs : (navigator.msSaveBlob && navigator.msSaveBlob.bind(navigator))
                 || (function(view) {
-                "use strict";
 
                 //prevent errors in IE8, this fixes nothing!
                 if (typeof view.document.createElementNS !== 'function') {
