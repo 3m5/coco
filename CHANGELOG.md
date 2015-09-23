@@ -1,5 +1,9 @@
 # Coco changelog
 
+## 0.1.7
+
+- fixed bug to prevent executing model properties with type function during rendering
+
 ## 0.1.63
 
 - added Handlebars.Helper 'ifCond' - deprecates: 'is', 'isNot', 'isGreater', 'isGreaterThan', 'isLess', 'isLessThan'

@@ -306,7 +306,7 @@ module.exports = Coco.Model = dejavu.Class.declare({
             // Return value of given key
             if (this.__attributes.hasOwnProperty($attribute)) {
                 // If value is a function, call it
-                if (typeof this.__attributes[$attribute] === 'function') {
+                if (typeof this.__attributes[$attribute] === 'function' && this.__attributes[$attribute].hasObservers) {
                     return this.__attributes[$attribute].call(this);
                 }
 
