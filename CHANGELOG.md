@@ -3,6 +3,7 @@
 ## 0.1.7
 
 - fixed bug to prevent executing model properties with type function during rendering
+-  added Coco.Utils.sizeOfObject function to count object properties
 
 ## 0.1.63
 

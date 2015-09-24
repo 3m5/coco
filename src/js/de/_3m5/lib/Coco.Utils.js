@@ -80,6 +80,26 @@ Coco.Utils = module.exports = dejavu.Class.declare({
 
     //$finals: {
     //    $statics: {
+
+            /**
+             * Function: sizeOfObject
+             *
+             * Paramter:
+             * @param {object} obj
+             *
+             * Return:
+             * @return {number} - number of object properties
+             */
+            sizeOfObject: function(obj) {
+                var size = 0,
+                    key;
+
+                for (key in obj) {
+                    if (obj.hasOwnProperty(key)) size++;
+                }
+
+                return size;
+            },
             /**
              * Function: uniqueId
              *
