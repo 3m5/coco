@@ -1,5 +1,9 @@
 # Coco changelog
 
+## 0.1.65
+
+- in progess
+
 ## 0.1.64
 
 - fixed bug to prevent executing model properties with type function during rendering
