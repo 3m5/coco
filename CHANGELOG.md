@@ -2,7 +2,7 @@
 
 ## 0.1.65
 
-- in progess
+- Hotfix
 
 ## 0.1.64
 

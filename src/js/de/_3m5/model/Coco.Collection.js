@@ -1,5 +1,5 @@
 var Coco = Coco || {};
-var _ = require("unserscore");
+var _ = require("underscore");
 Coco.Event = require("../event/Coco.Event.js");
 Coco.EventDispatcher = require("../event/Coco.EventDispatcher.js");
 Coco.ModelEvent = require("../event/Coco.ModelEvent.js");
