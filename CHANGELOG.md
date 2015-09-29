@@ -1,5 +1,9 @@
 # Coco changelog
 
+## 0.1.66
+
+- in progress
+
 ## 0.1.65
 
 - Hotfix
