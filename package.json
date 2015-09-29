@@ -60,7 +60,8 @@
     "run-sequence": "^1.1.2"
   },
   "dependencies": {
-    "handlebars": "^3.0.2"
+    "handlebars": "^3.0.2",
+    "underscore": "^1.8.3"
   },
   "license": "ISC",
   "bugs": {

@@ -1,9 +1,10 @@
 # Coco changelog
 
-## 0.1.7
+## 0.1.64
 
 - fixed bug to prevent executing model properties with type function during rendering
--  added Coco.Utils.sizeOfObject function to count object properties
+- added Coco.Utils.sizeOfObject function to count object properties
+- added Coco.Collection.where function, based on underscore.where to get filtered array of models
 
 ## 0.1.63
 
