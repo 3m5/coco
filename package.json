@@ -57,11 +57,11 @@
     "gulp-webserver": "^0.9.1",
     "hbsfy": "^2.2.1",
     "mocha": "^2.2.5",
+    "traceur": "0.0.91",
     "run-sequence": "^1.1.2"
   },
   "dependencies": {
-    "handlebars": "^3.0.2",
-    "traceur": "0.0.91",
+    "handlebars": "^4.0.3",
     "underscore": "^1.8.3"
   },
   "license": "ISC",

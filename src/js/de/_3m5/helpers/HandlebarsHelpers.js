@@ -14,6 +14,7 @@ Handlebars.registerHelper('ifNot', function (v1, options) {
 });
 
 Handlebars.registerHelper('nl2br', function (value) {
+	console.log(".nl2br ");
 	if (!value) {
 		return "";
 	}
