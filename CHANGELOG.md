@@ -1,5 +1,9 @@
 # Coco changelog
 
+## 0.1.67
+
+- in progress
+
 ## 0.1.66
 
 - HOTFIX HandleBars-Helper, dont use ES6 syntax!
