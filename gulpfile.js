@@ -9,6 +9,7 @@ var gulp         = require('gulp'),
     concat       = require('gulp-concat'),
     server       = require('gulp-webserver'),
     runsSequence = require('run-sequence'),
+    traceur         = require('gulp-traceur'),
     gutil        = require('gulp-util');
 
 
@@ -42,8 +43,14 @@ gulp.task('test', function() {
         .pipe(gulp.dest('./build/js'))
 });
 
+gulp.task('traceur:runtime', function() {
+    return gulp.src(traceur.RUNTIME_PATH)
+        .pipe(gulp.dest('./src/js/core/traceur'));
+});
+
+
 // copy local index file to build folder
-gulp.task('vendor', function() {
+gulp.task('vendor', ['traceur:runtime'], function() {
     return gulp.src(['./src/js/core/**'])
         .pipe(gulp.dest('./build/js/vendor'))
         .pipe(gulp.dest('./lib/vendor'));
@@ -68,9 +75,9 @@ gulp.task('clean-lib', function() {
 });
 
 gulp.task('serve', function () {
+    gulp.run('vendor');
     gulp.run('test');
     gulp.run('html');
-    gulp.run('vendor');
     gulp.src(['./build', './build/js'])
         .pipe(server({
             port: 9090,

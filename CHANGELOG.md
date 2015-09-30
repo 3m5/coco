@@ -2,7 +2,7 @@
 
 ## 0.1.66
 
-- in progress
+- HOTFIX HandleBars-Helper, dont use ES6 syntax!
 
 ## 0.1.65
 

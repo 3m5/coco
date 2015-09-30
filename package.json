@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "handlebars": "^3.0.2",
+    "traceur": "0.0.91",
     "underscore": "^1.8.3"
   },
   "license": "ISC",
