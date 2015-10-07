@@ -446,8 +446,21 @@ module.exports = Coco.View = dejavu.Class.declare({
             throw new Error("Could not render Coco.View [" + this.$name + "], no template found! ", this._template);
         }
 
+	    // If 'locale' parameter exists in Coco.config - send locale information to template
+	    // This parameter will be used by 'handlebars-intl' extension (formatjs)
+	    var localeObject = {};
+	    var init = require('../Coco.Init');
+
+	    if (init.config && init.config.locale) {
+		    localeObject = {
+			    data: {intl: {
+				    locales: init.config.locale
+			    }}
+		    };
+	    }
+
         //we use require now, so hbs templates are precompiled, just add the model here
-        var html = this._template(this._getHBSModel());
+        var html = this._template(this._getHBSModel(), localeObject);
 
         this.$('> :first-child').detach();
         this.$el.empty().append(html);
