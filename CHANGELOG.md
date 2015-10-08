@@ -1,5 +1,9 @@
 # Coco changelog
 
+## 0.1.68
+
+- in progress
+
 ## 0.1.67
 
 - added Coco.config.locale (default is 'de') for handlebars localization
