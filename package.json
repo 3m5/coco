@@ -1,6 +1,6 @@
 {
   "name": "3m5-coco",
-  "version": "0.1.66",
+  "version": "0.1.67",
   "description": "a simple MVC Framework",
   "main": "lib/Coco.Init.js",
   "scripts": {
@@ -62,8 +62,7 @@
     "underscore": "^1.8.3",
     "run-sequence": "^1.1.2"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/3m5/coco/issues"
