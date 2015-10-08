@@ -2,7 +2,9 @@
 
 ## 0.1.67
 
-- in progress
+- added Coco.config.locale (default is 'de') for handlebars localization
+- handlebars templates now get localization from Coco.config for other modules e.g. formatJS
+- moved handlebars & underscore from dependencies to devDependencies to prevent double includes
 
 ## 0.1.66
 
