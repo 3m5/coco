@@ -4,6 +4,7 @@
 
 - fixed bug in Coco.Collection
 - added babel/polyfill requirement for IE support
+- enable application-loading again
 
 ## 0.1.67
 
