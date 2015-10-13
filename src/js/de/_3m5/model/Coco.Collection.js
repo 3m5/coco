@@ -137,12 +137,12 @@ module.exports = dejavu.Class.declare({
 	 * @protected
 	 */
 		_addModelHandle(model, handle) {
-		var mh = this.__handles.get(model);
+		var mh = this.__handles.get(model.getId());
 		if (mh == null) {
 			mh = [];
 		}
 		mh.push(handle);
-		this.__handles.set(handle, mh);
+		this.__handles.set(model.getId(), mh);
 	},
 
 	/**
@@ -155,13 +155,13 @@ module.exports = dejavu.Class.declare({
 	 * @protected
 	 */
 		_removeModelHandles(model) {
-		var mh = this.__handles.get(model);
+		var mh = this.__handles.get(model.getId());
 		if (mh != null && mh.length > 0) {
 			for (var i = 0; i < mh.length; i++) {
 				model.removeEventListener(mh[i]);
 			}
 		}
-		this.__handles.delete(model);
+		this.__handles.delete(model.getId());
 	},
 
 	/**

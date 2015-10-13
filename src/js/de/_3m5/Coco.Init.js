@@ -1,6 +1,9 @@
 var Coco = Coco || {};
 
 var Handlebars = require('handlebars/runtime');
+//use babel polyfill for IE support
+require("babel/polyfill");
+
 //require non public Coco classes
 require("./service/Coco.ServiceContainer.js");
 require("./helpers/HandlebarsHelpers.js");
