@@ -451,7 +451,8 @@ module.exports = dejavu.Class.declare({
 	 */
 	unshift: function (model) {
 		if (model instanceof this._modelClass) {
-			this._removeModelHandles(model);
+			//TODO ????
+			//this._removeModelHandles(model);
 			this._dispatchEvent(new Coco.ModelEvent(Coco.Event.ADD, model));
 			return this._models.unshift(model);
 		}

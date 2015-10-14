@@ -249,7 +249,7 @@ module.exports = dejavu.Class.declare({
         // iterate over all event listeners
         var i = -1;
         while (++i < listeners.length) {
-            if(listeners[i].listener == null) {
+            if(listeners[i] == null || listeners[i].listener == null) {
                 console.warn("invalid eventlistener registered: ", listeners[i]);
                 continue;
             }
@@ -262,7 +262,7 @@ module.exports = dejavu.Class.declare({
                 listeners[i].listener();
             }
 
-            if (listeners[i].once) {
+            if (listeners[i] && listeners[i].once) {
                 // remove once listener
                 listeners.splice(i, 1);
                 i--;

@@ -343,18 +343,13 @@ module.exports = Coco.View = dejavu.Class.declare({
 	 */
 	setCollection: function (collection) {
 		if (!(collection instanceof Coco.Collection)) {
+			console.error("tried to add invalid collection-class into " + this.$name + ": ", collection);
 			return;
 		}
-
-		if (this._collection !== null) {
-			this._collection.destroy();
-
-			delete this._collection;
-		}
-
 		this._collection = collection;
 
-		this._collection.each((model) => {
+		this._collection.each(function (model) {
+			//TODO ???
 			Coco.View.ether._add(model);
 		});
 	},
