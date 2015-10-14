@@ -5,6 +5,7 @@
 - fixed bug in Coco.Collection
 - added babel/polyfill requirement for IE support
 - enable application-loading again
+- fixed bug in Coco.EventDispatcher to removeEvents by given Symbol-handle
 
 ## 0.1.67
 

@@ -129,9 +129,10 @@ module.exports = dejavu.Class.declare({
         }
         if (typeof eventTypeOrHandle === 'string') {
             this.__removeEventListenerByEventType(eventTypeOrHandle);
-        } else if (typeof eventTypeOrHandle === Symbol) {
+        } else if (typeof eventTypeOrHandle === "symbol") {
             this.__removeEventListenerByHandle(eventTypeOrHandle);
         } else {
+            console.error(this.$name + ".removeEventListener - Parameter: ", eventTypeOrHandle);
             throw new Error("Invalid parameter in " + this.$name + ".removeEventListener");
         }
     },

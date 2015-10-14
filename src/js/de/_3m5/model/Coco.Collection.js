@@ -117,7 +117,7 @@ module.exports = dejavu.Class.declare({
 				this.__onModelDestroy(event);
 			}, true);
 			this._models.push(model);
-			this._addModelHandle(model, handle);
+			this._addModelHandle(handle, model);
 
 			this._dispatchEvent(new Coco.ModelEvent(Coco.Event.ADD, model));
 		}
@@ -136,7 +136,7 @@ module.exports = dejavu.Class.declare({
 	 *
 	 * @protected
 	 */
-		_addModelHandle(model, handle) {
+		_addModelHandle(handle, model) {
 		var mh = this.__handles.get(model.getId());
 		if (mh == null) {
 			mh = [];
@@ -275,6 +275,10 @@ module.exports = dejavu.Class.declare({
 	 * Triggers <Coco.Event.REMOVE> event if $silent is not set to true.
 	 */
 	remove: function (model, $silent) {
+		if(model == null) {
+			console.warn(this.$name + ": can't delete null object!");
+			return;
+		}
 		for (var i = 0; i < this._models.length; i++) {
 			if (model.isEqual(this._models[i])) {
 				this.removeAt(i, $silent);
