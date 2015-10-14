@@ -328,12 +328,14 @@ module.exports = dejavu.AbstractClass.declare({
 	 * @param {function} callbackSuccess the success handler
      *
 	 * @param {function} callbackError the error handler
+	 *
+	 * @param {string} contentType
 	 */
-	_post : function(endpoint, pathParameter, data, xhrFields, callbackSuccess, callbackError) {
+	_post : function(endpoint, pathParameter, data, xhrFields, callbackSuccess, callbackError, contentType) {
         if(!Array.isArray(pathParameter)) {
             throw new Error("2nd parameter has to be pathParameter array, but was: " + typeof pathParameter);
         }
-		return this.__call(endpoint, pathParameter, 'POST', data, xhrFields, callbackSuccess, callbackError, null);
+		return this.__call(endpoint, pathParameter, 'POST', data, xhrFields, callbackSuccess, callbackError, contentType || null);
 	},
 
     /**
@@ -377,12 +379,14 @@ module.exports = dejavu.AbstractClass.declare({
 	 * @param {function} callbackSuccess the success handler
      *
 	 * @param {function} callbackError the error handler
-	 */
-	_put : function(endpoint, pathParameter, data, xhrFields, callbackSuccess, callbackError) {
+     *
+     * @param {string} contentType
+     */
+	_put : function(endpoint, pathParameter, data, xhrFields, callbackSuccess, callbackError, contentType) {
         if(!Array.isArray(pathParameter)) {
             throw new Error("2nd parameter has to be pathParameter array, but was: " + typeof pathParameter);
         }
-	    return this.__call(endpoint, pathParameter, 'PUT', data, xhrFields, callbackSuccess, callbackError, null);
+	    return this.__call(endpoint, pathParameter, 'PUT', data, xhrFields, callbackSuccess, callbackError, contentType || null);
 	},
 
 
