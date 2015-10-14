@@ -2,7 +2,9 @@
 
 ## 0.1.68
 
-- in progress
+- fixed bug in Coco.Collection
+- added babel/polyfill requirement for IE support
+- enable application-loading again
 
 ## 0.1.67
 
