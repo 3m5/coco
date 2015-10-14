@@ -517,8 +517,7 @@ module.exports = Coco.View = dejavu.Class.declare({
 		clearTimeout(window.loading_timeout);
 		setTimeout(() => {
 			if (this._getRouter() && this._getRouter().$container) {
-				//TODO test & reactivate this...
-				//this._getRouter().$container.removeClass('loading application-loading');
+				this._getRouter().$container.removeClass('loading application-loading');
 			}
 		}, 10);
 	},
