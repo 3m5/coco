@@ -1,3 +1,20 @@
+// Rewrite modern console methods for olders browsers (like IE 9/10)
+if (!window.console) {
+	window.console = {};
+}
+if (!window.console.debug) {
+	window.console.debug = window.console.log || function(){}
+}
+
+if (!window.console.error) {
+	window.console.error = window.console.log || function(){}
+}
+
+if (!window.console.warn) {
+	window.console.warn = window.console.log || function(){}
+}
+
+// Dependencies
 var Coco = Coco || {};
 
 var Handlebars = require('handlebars/runtime');
@@ -8,6 +25,7 @@ require("babel/polyfill");
 require("./service/Coco.ServiceContainer.js");
 require("./helpers/HandlebarsHelpers.js");
 require("./router/Coco.RouterService.js");
+
 /**
  * Class: .Coco
  *
