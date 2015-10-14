@@ -3,15 +3,15 @@ if (!window.console) {
 	window.console = {};
 }
 if (!window.console.debug) {
-	window.console.debug = window.console.log || function(){}
+	window.console.debug = window.console.log || function(){};
 }
 
 if (!window.console.error) {
-	window.console.error = window.console.log || function(){}
+	window.console.error = window.console.log || function(){};
 }
 
 if (!window.console.warn) {
-	window.console.warn = window.console.log || function(){}
+	window.console.warn = window.console.log || function(){};
 }
 
 // Dependencies

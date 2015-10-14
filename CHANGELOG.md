@@ -6,6 +6,10 @@
 - added babel/polyfill requirement for IE support
 - enable application-loading again
 - fixed bug in Coco.EventDispatcher to removeEvents by given Symbol-handle
+- Rewrite modern console methods for old browsers (like IE 9/10)
+- enable working with promises - Coco.BaseRestService now returns Promise object
+- pass contentType as parameter for POST and PUT
+- reactivate removal of application-loading class from main container
 
 ## 0.1.67
 
