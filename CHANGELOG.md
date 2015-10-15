@@ -1,5 +1,9 @@
 # Coco changelog
 
+## 0.1.69
+
+- in progress
+
 ## 0.1.68
 
 - fixed bug in Coco.Collection

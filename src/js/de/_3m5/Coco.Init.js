@@ -102,7 +102,7 @@ Coco.SDK = dejavu.Class.declare({
 	////////////////////////////////////////////////////////////
 
 	$statics: {
-		version: "0.1.68",
+		version: "0.1.69",
 		initialized: false
 	},
 
