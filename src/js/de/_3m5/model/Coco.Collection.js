@@ -546,6 +546,44 @@ module.exports = dejavu.Class.declare({
 	},
 
 	/**
+	 * Function: removeBy
+	 * removes all matched models from current collection
+	 *
+	 * Parameter:
+	 * @param {object}  query       - The object of attributes and values to look for in the collection.
+	 *
+	 * Return:
+	 * @return {Array} - all removed models
+	 */
+	removeBy: function removeBy(query, $silent) {
+		var models = [];
+		var modelIndex = [];
+		var valid;
+		$.each(this._models, function (i, e) {
+			valid = true;
+
+			$.each(query, function (key, value) {
+				if (!e.has(key) || e.get(key) !== value) {
+					valid = false;
+
+					return false;
+				}
+			});
+
+			if (valid) {
+				models.push(e);
+				modelIndex.push(i);
+			}
+		});
+
+		_.each(modelIndex, (index) => {
+			this.removeAt(index, $silent);
+		});
+
+		return models;
+	},
+
+	/**
 	 * Function: sortByProperty
 	 * sorts all models in collection by property
 	 *

@@ -2,7 +2,7 @@
 
 ## 0.1.69
 
-- in progress
+- added function removeBy to Coco.Collection
 
 ## 0.1.68
 
