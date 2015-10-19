@@ -3,6 +3,7 @@
 ## 0.1.69
 
 - added function removeBy to Coco.Collection
+- added $compute functionality to all functions to implement computed properties for models, you can check a computed function by boolean '.isComputed' property
 
 ## 0.1.68
 

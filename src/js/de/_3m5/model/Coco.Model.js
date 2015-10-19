@@ -66,7 +66,7 @@ module.exports = Coco.Model = dejavu.Class.declare({
     __validationError: null,
 
     /**
-     * Array of observers registered by the $observe flag on computed functions.
+     * Array of observers registered by the $compute flag on computed functions.
      */
     __observers: [],
 
@@ -151,7 +151,7 @@ module.exports = Coco.Model = dejavu.Class.declare({
      */
     __setObservers: function (attributes) {
         for (var i in attributes) {
-            if (attributes.hasOwnProperty(i) && typeof attributes[i] === 'function' && attributes[i].hasObservers) {
+            if (attributes.hasOwnProperty(i) && typeof attributes[i] === 'function' && attributes[i].isComputed === true) {
                 attributes[i] = attributes[i].call(this, i, this.__observers);
             }
         }
@@ -295,7 +295,7 @@ module.exports = Coco.Model = dejavu.Class.declare({
 
             for(var i in this.__attributes) {
                 if(this.__attributes.hasOwnProperty(i)) {
-                    ret[i] = (typeof this.__attributes[i] === 'function' && this.__attributes[i].hasObservers) ? this.__attributes[i]() : this.__attributes[i];
+                    ret[i] = (typeof this.__attributes[i] === 'function' && this.__attributes[i].isComputed) ? this.__attributes[i]() : this.__attributes[i];
                 }
             }
 
@@ -306,7 +306,7 @@ module.exports = Coco.Model = dejavu.Class.declare({
             // Return value of given key
             if (this.__attributes.hasOwnProperty($attribute)) {
                 // If value is a function, call it
-                if (typeof this.__attributes[$attribute] === 'function' && this.__attributes[$attribute].hasObservers) {
+                if (typeof this.__attributes[$attribute] === 'function' && this.__attributes[$attribute].isComputed) {
                     return this.__attributes[$attribute].call(this);
                 }
 

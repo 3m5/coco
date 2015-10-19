@@ -14,6 +14,37 @@ if (!window.console.warn) {
 	window.console.warn = window.console.log || function(){};
 }
 
+//add $compute function to all functions
+/** $compute function to register change listeners to properties in Coco.Model */
+if (!Function.prototype.$compute) {
+	Function.prototype.$compute = function () {
+		var fn = this;
+		var args = Array.prototype.slice.call(arguments);
+
+		/**
+		 * We capsule the function and the $compute properties, because our this context is the function and not the
+		 * model. When the model gets instantiated we call this returned function with the model context, set the observers
+		 * and return the original function (with assigned model context) back to the initial model property.
+		 */
+		var retFn = function (targetAttribute, observers) {
+			for(var i = 0; i < args.length; i++) {
+				observers.push({
+					attribute: args[i],
+					target: targetAttribute,
+					old: fn.call(this)
+				});
+			}
+
+			return fn.$bind(this);
+		};
+
+		// Assign a flag to the function, that we can distinct between normal functions as attributes and computed properties.
+		retFn.isComputed = true;
+
+		return retFn;
+	}
+}
+
 // Dependencies
 var Coco = Coco || {};
 
