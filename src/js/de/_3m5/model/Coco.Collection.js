@@ -495,7 +495,7 @@ module.exports = dejavu.Class.declare({
 			valid = true;
 
 			$.each(query, function (key, value) {
-				if (!e.has(key) || e.get(key) !== value) {
+				if (!e.has(key) || e.get(key) != value) {
 					valid = false;
 
 					return false;
@@ -528,7 +528,7 @@ module.exports = dejavu.Class.declare({
 			valid = true;
 
 			$.each(query, function (key, value) {
-				if (!e.has(key) || e.get(key) !== value) {
+				if (!e.has(key) || e.get(key) != value) {
 					valid = false;
 
 					return false;
@@ -563,7 +563,7 @@ module.exports = dejavu.Class.declare({
 			valid = true;
 
 			$.each(query, function (key, value) {
-				if (!e.has(key) || e.get(key) !== value) {
+				if (!e.has(key) || e.get(key) != value) {
 					valid = false;
 
 					return false;

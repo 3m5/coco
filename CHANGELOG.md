@@ -2,7 +2,8 @@
 
 ## 0.1.70
 
-- in progress
+- Coco.Collection: findBy, findOneBy, removeBy are no more type safe anymore
+- added older browser support for Symbol-Event-handles
 
 ## 0.1.69
 
