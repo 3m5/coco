@@ -5,6 +5,7 @@ Coco.EventDispatcher = require("../event/Coco.EventDispatcher.js");
 Coco.ModelEvent = require("../event/Coco.ModelEvent.js");
 Coco.Utils = require("../lib/Coco.Utils.js");
 Coco.Model = require("./Coco.Model.js");
+Coco.Math = require("../lib/Coco.Math.js");
 /**
  * Class: Coco.Collection
  *
