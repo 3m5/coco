@@ -1,13 +1,10 @@
 # Coco changelog
 
-## 0.1.71
-
-- Coco.Collection: sortByProperty() - Bugfix added missing import
-
 ## 0.1.70
 
 - Coco.Collection: findBy, findOneBy, removeBy are no more type safe anymore
 - added older browser support for Symbol-Event-handles
+- Coco.Collection: sortByProperty() - Bugfix added missing import
 
 ## 0.1.69
 
