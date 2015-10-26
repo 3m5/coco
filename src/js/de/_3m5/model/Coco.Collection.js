@@ -1,11 +1,11 @@
-var Coco = Coco || {};
-var _ = require("underscore");
-Coco.Event = require("../event/Coco.Event.js");
-Coco.EventDispatcher = require("../event/Coco.EventDispatcher.js");
-Coco.ModelEvent = require("../event/Coco.ModelEvent.js");
-Coco.Utils = require("../lib/Coco.Utils.js");
-Coco.Model = require("./Coco.Model.js");
-Coco.Math = require("../lib/Coco.Math.js");
+var Coco = Coco || {},
+	_    = require("underscore");
+Coco.Event = require("../event/Coco.Event.js"),
+	Coco.EventDispatcher = require("../event/Coco.EventDispatcher.js"),
+	Coco.ModelEvent = require("../event/Coco.ModelEvent.js"),
+	Coco.Utils = require("../lib/Coco.Utils.js"),
+	Coco.Model = require("./Coco.Model.js"),
+	Coco.Math = require("../lib/Coco.Math.js");
 /**
  * Class: Coco.Collection
  *
@@ -276,7 +276,7 @@ module.exports = dejavu.Class.declare({
 	 * Triggers <Coco.Event.REMOVE> event if $silent is not set to true.
 	 */
 	remove: function (model, $silent) {
-		if(model == null) {
+		if (model == null) {
 			console.warn(this.$name + ": can't delete null object!");
 			return;
 		}
