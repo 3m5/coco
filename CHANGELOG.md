@@ -1,6 +1,6 @@
 # Coco changelog
 
-## 0.1.71
+## 0.1.71 (unreleased)
 
 - Coco.config.restService.path and Coco.config.baseUrl can now be an empty string!
 
