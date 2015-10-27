@@ -1,5 +1,9 @@
 # Coco changelog
 
+## 0.1.71
+
+- in progress
+
 ## 0.1.70
 
 - Coco.Collection: findBy, findOneBy, removeBy are no more type safe anymore
