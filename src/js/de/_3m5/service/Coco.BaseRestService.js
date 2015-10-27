@@ -118,13 +118,13 @@ module.exports = dejavu.AbstractClass.declare({
 	 */
 	_buildEndpointURL : function(endpoint, pathParameter) {
 		var Coco = require("../Coco.Init.js");
-        if (Coco.StringUtils.isEmpty(this._restServicePath)) {
+        if (this._restServicePath == null) {
             throw new Error(this.$serviceId + "._restServicePath not set!");
         }
-        if (Coco.StringUtils.isEmpty(Coco.config.baseUrl)) {
+        if (Coco.config.baseUrl == null) {
             throw new Error("Coco.config.baseUrl  not set! ", Coco.config);
         }
-        if (!Coco.config.restService || Coco.StringUtils.isEmpty(Coco.config.restService.path)) {
+        if (!Coco.config.restService || Coco.config.restService.path == null) {
             throw new Error("Coco.config.restService.path not set! ", Coco.config);
         }
         if(endpoint == null) {

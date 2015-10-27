@@ -2,7 +2,7 @@
 
 ## 0.1.71
 
-- in progress
+- Coco.config.restService.path and Coco.config.baseUrl can now be an empty string!
 
 ## 0.1.70
 
