@@ -221,13 +221,13 @@ module.exports = dejavu.AbstractClass.declare({
                     //no timeout
                     delete cacheData.cocoTimeout;
                     callbackSuccess(cacheData);
-                    return;
+	                return Promise.resolve(cacheData);
                 }
                 if(cacheData.cocoTimeout > new Date().getTime()) {
                     //cache is still valid
                     delete cacheData.cocoTimeout;
                     callbackSuccess(cacheData);
-                    return;
+	                return Promise.resolve(cacheData);
                 }
                 //cache timed out, delete it
                 this._getCache.delete(cacheKey);
@@ -259,6 +259,7 @@ module.exports = dejavu.AbstractClass.declare({
                         if(Coco.config.restService.cacheGet > 0) {
                             var timeout = new Date(new Date().getTime() + (1000 * Coco.config.restService.cacheGet));
 
+	                        // todo when array - don't make object from array
                             this._getCache.set(cacheKey, $.extend({cocoTimeout: timeout}, response));
                         } else {
                             //cache disabled
