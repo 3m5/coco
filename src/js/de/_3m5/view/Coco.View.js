@@ -930,6 +930,10 @@ module.exports = Coco.View = dejavu.Class.declare({
 	delegateEvents: function ($events) {
 		if ($events == null) {
 			if (this._eventsDelegated) {
+				this.eachChildView((view) => {
+					view.delegateEvents(null);
+				});
+
 				//do not delegate events twice
 				return;
 			}
