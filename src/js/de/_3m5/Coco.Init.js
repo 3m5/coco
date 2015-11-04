@@ -66,6 +66,20 @@ require("./router/Coco.RouterService.js");
  *
  * triggers <Coco.Event.INITIALIZED> Event on body when Coco is ready
  *
+ * CONFIGURATION:
+ *
+ * config: {
+		baseUrl: "/",               //server context path
+		locale: "de",               //the Coco default locale
+		router: {
+			loaderDelay: 300        // When views are swapped by Router, this time adjusts when the loading class
+		},
+		restService: {              //restService configuration
+			path: "rest/",          //restService path
+			cacheGet: 0          	//cache time in SECONDS for GET Requests of same url, value lower than 0 causes unlimited cache
+		}
+	}
+ *
  * (c) 2015 3m5. Media GmbH
  */
 Coco.SDK = dejavu.Class.declare({
@@ -80,9 +94,8 @@ Coco.SDK = dejavu.Class.declare({
 			loaderDelay: 300        // When views are swapped by Router, this time adjusts when the loading class
 		},
 		restService: {              //restService configuration
-			path: "rest/",             //restService path
-			cacheGet: 600,          //cache time for GET Requests of same url in seconds
-			cachePost: null         //cache time for GET Requests of same url in seconds
+			path: "rest/",          //restService path
+			cacheGet: 0          	//cache time in SECONDS for GET Requests of same url, value lower than 0 causes unlimited cache
 		}
 	},
 

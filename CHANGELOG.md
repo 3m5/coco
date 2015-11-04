@@ -3,6 +3,10 @@
 ## 0.1.71 (unreleased)
 
 - Coco.config.restService.path and Coco.config.baseUrl can now be an empty string!
+- Coco.BaseRESTService: use JSON.stringify/ parse to cache GET-responses and protect them from later manipulation in code
+- Coco.BaseRESTService: make caching also work with promises
+- Coco.ChildView: delegate events even though, parent view events already delegated... (reRender after new childviews were added)
+- replaced static json2 file by npm-module
 
 ## 0.1.70
 
