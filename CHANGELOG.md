@@ -1,6 +1,6 @@
 # Coco changelog
 
-## 0.1.71 (unreleased)
+## 0.1.71
 
 - Coco.config.restService.path and Coco.config.baseUrl can now be an empty string!
 - Coco.BaseRESTService: use JSON.stringify/ parse to cache GET-responses and protect them from later manipulation in code
