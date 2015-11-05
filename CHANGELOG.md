@@ -7,6 +7,7 @@
 - Coco.BaseRESTService: make caching also work with promises
 - Coco.ChildView: delegate events even though, parent view events already delegated... (reRender after new childviews were added)
 - replaced static json2 file by npm-module
+- fixed bug in Coco.Model during removing ChildViewsByModelId
 
 ## 0.1.70
 

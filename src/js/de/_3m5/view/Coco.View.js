@@ -761,7 +761,7 @@ module.exports = Coco.View = dejavu.Class.declare({
 		for (var views in this.__childViews) {
 			if (this.__childViews.hasOwnProperty(views)) {
 				for (var i = 0; i < this.__childViews[views].length; i++) {
-					if (this.__childViews[views][i].model !== null && this.__childViews[views][i].model.getId() === modelId) {
+					if (this.__childViews[views][i].getModel() != null && this.__childViews[views][i].getModel().getId() === modelId) {
 						return this.__childViews[views][i];
 					}
 				}
