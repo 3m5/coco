@@ -632,6 +632,13 @@ module.exports = dejavu.Class.declare({
 				return $descending ? val : (-1 * val);
 			}
 
+      //sort alphabetically - UPPER letters are sorted BEFOR lower letters!!! --> convert all letters to lower case
+      if (typeof (a.get(propertyName)) == "string") {
+        val = a.get(propertyName).toLowerCase() < b.get(propertyName).toLowerCase() ? 1 : a.get(propertyName).toLowerCase() === b.get(propertyName).toLowerCase() ? 0 : -1;
+        return $descending ? val : -1 * val;
+      }
+
+      //other
 			val = a.get(propertyName) < b.get(propertyName) ? 1 : (a.get(propertyName) === b.get(propertyName) ? 0 : -1);
 
 			return $descending ? val : (-1 * val);

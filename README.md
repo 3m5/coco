@@ -94,6 +94,10 @@ Coco.config = {
     <a href="https://www.3m5.de/fileadmin/coco/" target="doc">https://www.3m5.de/coco/</a>
 </p>
 
+## I hate the way you did
+
+If something doesn't suit you, please submit a pull request that lets this framework be more flexible than it currently is.
+
 ## License
 
 Coco is under <a href="http://opensource.org/licenses/ISC" target="ISC">ISC-License</a>

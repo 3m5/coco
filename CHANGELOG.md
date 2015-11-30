@@ -2,6 +2,8 @@
 
 ## 0.1.72 (unreleased)
 
+- Coco.Collection.sortByProperty now sorts all string values alphabetically, a BEFORE B (all letters are compared lowercase)
+
 ## 0.1.71
 
 - Coco.config.restService.path and Coco.config.baseUrl can now be an empty string!
