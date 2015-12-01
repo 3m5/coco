@@ -636,7 +636,7 @@ module.exports = Coco.View = dejavu.Class.declare({
 	 * Return:
 	 * @returns {Coco.ChildView}
 	 */
-	addChildView: function (selector, view, $strategy, $addToAllMatching) {
+	addChildView: function addChildView(selector, view, $strategy, $addToAllMatching) {
 		if (!(view instanceof require("./Coco.ChildView.js"))) {
 			throw new Error("View '" + view.$name + "' is not a instance of Coco.ChildView. To add the view as a child view extend from Coco.ChildView rather than from Coco.View");
 		}
@@ -645,23 +645,40 @@ module.exports = Coco.View = dejavu.Class.declare({
 			this.__childViews[selector] = [];
 		}
 
-		if ($strategy && $strategy === 'unshift') {
+		if ($strategy === 'unshift') {
+
+			// Prepend to the beginning of list
+
 			this.__childViews[selector].unshift(view);
 
 			if ($addToAllMatching) {
 				this.$el.find(selector).prepend(view.getDOM());
-			}
-			else {
+			} else {
 				this.$el.find(selector).first().prepend(view.getDOM());
 			}
-		}
-		else {
+
+		} else if (typeof $strategy === 'number') {
+
+			// Insert at a specific index
+
+			this.__childViews[selector].splice($strategy, 0, view);
+
+			var $container = this.$el.find(selector);
+			if (!$addToAllMatching) {
+				$container = $container.first();
+			}
+
+			$container.children().eq($strategy - 1).after(view.getDOM());
+
+		} else {
+
+			// Append to the end of list
+
 			this.__childViews[selector].push(view);
 
 			if ($addToAllMatching) {
 				this.$el.find(selector).append(view.getDOM());
-			}
-			else {
+			} else {
 				this.$el.find(selector).first().append(view.getDOM());
 			}
 		}
