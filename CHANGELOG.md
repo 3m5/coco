@@ -3,7 +3,7 @@
 ## 0.1.72 (unreleased)
 
 - Coco.Collection.sortByProperty now sorts all string values alphabetically, a BEFORE B (all letters are compared lowercase)
-- Coco.View.addChildView: $strategy can now be type of number --> insert ChildView at specific index
+- Coco.View.addChildView(selector, view, $strategy, $addToAllMatching): parameter $strategy can now be type of number --> insert ChildView at specific index
 
 ## 0.1.71
 
