@@ -146,12 +146,8 @@ Coco.SDK = dejavu.Class.declare({
 	////////////////////////////////////////////////////////////
 
 	$statics: {
-		version: "0.1.72",
+		version: "0.1.73",
 		initialized: false
-	},
-
-	testFunction() {
-		console.log("call ES6 test function...");
 	},
 
 	initialize: function () {

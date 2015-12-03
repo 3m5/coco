@@ -1,5 +1,7 @@
 # Coco changelog
 
+## 0.1.73 (unreleased)
+
 ## 0.1.72
 
 - Coco.Collection.sortByProperty now sorts all string values alphabetically, a BEFORE B (all letters are compared lowercase)
