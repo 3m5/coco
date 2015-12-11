@@ -238,7 +238,7 @@ module.exports = dejavu.AbstractClass.declare({
 			url: url,
 			type: method,
 			xhrFields: xhrFields,
-			contentType: $contentType,
+			contentType: $contentType || false,
 			crossDomain: this.$self.CROSSDOMAIN, //enable crossdomain calls - implement serverside!
 			data: data,
 			dataType: 'json', //dont use jsonp for RESTservices, only GET requests allowed with jsonp
@@ -304,7 +304,7 @@ module.exports = dejavu.AbstractClass.declare({
 		if (!Array.isArray(pathParameter)) {
 			throw new Error("2nd parameter has to be pathParameter array, but was: " + typeof pathParameter);
 		}
-		return this.__call(endpoint, pathParameter, 'GET', data, xhrFields, callbackSuccess, callbackError, null);
+		return this.__call(endpoint, pathParameter, 'GET', data, xhrFields, callbackSuccess, callbackError, false);
 	},
 
 	/**
@@ -329,7 +329,7 @@ module.exports = dejavu.AbstractClass.declare({
 		if (!Array.isArray(pathParameter)) {
 			throw new Error("2nd parameter has to be pathParameter array, but was: " + typeof pathParameter);
 		}
-		return this.__call(endpoint, pathParameter, 'POST', data, xhrFields, callbackSuccess, callbackError, contentType || null);
+		return this.__call(endpoint, pathParameter, 'POST', data, xhrFields, callbackSuccess, callbackError, contentType);
 	},
 
 	/**
@@ -379,7 +379,7 @@ module.exports = dejavu.AbstractClass.declare({
 		if (!Array.isArray(pathParameter)) {
 			throw new Error("2nd parameter has to be pathParameter array, but was: " + typeof pathParameter);
 		}
-		return this.__call(endpoint, pathParameter, 'PUT', data, xhrFields, callbackSuccess, callbackError, contentType || null);
+		return this.__call(endpoint, pathParameter, 'PUT', data, xhrFields, callbackSuccess, callbackError, contentType);
 	},
 
 	/**
