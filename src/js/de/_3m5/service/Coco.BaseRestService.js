@@ -421,11 +421,11 @@ module.exports = dejavu.AbstractClass.declare({
 	 *
 	 * @param {function} callbackError the error handler
 	 */
-	_delete: function (endpoint, pathParameter, data, xhrFields, callbackSuccess, callbackError) {
+	_delete: function (endpoint, pathParameter, data, xhrFields, callbackSuccess, callbackError, contentType) {
 		if (!Array.isArray(pathParameter)) {
 			throw new Error("2nd parameter has to be pathParameter array, but was: " + typeof pathParameter);
 		}
-		return this.__call(endpoint, pathParameter, 'DELETE', data, xhrFields, callbackSuccess, callbackError, null);
+		return this.__call(endpoint, pathParameter, 'DELETE', data, xhrFields, callbackSuccess, callbackError, contentType);
 	}
 
 });
