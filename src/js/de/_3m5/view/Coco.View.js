@@ -629,7 +629,7 @@ module.exports = Coco.View = dejavu.Class.declare({
    *
    * @param {Coco.ChildView}     view     - An instance of a <Coco.View>
    *
-   * @param {string|number} $strategy     - {optional} How should the child view be inserted? Valid values are "push" and "unshift".
+   * @param {string|number} $strategy     - {optional} How should the child view be inserted? Valid values are "push" and "unshift", a number lets the ChildView be added at this position
    *
    * @param {boolean} $addToAllMatching   - {optional} If set to true child views will be added to all matching selector instead of the first.
    *

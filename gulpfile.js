@@ -98,12 +98,22 @@ gulp.task('babel', function() {
         .pipe(gulp.dest('lib/'));
 });
 
-gulp.task('documentate', function() {
+gulp.task('deploy', function () {
+  return gulp
+    .src(__filename)
+    .pipe(open({uri: "https://www.3m5.de/fileadmin/coco/"}));
+});
+
+gulp.task('writedoc', function() {
     return gulp.src(["build/doc/*"], {read: false})
         .pipe(shell([
             'echo documentate code via gulp-shell...',
             'ndoc -i src/js/de/_3m5 -o html build/doc -p .ndoc --rebuild-output'
         ]));
+});
+
+gulp.task('documentate', function () {
+  runsSequence(['writedoc'], ['deploy']);
 });
 
 
