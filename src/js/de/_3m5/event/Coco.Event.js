@@ -10,6 +10,10 @@ let Coco = Coco || {};
 
 Coco.Event = class {
 
+  get $name() {
+    return "Coco.Event";
+  }
+
   constructor(type, $data = null) {
     /**
      * Variable: _type {string}
@@ -17,7 +21,7 @@ Coco.Event = class {
      * Description:
      * the type of dispatched event
      */
-    if(!this._validateEventType(type)) {
+    if (!this._validateEventType(type)) {
       console.error(this.$name + ".invalid type given! ", type);
     }
     this._type = type;
@@ -43,10 +47,6 @@ Coco.Event = class {
    */
   _createModelChangeKey(key) {
     return Coco.Event.CHANGE_KEY + key;
-  }
-
-  get $name() {
-    return "Coco.Event2";
   }
 
   /**
