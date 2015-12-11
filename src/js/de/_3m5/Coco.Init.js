@@ -1,6 +1,61 @@
+// Rewrite modern console methods for olders browsers (like IE 9/10)
+if (!window.console) {
+  window.console = {};
+}
+if (!window.console.debug) {
+  window.console.debug = window.console.log || function () {
+    };
+}
+
+if (!window.console.error) {
+  window.console.error = window.console.log || function () {
+    };
+}
+
+if (!window.console.warn) {
+  window.console.warn = window.console.log || function () {
+    };
+}
+
+//add $compute function to all functions
+/** $compute function to register change listeners to properties in Coco.Model */
+if (!Function.prototype.$compute) {
+  Function.prototype.$compute = function () {
+    var fn   = this;
+    var args = Array.prototype.slice.call(arguments);
+
+    /**
+     * We capsule the function and the $compute properties, because our this context is the function and not the
+     * model. When the model gets instantiated we call this returned function with the model context, set the observers
+     * and return the original function (with assigned model context) back to the initial model property.
+     */
+    var retFn = function (targetAttribute, observers) {
+      for (var i = 0; i < args.length; i++) {
+        observers.push({
+          attribute: args[i],
+          target:    targetAttribute,
+          old:       fn.call(this)
+        });
+      }
+
+      return fn.$bind(this);
+    };
+
+    // Assign a flag to the function, that we can distinct between normal functions as attributes and computed properties.
+    retFn.isComputed = true;
+
+    return retFn;
+  }
+}
+
+// Dependencies
 var Coco = Coco || {};
 
 var Handlebars = require('handlebars/runtime');
+
+//use babel polyfill for IE support
+require("babel/polyfill");
+
 //require non public Coco classes
 require("./service/Coco.ServiceContainer.js");
 require("./helpers/HandlebarsHelpers.js");
@@ -17,12 +72,26 @@ Coco.Event = require("./event/Coco.Event");
  *
  * triggers <Coco.Event.INITIALIZED> Event on body when Coco is ready
  *
+ * CONFIGURATION:
+ *
+ * config: {
+		baseUrl: "/",               //server context path
+		locale: "de",               //the Coco default locale
+		router: {
+			loaderDelay: 300        // When views are swapped by Router, this time adjusts when the loading class
+		},
+		restService: {              //restService configuration
+			path: "rest/",          //restService path
+			cacheGet: 0          	//cache time in SECONDS for GET Requests of same url, value lower than 0 causes unlimited cache
+		}
+	}
+ *
  * (c) 2015 3m5. Media GmbH
  */
 Coco.SDK = dejavu.Class.declare({
-  $name: "Coco.Init",
 
-  ////////////////////////////////////////////////////////////
+  $name:  "Coco.Init",
+////////////////////////////////////////////////////////////
   //////// CONFIGURATION
   config: {
     baseUrl:     "/",              //server context path
@@ -30,13 +99,14 @@ Coco.SDK = dejavu.Class.declare({
       loaderDelay: 300        // When views are swapped by Router, this time adjusts when the loading class
     },
     restService: {              //restService configuration
-      path:      "rest/",             //restService path
-      cacheGet:  600,          //cache time for GET Requests of same url in seconds
-      cachePost: null         //cache time for GET Requests of same url in seconds
-    }
+      path:     "rest/",             //restService path
+      cacheGet: 600,          //cache time for GET Requests of same url in seconds
+    },
+    locale:      "de",               //the Coco default locale
   },
 
   //////// CLASS DEFINITIONS
+
   //Event2: require("./event/Coco.Event2.js").Event2,
   //  Event3: require("./event/Coco.Event3.js"),
   //ModelEvent: require("./event/Coco.ModelEvent.js"),
@@ -86,12 +156,8 @@ Coco.SDK = dejavu.Class.declare({
   ////////////////////////////////////////////////////////////
 
   $statics: {
-    version:     "0.1.63",
+    version:     "0.1.73",
     initialized: false
-  },
-
-  testFunction() {
-    console.log("call ES6 test function...");
   },
 
   initialize: function () {

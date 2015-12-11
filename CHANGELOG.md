@@ -1,5 +1,63 @@
 # Coco changelog
 
+## 0.1.73 (unreleased)
+
+## 0.1.72
+
+- Coco.Collection.sortByProperty now sorts all string values alphabetically, a BEFORE B (all letters are compared lowercase)
+- Coco.View.addChildView(selector, view, $strategy, $addToAllMatching): parameter $strategy can now be type of number --> insert ChildView at specific index
+
+## 0.1.71
+
+- Coco.config.restService.path and Coco.config.baseUrl can now be an empty string!
+- Coco.BaseRESTService: use JSON.stringify/ parse to cache GET-responses and protect them from later manipulation in code
+- Coco.BaseRESTService: make caching also work with promises
+- Coco.ChildView: delegate events even though, parent view events already delegated... (reRender after new childviews were added)
+- replaced static json2 file by npm-module
+- fixed bug in Coco.Model during removing ChildViewsByModelId
+
+## 0.1.70
+
+- Coco.Collection: findBy, findOneBy, removeBy are no more type safe anymore
+- added older browser support for Symbol-Event-handles
+- Coco.Collection: sortByProperty() - Bugfix added missing import
+
+## 0.1.69
+
+- added function removeBy to Coco.Collection
+- added $compute functionality to all functions to implement computed properties for models, you can check a computed function by boolean '.isComputed' property
+
+## 0.1.68
+
+- fixed bug in Coco.Collection
+- added babel/polyfill requirement for IE support
+- enable application-loading again
+- fixed bug in Coco.EventDispatcher to removeEvents by given Symbol-handle
+- Rewrite modern console methods for old browsers (like IE 9/10)
+- enable working with promises - Coco.BaseRestService now returns Promise object
+- pass contentType as parameter for POST and PUT
+- reactivate removal of application-loading class from main container
+
+## 0.1.67
+
+- added Coco.config.locale (default is 'de') for handlebars localization
+- handlebars templates now get localization from Coco.config for other modules e.g. formatJS
+- moved handlebars & underscore from dependencies to devDependencies to prevent double includes
+
+## 0.1.66
+
+- HOTFIX HandleBars-Helper, dont use ES6 syntax!
+
+## 0.1.65
+
+- Hotfix
+
+## 0.1.64
+
+- fixed bug to prevent executing model properties with type function during rendering
+- added Coco.Utils.sizeOfObject function to count object properties
+- added Coco.Collection.where function, based on underscore.where to get filtered array of models
+
 ## 0.1.63
 
 - added Handlebars.Helper 'ifCond' - deprecates: 'is', 'isNot', 'isGreater', 'isGreaterThan', 'isLess', 'isLessThan'

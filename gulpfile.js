@@ -9,7 +9,7 @@ var gulp         = require('gulp'),
     concat       = require('gulp-concat'),
     server       = require('gulp-webserver'),
     runsSequence = require('run-sequence'),
-	  traceur		 = require('gulp-traceur'),
+    traceur         = require('gulp-traceur'),
     gutil        = require('gulp-util');
 
 
@@ -21,7 +21,7 @@ es6ify.traceurOverrides = {experimental: true};
 
 // Browserify, transform and concat all javascript
 gulp.task('test', function() {
-    gulp.src(['test/cocoTestApp.js'], {read:false})
+    gulp.src('test/cocoTestApp.js', {read:false})
         .pipe(tap(function(file) {
             var d = domain.create();
 
@@ -31,23 +31,23 @@ gulp.task('test', function() {
                 );
             });
 
-          d.run(function () {
-            file.contents = browserify({entries: [file.path]})
-              .add(es6ify.runtime)
-              .transform(es6ify.configure(/^(?!.*node_modules)+.+\.js$/))
-              .transform(hbsfy)
-              //.transform(aliasify) --< not compatible with ES6 node_modules
-              .bundle();
-          });
+            d.run(function() {
+                file.contents = browserify({entries: [file.path]})
+                    .add(es6ify.runtime)
+                    .transform(es6ify.configure(/^(?!.*node_modules)+.+\.js$/))
+                    .transform(hbsfy)
+                    .bundle();
+            });
         }))
         .pipe(streamify(concat('application.js')))
         .pipe(gulp.dest('./build/js'))
 });
 
 gulp.task('traceur:runtime', function() {
-	return gulp.src(traceur.RUNTIME_PATH)
-		.pipe(gulp.dest('./src/js/core/traceur'));
+    return gulp.src(traceur.RUNTIME_PATH)
+        .pipe(gulp.dest('./src/js/core/traceur'));
 });
+
 
 // copy local index file to build folder
 gulp.task('vendor', ['traceur:runtime'], function() {
@@ -75,9 +75,9 @@ gulp.task('clean-lib', function() {
 });
 
 gulp.task('serve', function () {
+    gulp.run('vendor');
     gulp.run('test');
     gulp.run('html');
-    gulp.run('vendor');
     gulp.src(['./build', './build/js'])
         .pipe(server({
             port: 9090,
@@ -98,12 +98,22 @@ gulp.task('babel', function() {
         .pipe(gulp.dest('lib/'));
 });
 
-gulp.task('documentate', function() {
+gulp.task('deploy', function () {
+  return gulp
+    .src(__filename)
+    .pipe(open({uri: "https://www.3m5.de/fileadmin/coco/"}));
+});
+
+gulp.task('writedoc', function() {
     return gulp.src(["build/doc/*"], {read: false})
         .pipe(shell([
             'echo documentate code via gulp-shell...',
             'ndoc -i src/js/de/_3m5 -o html build/doc -p .ndoc --rebuild-output'
         ]));
+});
+
+gulp.task('documentate', function () {
+  runsSequence(['writedoc'], ['deploy']);
 });
 
 
