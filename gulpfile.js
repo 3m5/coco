@@ -9,7 +9,7 @@ var gulp         = require('gulp'),
     concat       = require('gulp-concat'),
     server       = require('gulp-webserver'),
     runsSequence = require('run-sequence'),
-	traceur		 = require('gulp-traceur'),
+	  traceur		 = require('gulp-traceur'),
     gutil        = require('gulp-util');
 
 
@@ -31,13 +31,14 @@ gulp.task('test', function() {
                 );
             });
 
-            d.run(function() {
-                file.contents = browserify({entries: [file.path]})
-                    .add(es6ify.runtime)
-                    .transform(es6ify.configure(/^(?!.*(bower_components|node_modules))+.+\.js$/))
-                    .transform(hbsfy)
-                    .bundle();
-            });
+          d.run(function () {
+            file.contents = browserify({entries: [file.path]})
+              .add(es6ify.runtime)
+              .transform(es6ify.configure(/^(?!.*node_modules)+.+\.js$/))
+              .transform(hbsfy)
+              //.transform(aliasify) --< not compatible with ES6 node_modules
+              .bundle();
+          });
         }))
         .pipe(streamify(concat('application.js')))
         .pipe(gulp.dest('./build/js'))

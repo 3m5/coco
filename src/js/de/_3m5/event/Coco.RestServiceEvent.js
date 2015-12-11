@@ -1,4 +1,4 @@
-var Coco = Coco || {};
+var Coco   = Coco || {};
 Coco.Event = require("./Coco.Event.js");
 /**
  * Class: Coco.RestServiceEvent
@@ -8,41 +8,49 @@ Coco.Event = require("./Coco.Event.js");
  *
  * (c) 2015 3m5. Media GmbH
  */
-module.exports = dejavu.Class.declare({
-    $name: "Coco.RestServiceEvent",
-    $extends: Coco.Event,
+Coco.RestServiceEvent = class extends Coco.Event {
 
-    /**
-     * Variable: error
-     *
-     * Description:
-     * {object} the (response) error
-     */
-    error: null,
+  get $name() {
+    return "Coco.RestServiceEvent";
+  }
 
+  /**
+   * Function: Constructor
+   *
+   * Parameter:
+   * @param {string}  type    - The type of this dispatched the event
+   * @param {int} status      - http status of RESTService Response
+   * @param {object} error    - the error object
+   */
+  constructor(type, status, $error) {
+    super(type);
+    if (status == null) {
+      throw new Error("Missing status parameter in " + this.$name + ".initialize");
+    }
     /**
      * Variable: status
      *
      * Description:
      * {int} the (response) error state (default: -1)
      */
-    status: -1,
-
+    this._status = status;
     /**
-     * Function: Constructor
+     * Variable: error
      *
-     * Parameter:
-     * @param {string}  type    - The type of this dispatched the event
-     * @param {int} status      - http status of RESTService Response
-     * @param {object} error    - the error object
+     * Description:
+     * {object} the (response) error
      */
-    initialize: function (type, status, $error) {
-        this.$super(type);
-        if (status == null) {
-            throw new Error("Missing status parameter in " + this.$name + ".initialize");
-        }
-        this.status = status;
-        this.error = $error;
-    }
+    this._error = $error;
+  }
 
-});
+  get status() {
+    return this._status;
+  }
+
+  get error() {
+    return this._error;
+  }
+
+};
+
+module.exports = Coco.RestServiceEvent;

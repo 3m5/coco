@@ -1,4 +1,4 @@
-var Coco = Coco || {};
+var Coco   = Coco || {};
 Coco.Event = require("./Coco.Event.js");
 /**
  * Class: Coco.RouterEvent
@@ -8,65 +8,86 @@ Coco.Event = require("./Coco.Event.js");
  *
  * (c) 2015 3m5. Media GmbH
  */
-module.exports = dejavu.Class.declare({
-    $name: "Coco.RouterEvent",
-    $extends: Coco.Event,
+Coco.RouterEvent = class extends Coco.Event {
 
+  get $name() {
+    return "Coco.RouterEvent";
+  }
+
+  /**
+   * Function: Constructor
+   *
+   * Parameter:
+   * @param {string}  type          - The type that dispatched the event
+   * @param {object}  newRoute      - The new route changed to
+   * @param {object}  oldRoute      - The old route changed from
+   */
+  constructor(type, newRoute, oldRoute) {
+    super(type);
+    if (newRoute == null) {
+      throw new Error("Missing newRoute parameter in " + this.$name + ".initialize");
+    }
     /**
      * Variable: newRoute {object}
      *
-	 * Description:
+     * Description:
      * the new route changed to
      */
-    newRoute: null,
-
+    this._newRoute = newRoute;
+    if (oldRoute == null) {
+      throw new Error("Missing oldRoute parameter in " + this.$name + ".initialize");
+    }
     /**
      * Variable: oldRoute {object}
      *
      * the old route changed from
      */
-    oldRoute: null,
+    this._oldRoute = oldRoute;
+  }
 
-    $constants: {
-        /**
-         * Event: CHANGE_ROUTE
-         * Called in <Coco.RouterService> when the url changed.
-         */
-        CHANGE_ROUTE: 'coco:route:change',
-        /**
-         * Event: FIRE_ROUTE
-         */
-        FIRE_ROUTE: 'coco:route:fire',
-		/**
-		 * Event: HIDE_VIEW
-		 * Called in <Coco.RouterService> when the url changed.
-		 */
-		HIDE_VIEW: 'coco:view:hide',
-		/**
-		 * Event: SHOW_VIEW
-		 * Called in <Coco.RouterService> when the url changed.
-		 */
-		SHOW_VIEW: 'coco:view:show'
-    },
+  _validateEventType(type) {
+    return super._validateEventType(type) || Coco.RouterEvent[type] != null;
+  }
 
-    /**
-     * Function: Constructor
-     *
-     * Parameter:
-     * @param {string}  type          - The type that dispatched the event
-     * @param {object}  newRoute      - The new route changed to
-     * @param {object}  oldRoute      - The old route changed from
-     */
-    initialize: function (type, newRoute, oldRoute) {
-        this.$super(type);
-        if (newRoute == null) {
-            throw new Error("Missing newRoute parameter in " + this.$name + ".initialize");
-        }
-        this.newRoute = newRoute;
-        if (oldRoute == null) {
-            throw new Error("Missing oldRoute parameter in " + this.$name + ".initialize");
-        }
-        this.oldRoute = oldRoute;
-    }
+  get newRoute() {
+    return this._newRoute;
+  }
 
-});
+  get oldRoute() {
+    return this._oldRoute;
+  }
+
+  /**
+   * Event: CHANGE_ROUTE
+   * Called in <Coco.RouterService> when the url changed.
+   */
+  static get CHANGE_ROUTE() {
+    return 'CHANGE_ROUTE';
+  }
+
+  /**
+   * Event: FIRE_ROUTE
+   */
+  static get FIRE_ROUTE() {
+    return 'FIRE_ROUTE';
+  }
+
+  /**
+   * Event: HIDE_VIEW
+   * Called in <Coco.RouterService> when the url changed.
+   */
+  static get HIDE_VIEW() {
+    return 'HIDE_VIEW';
+  }
+
+  /**
+   * Event: SHOW_VIEW
+   * Called in <Coco.RouterService> when the url changed.
+   */
+  static get SHOW_VIEW() {
+    return 'SHOW_VIEW';
+  }
+
+};
+
+module.exports = Coco.RouterEvent;

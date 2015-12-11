@@ -171,8 +171,7 @@ module.exports = Coco.Model = dejavu.Class.declare({
                 var newValue = this.get(this.__observers[i].target);
 
                 if (newValue !== this.__observers[i].old) {
-                    //this.trigger(Coco.Event.CHANGE_KEY + this.__observers[i].target, newValue, this.__observers[i].old);
-                    this._dispatchEvent(new Coco.ModelEvent(Coco.Event.CHANGE_KEY + this.__observers[i].target, this, this.__observers[i].target));
+                    //this._dispatchEvent(new Coco.ModelEvent(Coco.Event.CHANGE_KEY + this.__observers[i].target, this, this.__observers[i].target));
                     this.__observers[i].old = newValue;
                 }
             }
@@ -206,8 +205,7 @@ module.exports = Coco.Model = dejavu.Class.declare({
                     // Key does not exist, so add it
                     this.__attributes[key] = object[key];
 
-                    //this.trigger(Coco.Event.ADD, key, object[key], this);
-                    this._dispatchEvent(new Coco.ModelEvent(Coco.Event.ADD, this));
+                    //this._dispatchEvent(new Coco.ModelEvent(Coco.Event.ADD, this));
                 }
                 else {
                     // Key exists, set new value
@@ -263,7 +261,6 @@ module.exports = Coco.Model = dejavu.Class.declare({
 
         if (changed) {
             // Throw default changed event
-            //this.trigger(Coco.Event.CHANGE, object, this, oldObject);
             this._dispatchEvent(new Coco.ModelEvent(Coco.Event.CHANGE, this));
         }
 
@@ -530,7 +527,6 @@ module.exports = Coco.Model = dejavu.Class.declare({
             this.__attributes = $.extend({}, this.__initialAttributes, collections);
         }
 
-        //this.trigger(Coco.Event.RESET);
         this._dispatchEvent(new Coco.ModelEvent(Coco.Event.RESET, this));
     },
 
@@ -571,13 +567,11 @@ module.exports = Coco.Model = dejavu.Class.declare({
         if (result !== true) {
             this.__validationError = result;
 
-            //this.trigger(Coco.Event.INVALID, result, this);
             this._dispatchEvent(new Coco.ModelEvent(Coco.Event.INVALID, this));
 
             return false;
         }
         else {
-            //this.trigger(Coco.Event.VALID, this);
             this._dispatchEvent(new Coco.ModelEvent(Coco.Event.VALID, this));
         }
 

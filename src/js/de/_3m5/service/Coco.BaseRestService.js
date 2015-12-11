@@ -286,7 +286,7 @@ module.exports = dejavu.AbstractClass.declare({
             }
 		});
 	},
-	
+
 	/**
      * Function: _get
      *
@@ -311,7 +311,7 @@ module.exports = dejavu.AbstractClass.declare({
         }
 		this.__call(endpoint, pathParameter, 'GET', data, xhrFields, callbackSuccess, callbackError, null);
 	},
-	
+
 	/**
      * Function: _post
      *
@@ -407,7 +407,7 @@ module.exports = dejavu.AbstractClass.declare({
         }
         this.__call(endpoint, pathParameter, 'PUT', JSON.stringify(data), xhrFields, callbackSuccess, callbackError, 'application/json');
     },
-	
+
 	/**
      * Function: _delete
      *

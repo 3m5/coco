@@ -12,7 +12,7 @@ var TestView2 = require("./testView2");
 var CocoApplication = dejavu.Class.declare({
 
     initialize() {
-        console.log("CocoTestApp initialized, look at available Coco-Classes: ", Coco);
+        console.log("CocoTestApp initialized, look at new available Coco-Classes: ", Coco);
 
         var innerModel = new Coco.Model({id:123, label:"innerModel", properts: "myInnerProperty"});
         var innerCollection = new TestCollection([{id:1, label:11}, {id:2, label:22}]);
@@ -28,8 +28,12 @@ var CocoApplication = dejavu.Class.declare({
 		// typescript and es6 objects only work WITHOUT any usage of dejavu!
 		//console.log(".Coco.TestEvent ", Coco.TestEvent);
 		//console.log(".Coco.TestModelEvent ", Coco.TestModelEvent);
-		//console.log(".Coco.Event2 ", Coco.Event2);
-		//var testEvent = new Coco.Event2("asd", innerModel);
+		console.log(".Coco.Event ", Coco.Event);
+		var testEvent = new Coco.Event(Coco.Event.ADD, innerModel);
+
+      //testEvent.data = {key: "muuuuuhhh"};
+      console.log(".testEvent ", typeof testEvent, testEvent instanceof Coco.Event, testEvent instanceof Coco.Event);
+      console.log(".testEvent ", testEvent.type, testEvent.$name);
 
         //new TestView(testModel);
         //testview is autorendered by flag
