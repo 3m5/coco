@@ -1,6 +1,8 @@
 # Coco changelog
 
-## 0.1.73 (unreleased)
+## 0.1.73
+
+- Coco.BaseRestService: contentType is now false by default (not null)
 
 ## 0.1.72
 
