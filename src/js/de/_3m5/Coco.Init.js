@@ -1,6 +1,8 @@
 // Rewrite modern console methods for olders browsers (like IE 9/10)
 if (!window.console) {
   window.console = {};
+} else {
+  window.console.logWithDate = true;
 }
 if (!window.console.debug) {
   window.console.debug = window.console.log || function () {
@@ -49,8 +51,6 @@ if (!Function.prototype.$compute) {
 }
 
 // Dependencies
-var Coco = Coco || {};
-
 var Handlebars = require('handlebars/runtime');
 
 //use babel polyfill for IE support
@@ -60,8 +60,6 @@ require("babel/polyfill");
 require("./service/Coco.ServiceContainer.js");
 require("./helpers/HandlebarsHelpers.js");
 require("./router/Coco.RouterService.js");
-
-Coco.Event = require("./event/Coco.Event");
 
 /**
  * Class: .Coco
@@ -88,80 +86,137 @@ Coco.Event = require("./event/Coco.Event");
  *
  * (c) 2015 3m5. Media GmbH
  */
-Coco.SDK = dejavu.Class.declare({
+class Coco {
 
-  $name:  "Coco.Init",
-////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////
   //////// CONFIGURATION
-  config: {
-    baseUrl:     "/",              //server context path
-    router:      {
-      loaderDelay: 300        // When views are swapped by Router, this time adjusts when the loading class
-    },
-    restService: {              //restService configuration
-      path:     "rest/",             //restService path
-      cacheGet: 600,          //cache time for GET Requests of same url in seconds
-    },
-    locale:      "de",               //the Coco default locale
-  },
+  get config() {
+    return this._config;
+  }
+
+  set config(config) {
+    this._config = config;
+  }
 
   //////// CLASS DEFINITIONS
 
-  //Event2: require("./event/Coco.Event2.js").Event2,
-  //  Event3: require("./event/Coco.Event3.js"),
-  //ModelEvent: require("./event/Coco.ModelEvent.js"),
-  //RestServiceEvent: require("./event/Coco.RestServiceEvent.js"),
-  //RouterEvent: require("./event/Coco.RouterEvent.js"),
-  //ViewEvent:        require("./event/Coco.ViewEvent.js"),
-  //TestEvent: require("./event/Coco.TestEvent.js"),
-  //TestModelEvent: require("./event/Coco.TestModelEvent.js"),
-  EventDispatcher: require("./event/Coco.EventDispatcher.js"),
+  // PACKAGE EVENT
+  static get Event() {
+    return require("./event/Coco.Event");
+  }
+
+  static get ModelEvent() {
+    return require("./event/Coco.ModelEvent");
+  }
+
+  static get RouterEvent() {
+    return require("./event/Coco.RouterEvent");
+  }
+
+  static get ViewEvent() {
+    return require("./event/Coco.ViewEvent");
+  }
+
+  static get RestServiceEvent() {
+    return require("./event/Coco.RestServiceEvent.js");
+  }
+
+  static get EventDispatcher() {
+    return require("./event/Coco.EventDispatcher.js");
+  }
 
   //PACKAGE MODEL
-  Model:      require("./model/Coco.Model.js"),
-  Collection: require("./model/Coco.Collection.js"),
+  static get Model() {
+    return require("./model/Coco.Model.js");
+  }
+
+  static get Collection() {
+    return require("./model/Coco.Collection.js");
+  }
 
   //PACKAGE SERVICE
-  Service:         require("./service/Coco.Service.js"),
-  ServiceProvider: require("./service/Coco.ServiceProvider.js"),
+  static get Service() {
+    return require("./service/Coco.Service.js");
+  }
+
+  static get ServiceProvider() {
+    return require("./service/Coco.ServiceProvider.js");
+  }
 
   //PACKAGE ROUTER
-  Router: require("./router/Coco.Router.js"),
+  static get Router() {
+    return require("./router/Coco.Router.js");
+  }
 
   //REST
-  BaseRestService: require("./service/Coco.BaseRestService.js"),
+  static get BaseRestService() {
+    return require("./service/Coco.BaseRestService.js");
+  }
 
   //PACKAGE LIB
-  HashMap:     {error: "not needed anymore, use ES6 classes 'map' or 'set' instead"},
-  HbsLoader:   {error: "not available anymore, hbs files are compiled by handlebars npm-module"},
-  DateHelper:  {error: "not available anymore, use momentJS instead (npm-module)"},
-  Math:        require("./lib/Coco.Math.js"),
-  Utils:       require("./lib/Coco.Utils.js"),
-  Storage:     require("./lib/Coco.Storage.js"),
-  StringUtils: require("./lib/Coco.StringUtils.js"),
-  URLHelper:   require("./lib/Coco.URLHelper.js"),
+  static get Math() {
+    return require("./lib/Coco.Math.js");
+  }
+
+  static get Utils() {
+    return require("./lib/Coco.Utils.js");
+  }
+
+  static get Storage() {
+    return require("./lib/Coco.Storage.js");
+  }
+
+  static get StringUtils() {
+    return require("./lib/Coco.StringUtils.js");
+  }
+
+  static get URLHelper() {
+    return require("./lib/Coco.URLHelper.js");
+  }
 
   //PACKAGE VIEW
-  View:      require("./view/Coco.View.js"),
-  ChildView: require("./view/Coco.ChildView.js"),
+  static get View() {
+    return require("./view/Coco.View.js");
+  }
+
+  static get ChildView() {
+    return require("./view/Coco.ChildView.js");
+  }
 
   //PLUGINS
-  Plugins: {
-    i18n: {
-      Translator: require("./plugins/i18n/Coco.Translator.js")
+  static get Plugins() {
+    return {
+      i18n: {
+        Translator: require("./plugins/i18n/Coco.Translator.js")
+      }
     }
-  },
+  }
 
   //////// CLASS DEFINITIONS END
   ////////////////////////////////////////////////////////////
 
-  $statics: {
-    version:     "0.1.73",
-    initialized: false
-  },
+  static get version() {
+    return "0.2.0";
+  }
 
-  initialize: function () {
-    console.logWithDate = true;
+  get initialized() {
+    this._initialized;
+  }
+
+  static init() {
+    this._initialized = false;
+
+    this._config = {
+      baseUrl: "/",             //server context path
+      router: {
+        loaderDelay: 300        // When views are swapped by Router, this time adjusts when the loading class
+      },
+      restService: {            //restService configuration
+        path:     "rest/",      //restService path
+        cacheGet: 600           //cache time for GET Requests of same url in seconds
+      },
+      locale: "de"              //the Coco default locale
+    };
 
     if (Handlebars == null) {
       throw new Error("Missing Handlebars! include npm-module 'handlebars' into your project!");
@@ -174,30 +229,24 @@ Coco.SDK = dejavu.Class.declare({
     }
 
     console.debug("-------------------------------------------");
-    console.debug("Coco.js v" + this.$static.version + " initialized.");
+    console.debug("Coco.js v" + Coco.version + " initialized.");
     console.debug("Bugreport@ GitHub: https://github.com/3m5/coco/issues");
     console.debug("Handlebars v" + Handlebars.VERSION);
     console.debug("registered Handlebars helpers: ", Handlebars.helpers);
     console.debug("jQuery v" + $().jquery);
 
     if (this.Plugins != null) {
-      console.debug("Detected Coco.Plugins: ", this.Plugins);
+      console.debug("Detected Coco.Plugins: ", Coco.Plugins);
     }
 
     console.debug("-------------------------------------------");
 
     $("body").trigger(Coco.Event.INITIALIZED);
 
-    this.initialized = true;
+    this._initialized = true;
   }
-});
+};
+//initialize Coco SDK
+Coco.init();
 
-let cocoSDK = new Coco.SDK();
-
-cocoSDK.Event            = Coco.Event;
-cocoSDK.ModelEvent       = require("./event/Coco.ModelEvent");
-cocoSDK.RouterEvent      = require("./event/Coco.RouterEvent");
-cocoSDK.ViewEvent        = require("./event/Coco.ViewEvent");
-cocoSDK.RestServiceEvent = require("./event/Coco.RestServiceEvent.js");
-
-module.exports = cocoSDK;
+module.exports = Coco;

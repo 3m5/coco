@@ -12,7 +12,7 @@ var TestView2 = require("./testView2");
 var CocoApplication = dejavu.Class.declare({
 
     initialize() {
-        console.log("CocoTestApp initialized, look at new available Coco-Classes: ", Coco);
+        console.log("CocoTestApp initialized, look at new available Coco-Classes: ", Coco.config);
 
         var innerModel = new Coco.Model({id:123, label:"innerModel", properts: "myInnerProperty"});
         var innerCollection = new TestCollection([{id:1, label:11}, {id:2, label:22}]);
