@@ -14,6 +14,14 @@ var CocoApplication = dejavu.Class.declare({
     initialize() {
         console.log("CocoTestApp initialized, look at available Coco-Classes: ", Coco);
 
+      Coco.Translator.loadMessagesFromObject({
+        title: {
+          1: "bla",
+          2: "blub"
+        },
+        title2: "Hallo %0%"
+      });
+
         var innerModel = new Coco.Model({id:123, label:"innerModel", properts: "myInnerProperty"});
         var innerCollection = new TestCollection([{id:1, label:11}, {id:2, label:22}]);
         var testModel = new Coco.Model({id:12, label:"myLabel", property: innerModel, properties: innerCollection});
@@ -56,5 +64,9 @@ Coco.config = {
         path: null,             //restService path
         cacheGet: 600,          //cache time for GET Requests of same url in seconds
         cachePost: null         //cache time for GET Requests of same url in seconds
+    },
+    i18n: {
+      locale: "de",
+      domain: "/"
     }
 };

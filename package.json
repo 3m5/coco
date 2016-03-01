@@ -58,6 +58,7 @@
     "gulp-webserver": "^0.9.1",
     "handlebars": "^4.0.3",
     "hbsfy": "^2.2.1",
+    "jquery": "^2.2.1",
     "mocha": "^2.2.5",
     "run-sequence": "^1.1.2",
     "traceur": "0.0.91",

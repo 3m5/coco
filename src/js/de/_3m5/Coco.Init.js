@@ -49,6 +49,10 @@ if (!Function.prototype.$compute) {
 var Coco = Coco || {};
 
 var Handlebars = require('handlebars/runtime');
+let $ = require("jquery");
+
+window.$ = $;
+
 //use babel polyfill for IE support
 require("babel/polyfill");
 
@@ -56,6 +60,8 @@ require("babel/polyfill");
 require("./service/Coco.ServiceContainer.js");
 require("./helpers/HandlebarsHelpers.js");
 require("./router/Coco.RouterService.js");
+
+let Translator = require("./plugins/i18n/Coco.Translator.js");
 
 /**
  * Class: .Coco
@@ -80,7 +86,7 @@ require("./router/Coco.RouterService.js");
 		}
 	}
  *
- * (c) 2015 3m5. Media GmbH
+ * (c) 2016 3m5. Media GmbH
  */
 Coco.SDK = dejavu.Class.declare({
 	$name: "Coco.Init",
@@ -89,7 +95,6 @@ Coco.SDK = dejavu.Class.declare({
 	//////// CONFIGURATION
 	config: {
 		baseUrl: "/",               //server context path
-		locale: "de",               //the Coco default locale
 		router: {
 			loaderDelay: 300        // When views are swapped by Router, this time adjusts when the loading class
 		},
@@ -135,12 +140,8 @@ Coco.SDK = dejavu.Class.declare({
 	View: require("./view/Coco.View.js"),
 	ChildView: require("./view/Coco.ChildView.js"),
 
-	//PLUGINS
-	Plugins: {
-		i18n: {
-			Translator: require("./plugins/i18n/Coco.Translator.js")
-		}
-	},
+	//i18n Translator
+  Translator: new Translator(),
 
 	//////// CLASS DEFINITIONS END
 	////////////////////////////////////////////////////////////
@@ -164,15 +165,11 @@ Coco.SDK = dejavu.Class.declare({
 		}
 
 		console.debug("-------------------------------------------");
-		console.debug("Coco.js v" + this.$static.version + " initialized.");
+		console.debug("Coco.js v" + this.$static.version + " initialized. Coco.config on startup: ", $.extend({}, this.config));
 		console.debug("Bugreport@ GitHub: https://github.com/3m5/coco/issues");
 		console.debug("Handlebars v" + Handlebars.VERSION);
 		console.debug("registered Handlebars helpers: ", Handlebars.helpers);
 		console.debug("jQuery v" + $().jquery);
-
-		if (this.Plugins != null) {
-			console.debug("Detected Coco.Plugins: ", this.Plugins);
-		}
 
 		console.debug("-------------------------------------------");
 

@@ -5,6 +5,13 @@
 
 var Handlebars = require('handlebars/runtime');
 
+Handlebars.registerHelper('getText', function (key, $replace) {
+
+  var Coco = require("../Coco.Init.js");
+  console.log("HandlebarsHelper.getText .Translator ", Coco.Translator);
+  return Coco.Translator.get(key, $replace);
+});
+
 Handlebars.registerHelper('ifNot', function (v1, options) {
 	if (!v1) {
 		return options.fn(this);

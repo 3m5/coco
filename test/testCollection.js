@@ -5,6 +5,7 @@
  * Description:
  *
  */
+
 var Coco = require("../src/js/de/_3m5/Coco.Init.js");
 
 module.exports = dejavu.Class.declare({

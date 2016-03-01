@@ -9,7 +9,6 @@
  *
  * (c) 2013 3m5. Media GmbH
  */
-
 var Coco = require("../src/js/de/_3m5/Coco.Init.js");
 
 module.exports = dejavu.Class.declare({
@@ -22,7 +21,7 @@ module.exports = dejavu.Class.declare({
     $inject: ["router"],
     //jQuery events to handle directly
     _events: {
-        //"EVENT CSS-Selector": "eventhandler-function"        
+        //"EVENT CSS-Selector": "eventhandler-function"
     },
 
     _autoRender: true,

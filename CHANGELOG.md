@@ -2,6 +2,10 @@
 
 ## 0.1.74 (unreleased)
 
+- Coco.Translator is now instantiated automatically
+- HandlebarsHelper getText(key, replaceArray) is now registered by default, call it to get i18n text directly from Coco.Translator
+- Coco.Plugins are no more available 
+- uses now npm-module jquery instead of custom jQuery library
 
 ## 0.1.73
 
