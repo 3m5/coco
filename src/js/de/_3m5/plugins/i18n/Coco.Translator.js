@@ -152,6 +152,10 @@ module.exports = dejavu.Class.declare({
       return "";
     }
 
+    if($replace == null) {
+      return string;
+    }
+
     if(typeof $replace == "string") {
       $replace = JSON.parse($replace);
     }
@@ -160,6 +164,8 @@ module.exports = dejavu.Class.declare({
         var reg = new RegExp("%" + index + "%", "ig");
         string  = string.replace(reg, value);
       });
+    } else {
+      console.error(this.$name + ".getText(key, replace) - illegal parameter type, replace must be an array or stringified array!");
     }
 
     return string;
