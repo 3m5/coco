@@ -1,5 +1,7 @@
 # Coco changelog
 
+## 0.1.75 (unreleased)
+
 ## 0.1.74
 
 - Coco.Translator is now instantiated automatically
