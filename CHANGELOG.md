@@ -1,6 +1,6 @@
 # Coco changelog
 
-## 0.1.74 (unreleased)
+## 0.1.74
 
 - Coco.Translator is now instantiated automatically
 - HandlebarsHelper getText(key, replaceArray) is now registered by default, call it to get i18n text directly from Coco.Translator
