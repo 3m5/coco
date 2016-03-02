@@ -48,12 +48,36 @@ var CocoApplication = dejavu.Class.declare({
 
     initialize() {
         console.log("CocoTestApp initialized, look at available Coco-Classes: ", Coco);
+        
+        Coco.Translator.loadMessagesFromObject({
+          title:  {
+            1: "bla-de",
+            2: "blub"
+          },
+          title2: "Hallo %0%"
+        }, "de");
+    
+        Coco.Translator.loadMessagesFromObject({
+          title:  {
+            1: "bla-en",
+            2: "blub-en"
+          },
+          title2: "Hallo %0%"
+        }, "en");
+    
+        Coco.Translator.setLocale("de");
+        console.log("i18n example (de): " + Coco.Translator.get("title.1"));
+        console.log("i18n example with replacement: " + Coco.Translator.get("title2", ["Tom"]));
+    
+        //change locale
+        Coco.Translator.setLocale("en");
+        console.log("i18n example (en): " + Coco.Translator.get("title.1"));
 
         var innerModel = new Coco.Model({id:123, label:"innerModel", properts: "myInnerProperty"});
         var innerCollection = new TestCollection([{id:1, label:11}, {id:2, label:22}]);
         var testModel = new Coco.Model({id:12, label:"myLabel", property: innerModel, properties: innerCollection});
 
-        console.log(testModel);
+        innerCollection.add(innerModel);
         console.log(testModel.getAttributes());
 
         //initialize a simple router
