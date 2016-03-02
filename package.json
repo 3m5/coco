@@ -1,6 +1,6 @@
 {
   "name": "3m5-coco",
-  "version": "0.1.73",
+  "version": "0.1.74",
   "description": "a simple MVC Framework",
   "main": "lib/Coco.Init.js",
   "scripts": {
