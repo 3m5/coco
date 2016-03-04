@@ -2,6 +2,8 @@
 
 ## 0.1.75 (unreleased)
 
+- Coco.View: prevent error, if no router is available...
+
 ## 0.1.74
 
 - Coco.Translator is now instantiated automatically

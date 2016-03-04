@@ -287,7 +287,8 @@ module.exports = Coco.View = dejavu.Class.declare({
    * @protected
    */
   _getRouter: function () {
-    return this._getService("router");
+    //prevent error, if no router is available...
+    return this.$services["router"];
   },
 
   /**
