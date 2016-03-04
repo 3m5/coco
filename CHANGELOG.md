@@ -3,6 +3,7 @@
 ## 0.1.75 (unreleased)
 
 - Coco.View: prevent error, if no router is available...
+- Coco.Translator getText - ignore illegal replace parameter from hbs template
 
 ## 0.1.74
 

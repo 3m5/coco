@@ -114,7 +114,7 @@ module.exports = dejavu.Class.declare({
    *
    * Parameter:
    * @param {string}  key  -     The message to look for. Can be separated with points.
-   * @param {object}  $replace - optional Object. If set the function will replace all matched keys of $replace in string with the proper value.
+   * @param {array}  $replace - optional Object. If set the function will replace all matched keys of $replace in string with the proper value.
    *
    * Return:
    * @returns {string}
@@ -156,10 +156,7 @@ module.exports = dejavu.Class.declare({
       return string;
     }
 
-    if(typeof $replace == "string") {
-      $replace = JSON.parse($replace);
-    }
-    if (_.isArray($replace)) {
+    if ($replace) {
       $.each($replace, function (index, value) {
         var reg = new RegExp("%" + index + "%", "ig");
         string  = string.replace(reg, value);

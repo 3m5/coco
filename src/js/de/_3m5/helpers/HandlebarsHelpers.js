@@ -3,10 +3,29 @@
  * created at 14.01.14
  */
 
-var Handlebars = require('handlebars/runtime');
+var Handlebars = require('handlebars/runtime'),
+    JSON = require("JSON");
 
 Handlebars.registerHelper('getText', function (key, $replace) {
   var Coco = require("../Coco.Init.js");
+  //console.log(".$replace: ", $replace);
+  //if $replace is not set in template, its not null here, its an handlebars object...
+  if(typeof $replace == "number") {
+    //keep numbers working
+    $replace = [$replace];
+  } else {
+    if (typeof $replace != "string") {
+      $replace = null;
+    } else {
+      try {
+        //parse strings to object/ array
+        $replace = JSON.parse($replace);
+      } catch(error) {
+        //keep strings
+        $replace = [$replace];
+      }
+    }
+  }
   return Coco.Translator.get(key, $replace);
 });
 
