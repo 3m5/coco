@@ -50,8 +50,8 @@ var Coco = Coco || {};
 
 var Handlebars = require('handlebars/runtime');
 let $ = require("jquery");
-
 window.$ = $;
+window.jQuery = $;
 
 //use babel polyfill for IE support
 require("babel/polyfill");
