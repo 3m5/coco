@@ -1,5 +1,7 @@
 # Coco changelog
 
+## 0.1.76 (unreleased)
+
 ## 0.1.75
 
 - Coco.View: prevent error, if no router is available...
