@@ -1,5 +1,6 @@
-var JSON = require("JSON"),
-    _    = require("underscore");
+var JSON            = require("JSON"),
+    _               = require("underscore"),
+    TranslatorEvent = require("../event/Coco.TranslatorEvent.js");
 
 /**
  * Package: Plugins.i18n
@@ -13,6 +14,7 @@ var JSON = require("JSON"),
  */
 module.exports = dejavu.Class.declare({
   $name: "Coco.Translator",
+  $extends: require("../event/Coco.EventDispatcher.js"),
 
   /**
    * All retrieved messages are stored in here.
@@ -63,9 +65,7 @@ module.exports = dejavu.Class.declare({
         if (typeof data == "string") {
           data = JSON.parse(data);
         }
-        if ($locale != null) {
-          this.__locale = $locale;
-        }
+        this.setLocale($locale);
 
         if ($domain != null) {
           this.__domain = $domain;
@@ -94,9 +94,7 @@ module.exports = dejavu.Class.declare({
    * @param {string}  $domain   -    The optional domain to save to. If not set the current domain is assumed.
    */
   loadMessagesFromObject: function (messages, $locale, $domain) {
-    if ($locale != null) {
-      this.__locale = $locale;
-    }
+    this.setLocale($locale);
 
     if ($domain != null) {
       this.__domain = $domain;
@@ -147,12 +145,12 @@ module.exports = dejavu.Class.declare({
       string = data[key];
     }
 
-    if(string == null || typeof string != "string") {
+    if (string == null || typeof string != "string") {
       console.error("Could not find label with key: " + key);
       return "";
     }
 
-    if($replace == null) {
+    if ($replace == null) {
       return string;
     }
 
@@ -318,8 +316,15 @@ module.exports = dejavu.Class.declare({
    * Parameter:
    * @param {string}  locale  -  The locale to set to.
    */
-  setLocale: function (locale) {
-    this.__locale = locale;
+  setLocale: function (newLocale) {
+    if (newLocale == null) {
+      return;
+    }
+    let oldLocale = this.__locale;
+    this.__locale = newLocale;
+    if (oldLocale != this.__locale) {
+      this._dispatchEvent(new TranslatorEvent(TranslatorEvent.CHANGE_LOCALE, this.__locale));
+    }
   },
 
   /**

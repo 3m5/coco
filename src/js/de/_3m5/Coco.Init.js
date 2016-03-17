@@ -53,15 +53,15 @@ let $ = require("jquery");
 window.$ = $;
 window.jQuery = $;
 
-//use babel polyfill for IE support
-require("babel/polyfill");
+//use babel-polyfill for IE support
+require("babel-polyfill");
 
 //require non public Coco classes
 require("./service/Coco.ServiceContainer.js");
 require("./helpers/HandlebarsHelpers.js");
 require("./router/Coco.RouterService.js");
 
-let Translator = require("./plugins/i18n/Coco.Translator.js");
+let Translator = require("./lib/Coco.Translator.js");
 
 /**
  * Class: .Coco
@@ -109,7 +109,9 @@ Coco.SDK = dejavu.Class.declare({
 	ModelEvent: require("./event/Coco.ModelEvent.js"),
 	RestServiceEvent: require("./event/Coco.RestServiceEvent.js"),
 	RouterEvent: require("./event/Coco.RouterEvent.js"),
+  TranslatorEvent: require("./event/Coco.TranslatorEvent.js"),
 	ViewEvent: require("./event/Coco.ViewEvent.js"),
+
 	EventDispatcher: require("./event/Coco.EventDispatcher.js"),
 
 	//PACKAGE MODEL

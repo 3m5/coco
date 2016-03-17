@@ -4,6 +4,10 @@
 
 - Coco.View: prevent error, if no router is available...
 - Coco.Translator getText - ignore illegal replace parameter from hbs template
+- Coco.Translator now dispatches Translator.Event.CHANGE_LOCALE on each locale change
+- changed dependency from babel/polyfill to babel-polyfill
+- added jQuery 2.2.1 to dependencies
+- added underscore 1.8.3 to dependencies
 
 ## 0.1.74
 
