@@ -48,7 +48,11 @@ var CocoApplication = dejavu.Class.declare({
 
     initialize() {
         console.log("CocoTestApp initialized, look at available Coco-Classes: ", Coco);
-        
+                
+        Coco.Translator.addEventListener(Coco.TranslatorEvent.CHANGE_LOCALE, (event) => {
+          console.info("locale changed " + event.locale);
+        });
+                    
         Coco.Translator.loadMessagesFromObject({
           title:  {
             1: "bla-de",
