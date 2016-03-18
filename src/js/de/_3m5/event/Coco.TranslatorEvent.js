@@ -15,7 +15,7 @@ module.exports = dejavu.Class.declare({
     /**
      * Variable: locale {string}
      *
-	 * Description:
+	   * Description:
      * the current locale
      */
     locale: null,

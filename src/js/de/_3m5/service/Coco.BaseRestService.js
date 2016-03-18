@@ -2,11 +2,9 @@ var RestServiceEvent = require("../event/Coco.RestServiceEvent.js");
 var Event = require("../event/Coco.Event.js");
 var JSON = require("JSON");
 /**
- * Class: BaseRestService
+ * Class: Coco.BaseRestService
  *
- * Package: Coco
- *
- * extends <Coco.Service>
+ * extends: <Coco.Service>
  *
  * Description: Base service for calling REST endpoints.
  *

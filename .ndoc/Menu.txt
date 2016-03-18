@@ -46,8 +46,6 @@ Format: 1.52
 # --------------------------------------------------------------------------
 
 
-File: .Coco  (no auto-title, Coco.Init.js)
-
 Group: Event  {
 
    File: Coco.Event  (no auto-title, event\Coco.Event.js)
@@ -56,6 +54,7 @@ Group: Event  {
    File: Coco.ViewEvent  (no auto-title, event\Coco.ViewEvent.js)
    File: Coco.RestServiceEvent  (no auto-title, event\Coco.RestServiceEvent.js)
    File: Coco.RouterEvent  (no auto-title, event\Coco.RouterEvent.js)
+   File: Coco.TranslatorEvent  (no auto-title, event\Coco.TranslatorEvent.js)
    }  # Group: Event
 
 Group: Model  {
@@ -72,10 +71,10 @@ Group: View  {
 
 Group: Service  {
 
-   File: Coco.BaseRestService  (service\Coco.BaseRestService.js)
-   File: Coco.Service  (service\Coco.Service.js)
-   File: Coco.ServiceContainer  (service\Coco.ServiceContainer.js)
-   File: Coco.ServiceProvider  (service\Coco.ServiceProvider.js)
+   File: Coco.BaseRestService  (no auto-title, service\Coco.BaseRestService.js)
+   File: Coco.Service  (no auto-title, service\Coco.Service.js)
+   File: Coco.ServiceContainer  (no auto-title, service\Coco.ServiceContainer.js)
+   File: Coco.ServiceProvider  (no auto-title, service\Coco.ServiceProvider.js)
    }  # Group: Service
 
 Group: Router  {
@@ -86,18 +85,14 @@ Group: Router  {
 
 Group: Lib  {
 
-   File: File  (lib\Coco.File.js)
-   File: Math  (lib\Coco.Math.js)
-   File: Storage  (lib\Coco.Storage.js)
-   File: StringUtils  (lib\Coco.StringUtils.js)
-   File: URLHelper  (lib\Coco.URLHelper.js)
-   File: Utils  (lib\Coco.Utils.js)
+   File: Coco.File  (no auto-title, lib\Coco.File.js)
+   File: Coco.Math  (no auto-title, lib\Coco.Math.js)
+   File: Coco.Storage  (no auto-title, lib\Coco.Storage.js)
+   File: Coco.StringUtils  (no auto-title, lib\Coco.StringUtils.js)
+   File: Coco.Translator  (no auto-title, lib\Coco.Translator.js)
+   File: Coco.URLHelper  (no auto-title, lib\Coco.URLHelper.js)
+   File: Coco.Utils  (no auto-title, lib\Coco.Utils.js)
    }  # Group: Lib
-
-Group: Plugins  {
-
-   File: i18n  (plugins\i18n\Coco.Translator.js)
-   }  # Group: Plugins
 
 Group: Index  {
 

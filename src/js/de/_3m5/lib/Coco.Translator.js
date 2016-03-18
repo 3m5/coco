@@ -3,14 +3,15 @@ var JSON            = require("JSON"),
     TranslatorEvent = require("../event/Coco.TranslatorEvent.js");
 
 /**
- * Package: Plugins.i18n
+ * Package: lib
  *
- * Class: Coco.Plugins.i18n.Translator
+ * Class: Coco.Translator
  *
  * Description:
  * This class stores messages per locale and domain and can be used to translate placeholders.
  *
  * @author Johannes Klauss <johannes.klauss@3m5.de>
+ * @author Andreas Wiedenfeld <andreas.wiedenfeld@3m5.de>
  */
 module.exports = dejavu.Class.declare({
   $name: "Coco.Translator",
@@ -312,6 +313,8 @@ module.exports = dejavu.Class.declare({
    *
    * Description:
    * Set the locale.
+   *
+   * throws <Coco.TranslatorEvent> if locale has changed
    *
    * Parameter:
    * @param {string}  locale  -  The locale to set to.

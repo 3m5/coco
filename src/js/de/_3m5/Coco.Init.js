@@ -63,6 +63,8 @@ require("./router/Coco.RouterService.js");
 
 let Translator = require("./lib/Coco.Translator.js");
 
+
+
 /**
  * Class: .Coco
  *
@@ -153,7 +155,7 @@ Coco.SDK = dejavu.Class.declare({
 		initialized: false
 	},
 
-	initialize: function () {
+  initialize: function () {
 		console.logWithDate = true;
 
 		if (Handlebars == null) {
