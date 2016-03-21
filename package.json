@@ -42,7 +42,6 @@
     }
   ],
   "devDependencies": {
-    "JSON": "^1.0.0",
     "browserify": "^9.0.8",
     "domain": "0.0.1",
     "es6ify": "^1.6.0",
@@ -62,6 +61,7 @@
     "traceur": "0.0.91"
   },
   "dependencies": {
+    "JSON": "^1.0.0",
     "babel-polyfill": "^6.7.2",
     "jquery": "^2.2.1",
     "underscore": "^1.8.3"

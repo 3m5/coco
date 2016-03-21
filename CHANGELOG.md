@@ -1,6 +1,10 @@
 # Coco changelog
 
-## 0.1.76 (unreleased)
+## 0.1.76
+
+- added JSON 1.0.0 to dependencies
+- do not throw error anymore, when Translator.getMessages is called without optional parameter $callback 
+- Coco.Translator now supports loading & merging multiple message files on one locale & domain, new one overrides existing nodes
 
 ## 0.1.75
 

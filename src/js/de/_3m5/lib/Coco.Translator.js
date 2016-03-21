@@ -73,10 +73,10 @@ module.exports = dejavu.Class.declare({
         }
 
         this.createDomain(this.__domain);
-        this.fill(data);
-        if ($callback) {
+        this.fill(data, true);
+        try {
           $callback();
-        }
+        } catch(error) {}
       }
     });
   },
@@ -102,7 +102,7 @@ module.exports = dejavu.Class.declare({
     }
 
     this.createDomain(this.__domain);
-    this.fill(messages);
+    this.fill(messages, true);
   },
 
   /**
@@ -252,10 +252,10 @@ module.exports = dejavu.Class.declare({
    */
   fill: function (messages, $soft) {
     if ($soft) {
-      this.__messages[this.__locale + ':' + this.__domain] = $.extend(messages, this.__messages[this.__domain]);
+      this.__messages[this.__locale + ':' + this.__domain] = $.extend(this.__messages[this.__locale + ':' + this.__domain], messages);
+    } else {
+      this.__messages[this.__locale + ':' + this.__domain] = messages;
     }
-
-    this.__messages[this.__locale + ':' + this.__domain] = messages;
   },
 
   /**

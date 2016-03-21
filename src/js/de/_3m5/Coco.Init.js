@@ -14,6 +14,16 @@ if (!window.console.warn) {
 	window.console.warn = window.console.log || function(){};
 }
 
+//IE support
+var Event = Event || window.Event;
+Event.prototype.stopPropagation = Event.prototype.stopPropagation || function() {
+  this.cancelBubble = true;
+};
+
+Event.prototype.preventDefault = Event.prototype.preventDefault || function () {
+  this.returnValue = false;
+};
+
 //add $compute function to all functions
 /** $compute function to register change listeners to properties in Coco.Model */
 if (!Function.prototype.$compute) {
