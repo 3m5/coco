@@ -1,5 +1,7 @@
 # Coco changelog
 
+## 0.1.77 (unreleased)
+
 ## 0.1.76
 
 - added JSON 1.0.0 to dependencies
