@@ -7,6 +7,7 @@
 # 3m5-coco
 **a simple JavaScript MVC Framework**
 **developed by <a href="http://www.3m5.de" target="3m5">3m5. Media GmbH</a>**
+**[![npm version](https://badge.fury.io/js/3m5-coco.png)](https://badge.fury.io/js/3m5-coco)**
 
 ## What is 3m5-coco?
 
