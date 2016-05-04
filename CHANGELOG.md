@@ -2,6 +2,9 @@
 
 ## 0.1.77 (unreleased)
 
+- added error handler into Coco.Translator.loadMessages, so we see errors during loading json files
+- updated some libraries
+
 ## 0.1.76
 
 - added JSON 1.0.0 to dependencies

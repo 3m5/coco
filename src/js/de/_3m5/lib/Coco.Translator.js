@@ -77,6 +77,9 @@ module.exports = dejavu.Class.declare({
         try {
           $callback();
         } catch(error) {}
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        console.error("an error occurred during loading language file (" + path + "): ", errorThrown);
       }
     });
   },
