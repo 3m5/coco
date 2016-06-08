@@ -1,6 +1,10 @@
 # Coco changelog
 
-## 0.1.78 (unreleased)
+## 0.1.79 (unpublished)
+
+## 0.1.78
+
+- fixed bug with new babel context & handlebars 4.0.5 use let instead of var...
 
 ## 0.1.77
 

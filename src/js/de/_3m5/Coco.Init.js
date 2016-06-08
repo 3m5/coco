@@ -58,8 +58,8 @@ if (!Function.prototype.$compute) {
 // Dependencies
 var Coco = Coco || {};
 
-var Handlebars = require('handlebars/runtime');
-let $ = require("jquery");
+let Handlebars = require('handlebars/runtime'),
+    $          = require("jquery");
 window.$ = $;
 window.jQuery = $;
 
