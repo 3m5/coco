@@ -102,6 +102,10 @@ Coco.RouterService = dejavu.Class.declare({
 
             return this.generateUrl(v1, parsedParams);
         });
+
+        Handlebars.registerHelper('routeParam', (key, value) => {
+          return key + ":" + value;
+        });
     },
 
     setContainer: function ($container) {

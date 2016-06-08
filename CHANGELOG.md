@@ -4,6 +4,7 @@
 
 - added error handler into Coco.Translator.loadMessages, so we see errors during loading json files
 - updated some libraries
+- added HandlebarsHelper routePAram(key, value) to generate route params dynamically
 
 ## 0.1.76
 
