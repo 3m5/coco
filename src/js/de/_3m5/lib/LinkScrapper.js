@@ -128,11 +128,10 @@ module.exports = dejavu.Class.declare({
     }
 
     $.ajax({
-      url: urlString,
-      type: 'GET',
-      error: (jqXHR, textStatus, errorThrown) => {
+      url:     urlString,
+      type:    'GET',
+      error:   (jqXHR, textStatus, errorThrown) => {
         this.urlActive = null;
-
 
         console.error("LinkScrapper.getUrlData failed! " + textStatus + " ", errorThrown, jqXHR);
       },
@@ -169,25 +168,25 @@ module.exports = dejavu.Class.declare({
 
         //parse html header elements
         var $htmlString = $(htmlString);
-        var startIndex = htmlString.indexOf('<head>') + 6;
-        var endIndex = htmlString.indexOf('</head>');
-        var headerHTML = htmlString.substring(startIndex, endIndex);
-        var $wrapper = $('<div />').html(headerHTML);
-        var title = $("title", $wrapper).text();
+        var startIndex  = htmlString.indexOf('<head>') + 6;
+        var endIndex    = htmlString.indexOf('</head>');
+        var headerHTML  = htmlString.substring(startIndex, endIndex);
+        var $wrapper    = $('<div />').html(headerHTML);
+        var title       = $("title", $wrapper).text();
 
         var baseURL = null;
 
-        ($wrapper.find("base")).each(function (index, domElement) {
+        ($wrapper.find("base")).each((index, domElement) => {
           baseURL = $(domElement).attr('href');
-        }.$bind(this));
+        });
 
         data.title = title;
-        data.url = urlString;
+        data.url   = urlString;
 
-        ($wrapper.find("meta")).each(function (index, domElement) {
-          metaName = $(domElement).attr('name');
+        ($wrapper.find("meta")).each((index, domElement) => {
+          metaName     = $(domElement).attr('name');
           metaProperty = $(domElement).attr('property');
-          metaContent = $(domElement).attr('content');
+          metaContent  = $(domElement).attr('content');
 
           if (metaName == undefined) {
             //check for images
@@ -201,13 +200,13 @@ module.exports = dejavu.Class.declare({
             data.description = metaContent;
           }
 
-          if (metaName == 'image' || metaName == 'Image' || metaProperty == "image" || metaProperty == "og:image"|| metaName == 'og:image' ) {
+          if (metaName == 'image' || metaName == 'Image' || metaProperty == "image" || metaProperty == "og:image" || metaName == 'og:image') {
             data.imgSrcArray.push(metaContent);
           }
-        }.$bind(this));
+        });
 
         this.scrapeCache[urlString] = data;
-        this.urlActive = null;
+        this.urlActive              = null;
         this.__setSrapedData(urlString);
 
         if (callbackData != null) {
@@ -216,9 +215,9 @@ module.exports = dejavu.Class.declare({
 
         /** trying to load all images */
         var alternativeImages = [];
-        var alternativeImage = null;
+        var alternativeImage  = null;
 
-        ($htmlString.find("img")).each(function (index, domElement) {
+        ($htmlString.find("img")).each((index, domElement) => {
           imgSrc = $(domElement).attr('src');
 
           if (imgSrc != null && imgSrc.length > 0) {
@@ -230,7 +229,7 @@ module.exports = dejavu.Class.declare({
               //TODO get host only
               alternativeImage = urlString + imgSrc;
               //push alternative images with baseURL
-              if(baseURL != null) {
+              if (baseURL != null) {
                 var altImage = baseURL + imgSrc;
                 if (alternativeImages.indexOf(altImage) < 0) {
                   alternativeImages.push(altImage);
@@ -247,7 +246,7 @@ module.exports = dejavu.Class.declare({
                 alternativeImage = urlString + "/" + imgSrc;
               }
 
-              if(baseURL != null) {
+              if (baseURL != null) {
                 var altImage = baseURL + imgSrc;
                 if (alternativeImages.indexOf(altImage) < 0) {
                   alternativeImages.push(altImage);
@@ -268,11 +267,11 @@ module.exports = dejavu.Class.declare({
               data.imgSrcArray.push(imgSrc)
             }
           }
-        }.$bind(this));
+        });
 
         this.__checkImages(urlString, alternativeImages, callbackImages);
-      }.$bind(this)
-    })
+      }
+    });
   },
 
   /**
