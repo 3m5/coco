@@ -168,15 +168,19 @@ Coco.SDK = dejavu.Class.declare({
   initialize: function () {
 		console.logWithDate = true;
 
-		if (Handlebars == null) {
-			throw new Error("Missing Handlebars! include npm-module 'handlebars' into your project!");
-		}
+    try {
+      Handlebars;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Missing Handlebars! include npm-module 'handlebars' into your project!");
+    }
 
-		try {
-			$;
-		} catch (error) {
-			throw new Error("Missing jQuery! Install jQuery to use Coco.SDK ", error);
-		}
+    try {
+      $;
+    } catch (error) {
+      console.error(error);
+      throw new Error("Missing jQuery! Install jQuery to use Coco.SDK ", error);
+    }
 
 		console.debug("-------------------------------------------");
 		console.debug("Coco.js v" + this.$static.version + " initialized. Coco.config on startup: ", $.extend({}, this.config));

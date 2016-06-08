@@ -2,6 +2,8 @@
 
 ## 0.1.79 (unpublished)
 
+- catch InvalidReference Error on 1st Handlebars contact 
+
 ## 0.1.78
 
 - fixed bug with new babel context & handlebars 4.0.5 use let instead of var...
