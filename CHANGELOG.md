@@ -1,5 +1,7 @@
 # Coco changelog
 
+## 0.1.78 (unreleased)
+
 ## 0.1.77
 
 - added error handler into Coco.Translator.loadMessages, so we see errors during loading json files
