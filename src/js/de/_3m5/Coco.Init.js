@@ -15,7 +15,7 @@ if (!window.console.warn) {
 }
 
 //IE support
-var Event = Event || window.Event;
+let Event = Event || window.Event;
 Event.prototype.stopPropagation = Event.prototype.stopPropagation || function() {
   this.cancelBubble = true;
 };
@@ -56,7 +56,7 @@ if (!Function.prototype.$compute) {
 }
 
 // Dependencies
-var Coco = Coco || {};
+let Coco = Coco || {};
 
 let Handlebars = require('handlebars/runtime'),
     $          = require("jquery");

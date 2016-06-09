@@ -1,8 +1,11 @@
 # Coco changelog
 
-## 0.1.79 (unpublished)
+## 0.1.80 (unpublished)
+
+## 0.1.79
 
 - catch InvalidReference Error on 1st Handlebars contact 
+- replaced var by let for Coco and Event variables...
 
 ## 0.1.78
 
