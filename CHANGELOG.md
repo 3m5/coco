@@ -1,6 +1,10 @@
 # Coco changelog
 
-## 0.1.80 (unpublished)
+## 0.1.81 (unpublished)
+
+## 0.1.80
+
+- replaced let by var for window.Event variable...
 
 ## 0.1.79
 

@@ -15,7 +15,7 @@ if (!window.console.warn) {
 }
 
 //IE support
-let Event = Event || window.Event;
+var Event = Event || window.Event;
 Event.prototype.stopPropagation = Event.prototype.stopPropagation || function() {
   this.cancelBubble = true;
 };
