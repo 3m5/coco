@@ -226,7 +226,7 @@ module.exports = dejavu.AbstractClass.declare({
 
 		//delete empty keys from data object
 		Object.keys(data).forEach((k) => {
-			if (typeof(data[k]) != 'boolean' && !data[k]) {
+			if (typeof data[k] != 'boolean' && typeof data[k] != 'number' && !data[k]) {
 				delete data[k];
 			}
 		});
