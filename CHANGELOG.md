@@ -1,6 +1,12 @@
 # Coco changelog
 
-## 0.1.81 (unpublished)
+## 0.1.81
+
+- fixed webpack problems with 'let' on Coco.Init
+- Coco.Translator now returns arrays and objects from i18n file
+- updated babel-polyfill requirement
+- updated jquery requirement
+- removed core/traceuer-runtime.js
 
 ## 0.1.80
 
