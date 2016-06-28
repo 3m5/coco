@@ -1,5 +1,7 @@
 # Coco changelog
 
+## 0.1.82 (unpublished)
+
 ## 0.1.81
 
 - fixed webpack problems with 'let' on Coco.Init
