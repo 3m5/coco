@@ -1,5 +1,5 @@
 var Coco = require("3m5-coco"),
-    $    = require("jequery");
+    $    = require("jquery");
 /**
  * Class: LinkScrapper
  *

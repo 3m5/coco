@@ -1,6 +1,11 @@
 # Coco changelog
 
-## 0.1.82 (unpublished)
+## 0.1.82
+
+- added babel preset es2015 to compilation
+- added babel preset stage-2 to compilation
+- added babel preset stage-3 to compilation
+- added babel plugin es6promise to compilation
 
 ## 0.1.81
 
