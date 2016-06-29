@@ -1,6 +1,8 @@
 # Coco changelog
 
-## 0.1.83 (unpublished)
+## 0.1.83
+
+- fixed console.warning bug on Coco.Translator
 
 ## 0.1.82
 

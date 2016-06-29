@@ -150,7 +150,7 @@ module.exports = dejavu.Class.declare({
     }
 
     if (string == null || typeof string != "string") {
-      console.warning("Could not find label with key: " + key, string);
+      console.warn("Could not find label with key: " + key, string);
       //return objects or arrays from i18n file
       return string == null ? "" : string;
     }
