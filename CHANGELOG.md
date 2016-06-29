@@ -1,5 +1,7 @@
 # Coco changelog
 
+## 0.1.83 (unpublished)
+
 ## 0.1.82
 
 - added babel preset es2015 to compilation
