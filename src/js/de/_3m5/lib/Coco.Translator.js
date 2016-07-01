@@ -74,9 +74,12 @@ module.exports = dejavu.Class.declare({
 
         this.createDomain(this.__domain);
         this.fill(data, true);
-        try {
+
+        if(typeof $callback == "function") {
           $callback();
-        } catch (error) {}
+        } else {
+          console.warn("Coco.Translator.loadMessages -> messages loaded, no callback defined! - do you use Promises?");
+        }
       },
       error:    function (jqXHR, textStatus, errorThrown) {
         console.error("an error occurred during loading language file (" + path + "): ", errorThrown);
