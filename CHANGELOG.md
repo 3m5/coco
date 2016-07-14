@@ -2,7 +2,8 @@
 
 ## 0.1.85 (unpublished)
 
-- tbd
+- deactivate HandleBars Helper: is, isNot, isGreater, isGreaterThan, isLess, isLessThan
+- added Handelbars Helpers: add, sub, concat, for
 
 ## 0.1.84
 
