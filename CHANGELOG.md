@@ -1,6 +1,10 @@
 # Coco changelog
 
-## 0.1.84 (unpublished)
+## 0.1.85 (unpublished)
+
+- tbd
+
+## 0.1.84
 
 - Coco.translator now does not eats all errors in loadMessages success callback, so you can use promises OR callback
 
