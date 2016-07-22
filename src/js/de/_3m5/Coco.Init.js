@@ -56,12 +56,12 @@ if (!Function.prototype.$compute) {
 }
 
 // Dependencies
-let Coco = Coco || {};
+var Coco = Coco || {};
 
-let Handlebars = require('handlebars/runtime'),
+var Handlebars = require('handlebars/runtime'),
     $          = require("jquery");
-window.$ = $;
-window.jQuery = $;
+window.$       = $;
+window.jQuery  = $;
 
 //use babel-polyfill for IE support
 require("babel-polyfill");
@@ -71,9 +71,7 @@ require("./service/Coco.ServiceContainer.js");
 require("./helpers/HandlebarsHelpers.js");
 require("./router/Coco.RouterService.js");
 
-let Translator = require("./lib/Coco.Translator.js");
-
-
+var Translator = require("./lib/Coco.Translator.js");
 
 /**
  * Class: .Coco
@@ -141,9 +139,6 @@ Coco.SDK = dejavu.Class.declare({
 	BaseRestService: require("./service/Coco.BaseRestService.js"),
 
 	//PACKAGE LIB
-	HashMap: {error: "not needed anymore, use ES6 classes 'map' or 'set' instead"},
-	HbsLoader: {error: "not available anymore, hbs files are compiled by handlebars npm-module"},
-	DateHelper: {error: "not available anymore, use momentJS instead (npm-module)"},
 	Math: require("./lib/Coco.Math.js"),
 	Utils: require("./lib/Coco.Utils.js"),
 	Storage: require("./lib/Coco.Storage.js"),
@@ -161,7 +156,7 @@ Coco.SDK = dejavu.Class.declare({
 	////////////////////////////////////////////////////////////
 
 	$statics: {
-		version: "0.1.81",
+		version: "0.1.85",
 		initialized: false
 	},
 

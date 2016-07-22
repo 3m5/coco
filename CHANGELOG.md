@@ -1,6 +1,32 @@
 # Coco changelog
 
-## 0.1.81 (unpublished)
+## 0.1.85 (unpublished)
+
+- deactivate HandleBars Helper: is, isNot, isGreater, isGreaterThan, isLess, isLessThan
+- added Handelbars Helpers: add, sub, concat, for
+
+## 0.1.84
+
+- Coco.translator now does not eats all errors in loadMessages success callback, so you can use promises OR callback
+
+## 0.1.83
+
+- fixed console.warning bug on Coco.Translator
+
+## 0.1.82
+
+- added babel preset es2015 to compilation
+- added babel preset stage-2 to compilation
+- added babel preset stage-3 to compilation
+- added babel plugin es6promise to compilation
+
+## 0.1.81
+
+- fixed webpack problems with 'let' on Coco.Init
+- Coco.Translator now returns arrays and objects from i18n file
+- updated babel-polyfill requirement
+- updated jquery requirement
+- removed core/traceuer-runtime.js
 
 ## 0.1.80
 

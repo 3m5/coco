@@ -69,58 +69,48 @@ Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
 	}
 });
 
-Handlebars.registerHelper('is', function (v1, v2, options) {
-	console.warn("Handlebars.Helper 'is' is deprecated! use 'ifCond' instead!");
-	if (v1 == v2) {
-		return options.fn(this);
-	}
+Handlebars.registerHelper('add', function (v1, v2) {
+  return Number(v1) + Number(v2);
+});
 
-	return options.inverse(this);
+Handlebars.registerHelper('sub', function (v1, v2) {
+  return Number(v1) - Number(v2);
+});
+
+Handlebars.registerHelper('concat', function (v1, v2) {
+  return v1 + v2;
+});
+
+Handlebars.registerHelper('for', function (from, to, step, block) {
+  var accum = '';
+  for(var i = from; i < to; i += step) {
+    accum += block.fn(i);
+  }
+  return accum;
+});
+
+Handlebars.registerHelper('is', function (v1, v2, options) {
+	console.error("Handlebars.Helper 'is' is deprecated! use 'ifCond' instead!");
 });
 
 Handlebars.registerHelper('isNot', function (v1, v2, options) {
-	console.warn("Handlebars.Helper 'isNot' is deprecated! use 'ifCond' instead!");
-	if (v1 != v2) {
-		return options.fn(this);
-	}
-
-	return options.inverse(this);
+	console.error("Handlebars.Helper 'isNot' is deprecated! use 'ifCond' instead!");
 });
 
 Handlebars.registerHelper('isGreater', function (v1, v2, options) {
-	console.warn("Handlebars.Helper 'isGreater' is deprecated! use 'ifCond' instead!");
-	if (v1 > v2) {
-		return options.fn(this);
-	}
-
-	return options.inverse(this);
+	console.error("Handlebars.Helper 'isGreater' is deprecated! use 'ifCond' instead!");
 });
 
 Handlebars.registerHelper('isGreaterThan', function (v1, v2, options) {
-	console.warn("Handlebars.Helper 'isGreaterThan' is deprecated! use 'ifCond' instead!");
-	if (v1 >= v2) {
-		return options.fn(this);
-	}
-
-	return options.inverse(this);
+	console.error("Handlebars.Helper 'isGreaterThan' is deprecated! use 'ifCond' instead!");
 });
 
-Handlebars.registerHelper('isLess', function (v1, v2, options) {
-	console.warn("Handlebars.Helper 'isLess' is deprecated! use 'ifCond' instead!");
-	if (v1 < v2) {
-		return options.fn(this);
-	}
-
-	return options.inverse(this);
+Handlebars.registerHelper('isLess', function () {
+	console.error("Handlebars.Helper 'isLess' is deprecated! use 'ifCond' instead!");
 });
 
-Handlebars.registerHelper('isLessThan', function (v1, v2, options) {
-	console.warn("Handlebars.Helper 'isLessThan' is deprecated! use 'ifCond' instead!");
-	if (v1 <= v2) {
-		return options.fn(this);
-	}
-
-	return options.inverse(this);
+Handlebars.registerHelper('isLessThan', function () {
+	console.error("Handlebars.Helper 'isLessThan' is deprecated! use 'ifCond' instead!");
 });
 
 Handlebars.registerHelper('testIf', function () {

@@ -14,7 +14,7 @@ var JSON            = require("JSON"),
  * @author Andreas Wiedenfeld <andreas.wiedenfeld@3m5.de>
  */
 module.exports = dejavu.Class.declare({
-  $name: "Coco.Translator",
+  $name:    "Coco.Translator",
   $extends: require("../event/Coco.EventDispatcher.js"),
 
   /**
@@ -74,11 +74,14 @@ module.exports = dejavu.Class.declare({
 
         this.createDomain(this.__domain);
         this.fill(data, true);
-        try {
+
+        if(typeof $callback == "function") {
           $callback();
-        } catch(error) {}
+        } else {
+          console.warn("Coco.Translator.loadMessages -> messages loaded, no callback defined! - do you use Promises?");
+        }
       },
-      error: function(jqXHR, textStatus, errorThrown) {
+      error:    function (jqXHR, textStatus, errorThrown) {
         console.error("an error occurred during loading language file (" + path + "): ", errorThrown);
       }
     });
@@ -150,8 +153,9 @@ module.exports = dejavu.Class.declare({
     }
 
     if (string == null || typeof string != "string") {
-      console.error("Could not find label with key: " + key);
-      return "";
+      console.warn("Could not find label with key: " + key, string);
+      //return objects or arrays from i18n file
+      return string == null ? "" : string;
     }
 
     if ($replace == null) {
