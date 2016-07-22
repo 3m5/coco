@@ -489,6 +489,16 @@ Coco.RouterService = dejavu.Class.declare({
      * @private
      */
     __fireRoute: function () {
+    	// Do not fire route it is the same as previous
+	    if (
+		    this.__nextRoute
+		    && this.__currentRoute
+		    && this.__nextRoute.key == this.__currentRoute.key
+		    && JSON.stringify(this.__nextRoute.args) == JSON.stringify(this.__currentRoute.args)
+	    ) {
+		    return false;
+	    }
+
         if(this.__currentRoute != null) {
             // The onPause method of a view can return a value that is pushed to the params to the next active view.
             this.__callRouteView(this.__currentRoute);
