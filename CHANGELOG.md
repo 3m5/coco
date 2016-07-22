@@ -1,9 +1,10 @@
 # Coco changelog
 
-## 0.1.85 (unpublished)
+## 0.1.85
 
 - deactivate HandleBars Helper: is, isNot, isGreater, isGreaterThan, isLess, isLessThan
 - added Handelbars Helpers: add, sub, concat, for
+- do not fire route, if it is the same as previous
 
 ## 0.1.84
 
