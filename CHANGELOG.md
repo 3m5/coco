@@ -1,5 +1,7 @@
 # Coco changelog
 
+## 0.1.86 (unpublished)
+
 ## 0.1.85
 
 - deactivate HandleBars Helper: is, isNot, isGreater, isGreaterThan, isLess, isLessThan
