@@ -241,7 +241,7 @@ Coco.RouterService = dejavu.Class.declare({
         steps = Math.min(this.__pathHistory.length - 1, steps);
         var routes = [];
         var counter = 1;
-        for(var i = this.__pathHistory.length - 2; i >= (this.__pathHistory.length - 1) - steps; i--) {
+        for(var i = this.__pathHistory.length - 1; i >= (this.__pathHistory.length - 1) - steps; i--) {
             var pHistory = this.__pathHistory[i];
             if(!duplicates) {
                 if(routes.indexOf(pHistory) > -1) {
