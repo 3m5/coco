@@ -1,5 +1,7 @@
 # Coco changelog
 
+## 0.1.87 (unpublished)
+
 ## 0.1.86
 
 - fixed Coco.RouterService history calculation, now it also works for just one step
