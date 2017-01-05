@@ -1,5 +1,7 @@
 # Coco changelog
 
+## 0.1.88 - unpublished
+
 ## 0.1.87
 
 - fixed Coco.View: call delegateEvents also delayed like '_onFirstRender' to prevent async problems
