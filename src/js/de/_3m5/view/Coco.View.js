@@ -480,14 +480,23 @@ module.exports = Coco.View = dejavu.Class.declare({
       //use delayed callback, to let the DOM get rendered
       setTimeout(() => {
         this._onFirstRender();
+        //also call delegate events delayed
+        this.delegateEvents();
+
+        setTimeout(() => {
+          this._dispatchEvent(new Coco.ViewEvent(Coco.Event.RENDER, this));
+        });
+      });
+    } else {
+      //call delegate events everytime
+      this.delegateEvents();
+      setTimeout(() => {
+        //this.trigger(Coco.Event.RENDER);
+        //this.trigger(Coco.Event.RENDER + this.$name);
+        this._dispatchEvent(new Coco.ViewEvent(Coco.Event.RENDER, this));
       });
     }
-    this.delegateEvents();
-    setTimeout(() => {
-      //this.trigger(Coco.Event.RENDER);
-      //this.trigger(Coco.Event.RENDER + this.$name);
-      this._dispatchEvent(new Coco.ViewEvent(Coco.Event.RENDER, this));
-    });
+
   },
 
   /**
