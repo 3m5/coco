@@ -17,11 +17,15 @@ Handlebars.registerHelper('getText', function (key, $replace) {
     if (typeof $replace != "string") {
       $replace = null;
     } else {
-      try {
-        //parse strings to object/ array
-        $replace = JSON.parse($replace);
-      } catch(error) {
-        //keep strings
+      if($replace.indexOf(":") > -1) {
+        try {
+          //parse strings to object/ array
+          $replace = JSON.parse($replace);
+        } catch (error) {
+          //keep strings & numbers
+          $replace = [$replace];
+        }
+      } else {
         $replace = [$replace];
       }
     }
