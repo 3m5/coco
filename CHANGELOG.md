@@ -1,5 +1,7 @@
 # Coco changelog
 
+## 0.1.89 - unpublished
+
 ## 0.1.88
 
 - fixed Coco.HandlebarsHelpers failed JSON.parse for string-number values, needs to be an array
