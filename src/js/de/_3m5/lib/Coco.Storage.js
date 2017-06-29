@@ -12,7 +12,17 @@ module.exports = dejavu.Class.declare({
 		/**
 		 * holds a boolean, that checks if the localStorage is available.
 		 */
-		isAvailable: (window.localStorage != null),
+    isAvailable: function() {
+      if(window) {
+        try {
+          return window.localStorage != null;
+        } catch(error) {
+          console.error(error);
+        }
+      }
+      console.warn("No window.localStorage available!");
+      return false;
+    },
 
 		/**
 		 * Function: has(key)
@@ -27,9 +37,10 @@ module.exports = dejavu.Class.declare({
 		 * @returns {boolean}
 		 */
 		has: function (key) {
-			if (this.isAvailable) {
+			if (this.isAvailable()) {
 				return window.localStorage.hasOwnProperty(key);
 			}
+			return false;
 		},
 
 		/**
@@ -46,7 +57,7 @@ module.exports = dejavu.Class.declare({
 		 * @returns {*}
 		 */
 		get: function (key) {
-			if (this.isAvailable) {
+			if (this.isAvailable()) {
 				var value = window.localStorage.getItem(key);
 
 				try {
@@ -72,7 +83,7 @@ module.exports = dejavu.Class.declare({
 		 * @param {*}       value
 		 */
 		set: function (key, value) {
-			if (this.isAvailable) {
+			if (this.isAvailable()) {
 				if (typeof value === 'object') {
 					value = JSON.stringify(value);
 				}
@@ -92,7 +103,7 @@ module.exports = dejavu.Class.declare({
 		 * @param {boolean} $deleteSource   -   {optional}  If set to true the sourceKey will be deleted.
 		 */
 		copy: function (sourceKey, targetKey, $deleteSource) {
-			if (this.isAvailable) {
+			if (this.isAvailable()) {
 				if (window.localStorage.hasOwnProperty(sourceKey)) {
 					window.localStorage.setItem(targetKey, window.localStorage.getItem(sourceKey));
 				}
@@ -113,7 +124,7 @@ module.exports = dejavu.Class.declare({
 		 * @param {string} key
 		 */
 		remove: function (key) {
-			if (this.isAvailable) {
+			if (this.isAvailable()) {
 				window.localStorage.removeItem(key);
 			}
 		},
@@ -125,7 +136,7 @@ module.exports = dejavu.Class.declare({
 		 * Clears the locationStorage.
 		 */
 		clear: function () {
-			if (this.isAvailable) {
+			if (this.isAvailable()) {
 				window.localStorage.clear();
 			}
 		},
@@ -140,7 +151,7 @@ module.exports = dejavu.Class.declare({
 		 * @returns {null|Number}
 		 */
 		getUsedSpace: function ($key) {
-			if (this.isAvailable) {
+			if (this.isAvailable()) {
 				var values = '';
 
 				if ($key) {

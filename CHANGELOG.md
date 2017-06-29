@@ -1,6 +1,8 @@
 # Coco changelog
 
-## 0.1.89 - unpublished
+## 0.2.0
+
+- catches IE trusted zone error "SCRIPT5: Access denied" when trying to open window.localStorage
 
 ## 0.1.88
 
