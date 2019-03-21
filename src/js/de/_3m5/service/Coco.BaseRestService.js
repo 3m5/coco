@@ -1,6 +1,5 @@
 var RestServiceEvent = require("../event/Coco.RestServiceEvent.js");
 var Event = require("../event/Coco.Event.js");
-var JSON = require("JSON");
 /**
  * Class: Coco.BaseRestService
  *

@@ -1,6 +1,4 @@
-var JSON            = require("JSON"),
-    _               = require("underscore"),
-    TranslatorEvent = require("../event/Coco.TranslatorEvent.js");
+var TranslatorEvent = require("../event/Coco.TranslatorEvent.js");
 
 /**
  * Package: lib

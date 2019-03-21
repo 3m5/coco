@@ -64,7 +64,8 @@ window.$       = $;
 window.jQuery  = $;
 
 //use babel-polyfill for IE support
-require("babel-polyfill");
+// require("babel-polyfill");
+// NOTE: removed babel-polyfill - include polyfills in your project if you need to
 
 //require non public Coco classes
 require("./service/Coco.ServiceContainer.js");

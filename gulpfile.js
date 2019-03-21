@@ -87,10 +87,11 @@ gulp.task('compile', function() {
 
 gulp.task('babel', function() {
     return gulp.src('src/js/de/_3m5/**/*.js')
-        .pipe(babel({
-          presets: ['es2015', 'stage-2', 'stage-3'],
-          plugins: ['es6-promise']
-        }))
+        // NOTE: passe the raw sources for now and then transpile down in target project
+        // .pipe(babel({
+        //   presets: ['es2015', 'stage-2', 'stage-3'],
+        //   plugins: ['es6-promise']
+        // }))
         .pipe(gulp.dest('lib/'));
 });
 

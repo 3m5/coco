@@ -1,4 +1,3 @@
-var JSON = require("JSON");
 /**
  * Class: Coco.Storage
  * This class abstracts the very simple LocalStorage API.

@@ -1,6 +1,9 @@
 {
-  "name": "3m5-coco",
+  "name": "@monsterkrampe/3m5-coco-raw",
   "version": "0.2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "a simple MVC Framework",
   "main": "lib/Coco.Init.js",
   "scripts": {
@@ -59,10 +62,10 @@
     "mocha": "^2.4.5",
     "run-sequence": "^1.1.5"
   },
+  "peerDependencies": {
+    "jquery": "^2.2.4"
+  },
   "dependencies": {
-    "JSON": "^1.0.0",
-    "babel-polyfill": "^6.9.1",
-    "jquery": "^2.2.4",
     "underscore": "^1.8.3"
   },
   "license": "ISC",
