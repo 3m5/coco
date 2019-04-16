@@ -1,3 +1,8 @@
+//use babel-polyfill for IE support
+// NOTE: we use babel preset env with useBuiltIns: 'entry" option
+// so this needs to be the first import
+require("@babel/polyfill");
+
 // Rewrite modern console methods for olders browsers (like IE 9/10)
 if (!window.console) {
 	window.console = {};
@@ -62,10 +67,6 @@ var Handlebars = require('handlebars/runtime'),
     $          = require("jquery");
 window.$       = $;
 window.jQuery  = $;
-
-//use babel-polyfill for IE support
-// require("babel-polyfill");
-// NOTE: removed babel-polyfill - include polyfills in your project if you need to
 
 //require non public Coco classes
 require("./service/Coco.ServiceContainer.js");
