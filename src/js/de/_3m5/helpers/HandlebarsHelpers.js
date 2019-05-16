@@ -3,8 +3,7 @@
  * created at 14.01.14
  */
 
-var Handlebars = require('handlebars/runtime'),
-    JSON = require("JSON");
+var Handlebars = require('handlebars/runtime');
 
 Handlebars.registerHelper('getText', function (key, $replace) {
   var Coco = require("../Coco.Init.js");

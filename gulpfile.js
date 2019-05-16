@@ -88,8 +88,13 @@ gulp.task('compile', function() {
 gulp.task('babel', function() {
     return gulp.src('src/js/de/_3m5/**/*.js')
         .pipe(babel({
-          presets: ['es2015', 'stage-2', 'stage-3'],
-          plugins: ['es6-promise']
+            presets: [
+                ['@babel/env', {
+                    useBuiltIns: 'entry',
+                    corejs: 'core-js@2',
+                    modules: 'cjs',
+                }]
+            ]
         }))
         .pipe(gulp.dest('lib/'));
 });
