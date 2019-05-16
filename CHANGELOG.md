@@ -1,5 +1,9 @@
 # Coco changelog
 
+## 0.3.1
+
+- not yet deployed
+
 ## 0.3.0
 
 - Use Babel 7 with preset env
